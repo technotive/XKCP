@@ -538,74 +538,39 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
 .macro theta
   veor      q12, q0, q4
   veor      q12, q12, q8
-  veor      q13, q1, q5
-  veor      q13, q13, q9
-  veor      q14, q2, q6
-  veor      q14, q14, q10
+
   veor      q15, q3, q7
   veor      q15, q15, q11
-  @ P: q12-q15
-  vmov      r1, r2, d24
-  vmov      r3, r4, d25
-  ror       r1, r1, #27
-  ror       r2, r2, #27
-  ror       r3, r3, #27
-  ror       r4, r4, #27
-  eor       r1, r1, ror #23
-  eor       r2, r2, ror #23
-  eor       r3, r3, ror #23
-  eor       r4, r4, ror #23
-  vmov      d24, r1, r2
-  vmov      d25, r3, r4
-  vmov      r1, r2, d26
-  vmov      r3, r4, d27
-  ror       r1, r1, #27
-  ror       r2, r2, #27
-  ror       r3, r3, #27
-  ror       r4, r4, #27
-  eor       r1, r1, ror #23
-  eor       r2, r2, ror #23
-  eor       r3, r3, ror #23
-  eor       r4, r4, ror #23
-  vmov      d26, r1, r2
-  vmov      d27, r3, r4
-  vmov      r1, r2, d28
-  vmov      r3, r4, d29
-  ror       r1, r1, #27
-  ror       r2, r2, #27
-  ror       r3, r3, #27
-  ror       r4, r4, #27
-  eor       r1, r1, ror #23
-  eor       r2, r2, ror #23
-  eor       r3, r3, ror #23
-  eor       r4, r4, ror #23
-  vmov      d28, r1, r2
-  vmov      d29, r3, r4
-  vmov      r1, r2, d30
-  vmov      r3, r4, d31
-  ror       r1, r1, #27
-  ror       r2, r2, #27
-  ror       r3, r3, #27
-  ror       r4, r4, #27
-  eor       r1, r1, ror #23
-  eor       r2, r2, ror #23
-  eor       r3, r3, ror #23
-  eor       r4, r4, ror #23
-  vmov      d30, r1, r2
-  vmov      d31, r3, r4
-  @ E: q15, q12, q13, q14 (One plane)
-  veor      q0, q0, q15
-  veor      q1, q1, q12
-  veor      q2, q2, q13
-  veor      q3, q3, q14
-  veor      q4, q4, q15
-  veor      q5, q5, q12
-  veor      q6, q6, q13
-  veor      q7, q7, q14
-  veor      q8, q8, q15
-  veor      q9, q9, q12
-  veor      q10, q10, q13
-  veor      q11, q11, q14
+
+  vshl      q14, q15, #5
+  vsri      q14, q15, #27
+  veor      q0, q0, q14
+  veor      q4, q4, q14
+  veor      q8, q8, q14
+
+  veor      q13, q1, q5
+  veor      q13, q13, q9
+
+  vshl      q14, q12, #5
+  vsri      q14, q12, #27
+  veor      q1, q1, q14
+  veor      q5, q5, q14
+  veor      q9, q9, q14
+
+  veor      q14, q2, q6
+  veor      q14, q14, q10
+
+  vshl      q15, q13, #5
+  vsri      q15, q13, #27
+  veor      q2, q2, q15
+  veor      q6, q6, q15
+  veor      q10, q10, q15
+
+  vshl      q15, q12, #5
+  vsri      q15, q12, #27
+  veor      q3, q3, q15
+  veor      q7, q7, q15
+  veor      q11, q11, q15
 .endm
 
 .macro rho_w

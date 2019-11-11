@@ -589,38 +589,22 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   vswp      q7, q6
   vswp      q6, q5
   vswp      q5, q4
-  vmov      r1, r2, d16
-  vmov      r3, r4, d17
-  ror       r1, r1, #21
-  ror       r2, r2, #21
-  ror       r3, r3, #21
-  ror       r4, r4, #21
-  vmov      d16, r1, r2
-  vmov      d17, r3, r4
-  vmov      r1, r2, d18
-  vmov      r3, r4, d19
-  ror       r1, r1, #21
-  ror       r2, r2, #21
-  ror       r3, r3, #21
-  ror       r4, r4, #21
-  vmov      d18, r1, r2
-  vmov      d19, r3, r4
-  vmov      r1, r2, d20
-  vmov      r3, r4, d21
-  ror       r1, r1, #21
-  ror       r2, r2, #21
-  ror       r3, r3, #21
-  ror       r4, r4, #21
-  vmov      d20, r1, r2
-  vmov      d21, r3, r4
-  vmov      r1, r2, d22
-  vmov      r3, r4, d23
-  ror       r1, r1, #21
-  ror       r2, r2, #21
-  ror       r3, r3, #21
-  ror       r4, r4, #21
-  vmov      d22, r1, r2
-  vmov      d23, r3, r4
+
+  vshl      q15, q8, #11
+  vsri      q15, q8, #21
+  vmov      q8, q15
+
+  vshl      q15, q9, #11
+  vsri      q15, q9, #21
+  vmov      q9, q15
+
+  vshl      q15, q10, #11
+  vsri      q15, q10, #21
+  vmov      q10, q15
+
+  vshl      q15, q11, #11
+  vsri      q15, q11, #21
+  vmov      q11, q15
 .endm
 
 .macro iota $rc

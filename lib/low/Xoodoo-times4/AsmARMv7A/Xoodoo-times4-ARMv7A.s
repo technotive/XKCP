@@ -590,20 +590,20 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   vswp      q6, q5
   vswp      q5, q4
 
-  vshl      q15, q8, #11
-  vsri      q15, q8, #21
+  vshl.U32  q15, q8, #11
+  vsri.U32  q15, q8, #21
   vmov      q8, q15
 
-  vshl      q15, q9, #11
-  vsri      q15, q9, #21
+  vshl.U32  q15, q9, #11
+  vsri.U32  q15, q9, #21
   vmov      q9, q15
 
-  vshl      q15, q10, #11
-  vsri      q15, q10, #21
+  vshl.U32  q15, q10, #11
+  vsri.U32  q15, q10, #21
   vmov      q10, q15
 
-  vshl      q15, q11, #11
-  vsri      q15, q11, #21
+  vshl.U32  q15, q11, #11
+  vsri.U32  q15, q11, #21
   vmov      q11, q15
 .endm
 

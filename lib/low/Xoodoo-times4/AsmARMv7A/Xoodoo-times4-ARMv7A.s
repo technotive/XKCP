@@ -662,73 +662,40 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
 .endm
 
 .macro rho_e
-  vmov      r1, r2, d8
-  vmov      r3, r4, d9
-  ror       r1, r1, #31
-  ror       r2, r2, #31
-  ror       r3, r3, #31
-  ror       r4, r4, #31
-  vmov      d8, r1, r2
-  vmov      d9, r3, r4
-  vmov      r1, r2, d10
-  vmov      r3, r4, d11
-  ror       r1, r1, #31
-  ror       r2, r2, #31
-  ror       r3, r3, #31
-  ror       r4, r4, #31
-  vmov      d10, r1, r2
-  vmov      d11, r3, r4
-  vmov      r1, r2, d12
-  vmov      r3, r4, d13
-  ror       r1, r1, #31
-  ror       r2, r2, #31
-  ror       r3, r3, #31
-  ror       r4, r4, #31
-  vmov      d12, r1, r2
-  vmov      d13, r3, r4
-  vmov      r1, r2, d14
-  vmov      r3, r4, d15
-  ror       r1, r1, #31
-  ror       r2, r2, #31
-  ror       r3, r3, #31
-  ror       r4, r4, #31
-  vmov      d14, r1, r2
-  vmov      d15, r3, r4
+  vshl.U32  q15, q4, #1
+  vsri.U32  q15, q4, #31
+  vmov      q4, q15
+
+  vshl.U32  q15, q5, #1
+  vsri.U32  q15, q5, #31
+  vmov      q5, q15
+
+  vshl.U32  q15, q6, #1
+  vsri.U32  q15, q6, #31
+  vmov      q6, q15
+
+  vshl.U32  q15, q7, #1
+  vsri.U32  q15, q7, #31
+  vmov      q7, q15
+
   @ a2: q8-q11 (Interleaved MOV)
-  vmov      q12, q11
-  vmov      r1, r2, d18
-  vmov      r3, r4, d19
-  ror       r1, r1, #24
-  ror       r2, r2, #24
-  ror       r3, r3, #24
-  ror       r4, r4, #24
-  vmov      d22, r1, r2
-  vmov      d23, r3, r4
-  vmov      q13, q10
-  vmov      r1, r2, d16
-  vmov      r3, r4, d17
-  ror       r1, r1, #24
-  ror       r2, r2, #24
-  ror       r3, r3, #24
-  ror       r4, r4, #24
-  vmov      d20, r1, r2
-  vmov      d21, r3, r4
-  vmov      r1, r2, d26
-  vmov      r3, r4, d27
-  ror       r1, r1, #24
-  ror       r2, r2, #24
-  ror       r3, r3, #24
-  ror       r4, r4, #24
-  vmov      d16, r1, r2
-  vmov      d17, r3, r4
-  vmov      r1, r2, d24
-  vmov      r3, r4, d25
-  ror       r1, r1, #24
-  ror       r2, r2, #24
-  ror       r3, r3, #24
-  ror       r4, r4, #24
-  vmov      d18, r1, r2
-  vmov      d19, r3, r4
+  vshl.U32  q15, q11, #8
+  vsri.U32  q15, q11, #24
+
+  vshl.U32  q14, q9, #8
+  vsri.U32  q14, q9, #24
+
+  vmov      q9, q15
+  vmov      q11, q14
+
+  vshl.U32  q15, q10, #8
+  vsri.U32  q15, q10, #24
+
+  vshl.U32  q14, q8, #8
+  vsri.U32  q14, q8, #24
+
+  vmov      q10, q14
+  vmov      q8, q15
 .endm
 
 @ Xoodootimes4_PermuteAll_6rounds: void * argStates -> void

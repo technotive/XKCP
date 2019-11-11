@@ -542,10 +542,10 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   veor      q15, q3, q7
   veor      q15, q15, q11
 
-  vsli.U32  q14, q15, #5
-  vshr.U32  q14, q15, #27
-  vsli.U32  q15, q14, #9
-  vshr.U32  q15, q14, #27
+  vshl.U32  q14, q15, #5
+  vsri.U32  q14, q15, #27
+  vshl.U32  q15, q14, #9
+  vsri.U32  q15, q14, #27
   veor      q15, q14, q14
   veor      q0, q0, q15
   veor      q4, q4, q15
@@ -557,28 +557,28 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   veor      q14, q2, q6
   veor      q14, q14, q10
 
-  vsli.U32  q15, q12, #5
-  vshr.U32  q15, q12, #27
-  vsli.U32  q12, q15, #9
-  vshr.U32  q12, q15, #27
+  vshl.U32  q15, q12, #5
+  vsri.U32  q15, q12, #27
+  vshl.U32  q12, q15, #9
+  vsri.U32  q12, q15, #27
   veor      q12, q12, q15
   veor      q1, q1, q12
   veor      q5, q5, q12
   veor      q9, q9, q12
 
-  vsli.U32  q15, q13, #5
-  vshr.U32  q15, q13, #27
-  vsli.U32  q13, q15, #9
-  vshr.U32  q13, q15, #27
+  vshl.U32  q15, q13, #5
+  vsri.U32  q15, q13, #27
+  vshl.U32  q13, q15, #9
+  vsri.U32  q13, q15, #27
   veor      q13, q13, q15
   veor      q2, q2, q13
   veor      q6, q6, q13
   veor      q10, q10, q13
 
-  vsli.U32  q15, q14, #5
-  vshr.U32  q15, q14, #27
-  vsli.U32  q14, q15, #9
-  vshr.U32  q14, q15, #27
+  vshl.U32  q15, q14, #5
+  vsri.U32  q15, q14, #27
+  vshl.U32  q14, q15, #9
+  vsri.U32  q14, q15, #27
   veor      q14, q14, q15
   veor      q3, q3, q14
   veor      q7, q7, q14

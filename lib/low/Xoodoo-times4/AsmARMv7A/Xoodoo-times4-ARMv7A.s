@@ -542,8 +542,8 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   veor      q15, q3, q7
   veor      q15, q15, q11
 
-  vshl      q14, q15, #5
-  vsri      q14, q15, #27
+  vshl.U32  q14, q15, #5
+  vsri.U32  q14, q15, #27
   veor      q0, q0, q14
   veor      q4, q4, q14
   veor      q8, q8, q14
@@ -551,8 +551,8 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   veor      q13, q1, q5
   veor      q13, q13, q9
 
-  vshl      q14, q12, #5
-  vsri      q14, q12, #27
+  vshl.U32  q14, q12, #5
+  vsri.U32  q14, q12, #27
   veor      q1, q1, q14
   veor      q5, q5, q14
   veor      q9, q9, q14
@@ -560,14 +560,14 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   veor      q14, q2, q6
   veor      q14, q14, q10
 
-  vshl      q15, q13, #5
-  vsri      q15, q13, #27
+  vshl.U32  q15, q13, #5
+  vsri.U32  q15, q13, #27
   veor      q2, q2, q15
   veor      q6, q6, q15
   veor      q10, q10, q15
 
-  vshl      q15, q12, #5
-  vsri      q15, q12, #27
+  vshl.U32  q15, q12, #5
+  vsri.U32  q15, q12, #27
   veor      q3, q3, q15
   veor      q7, q7, q15
   veor      q11, q11, q15

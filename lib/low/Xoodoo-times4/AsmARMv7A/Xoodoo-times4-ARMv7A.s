@@ -546,7 +546,7 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   vsri.U32  q14, q15, #27
   vshl.U32  q15, q14, #9
   vsri.U32  q15, q14, #27
-  veor      q15, q14, q14
+  veor      q15, q15, q14
   veor      q0, q0, q15
   veor      q4, q4, q15
   veor      q8, q8, q15
@@ -583,7 +583,6 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   veor      q3, q3, q14
   veor      q7, q7, q14
   veor      q11, q11, q14
-
 .endm
 
 .macro rho_w

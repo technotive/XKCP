@@ -607,43 +607,33 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   vdup.32   q8, r5
   veor      q0, q0, q8
 
-  vbic      q8, q12, q4
-  vbic      q9, q13, q5
-  vbic      q10, q14, q6
-  vbic      q11, q15, q7
-  vpush     {q8-q11}
+  vbic      q11, q12, q4
+  vbic      q9, q0, q12
+  vbic      q10, q4, q0
+  veor      q8, q10, q12
+  veor      q4, q4, q9
+  veor      q0, q0, q11
 
-  vbic      q8, q0, q12
-  vbic      q9, q1, q13
-  vbic      q10, q2, q14
-  vbic      q11, q3, q15
-  vpush     {q9-q11}
+  vbic      q12, q13, q5
+  vbic      q10, q1, q13
+  vbic      q11, q5, q1
+  veor      q9, q11, q13
+  veor      q5, q5, q10
+  veor      q1, q1, q12
 
-  vbic      q9, q4, q0
-  veor      q9, q9, q12
+  vbic      q13, q14, q6
+  vbic      q11, q2, q14
+  vbic      q12, q6, q2
+  veor      q10, q12, q14
+  veor      q6, q6, q11
+  veor      q2, q2, q13
 
-  veor      q4, q4, q8
-  vmov      q8, q9
-
-  vbic      q9, q5, q1
-  veor      q9, q9, q13
-
-  vbic      q10, q6, q2
-  veor      q10, q10, q14
-
-  vbic      q11, q7, q3
-  veor      q11, q11, q15
-
-  vpop      {q13-q15}
-  veor      q5, q5, q13
-  veor      q6, q6, q14
-  veor      q7, q7, q15
-
-  vpop      {q12-q15}
-  veor      q0, q0, q12
-  veor      q1, q1, q13
-  veor      q2, q2, q14
-  veor      q3, q3, q15
+  vbic      q14, q15, q7
+  vbic      q12, q3, q15
+  vbic      q13, q7, q3
+  veor      q11, q13, q15
+  veor      q7, q7, q12
+  veor      q3, q3, q14
 .endm
 
 .macro rho_e

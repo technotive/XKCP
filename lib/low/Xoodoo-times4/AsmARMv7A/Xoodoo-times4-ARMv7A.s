@@ -586,6 +586,7 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
 .endm
 
 .macro rho_w
+  @ NOTE Merge this
   vswp      q7, q6
   vswp      q6, q5
   vswp      q5, q4
@@ -605,6 +606,7 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   vshl.U32  q15, q11, #11
   vsri.U32  q15, q11, #21
   vmov      q11, q15
+  @ NOTE remove VMOV, remember order.
 .endm
 
 .macro iota $rc
@@ -614,34 +616,22 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
 
 .macro chi
   @a1: q4-q7
-  vmvn      q12, q4
-  vmvn      q13, q5
-  vmvn      q14, q6
-  vmvn      q15, q7
-  vand      q12, q12, q8
-  vand      q13, q13, q9
-  vand      q14, q14, q10
-  vand      q15, q15, q11
+  vbic      q12, q8, q4
+  vbic      q13, q9, q5
+  vbic      q14, q10, q6
+  vbic      q15, q11, q7
   vpush     {q12-q15}
 
-  vmvn      q12, q8
-  vmvn      q13, q9
-  vmvn      q14, q10
-  vmvn      q15, q11
-  vand      q12, q12, q0
-  vand      q13, q13, q1
-  vand      q14, q14, q2
-  vand      q15, q15, q3
+  vbic      q12, q0, q8
+  vbic      q13, q1, q9
+  vbic      q14, q2, q10
+  vbic      q15, q3, q11
   vpush     {q12-q15}
 
-  vmvn      q12, q0
-  vmvn      q13, q1
-  vmvn      q14, q2
-  vmvn      q15, q3
-  vand      q12, q12, q4
-  vand      q13, q13, q5
-  vand      q14, q14, q6
-  vand      q15, q15, q7
+  vbic      q12, q4, q0
+  vbic      q13, q5, q1
+  vbic      q14, q6, q2
+  vbic      q15, q7, q3
 
   veor      q8, q8, q12
   veor      q9, q9, q13

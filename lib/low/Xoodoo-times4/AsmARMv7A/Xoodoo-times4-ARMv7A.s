@@ -530,7 +530,6 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
 .macro round
   theta
   rho_w
-  iota
   chi
   rho_e
 .endm
@@ -605,17 +604,10 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   @ NOTE remove VMOV, remember order.
 .endm
 
-.macro iota $rc
-  vdup.32   q12, r5
-  veor      q0, q0, q12
-.endm
-
 .macro chi
-  @a1: q4-q7
-  @ vmov      q8, q12
-  @ vmov      q9, q13
-  @ vmov      q10, q14
-  @ vmov      q11, q15
+  @ NOTE: Iota
+  vdup.32   q8, r5
+  veor      q0, q0, q8
 
   vbic      q8, q12, q4
   vbic      q9, q13, q5

@@ -554,9 +554,6 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   veor      q13, q1, q5
   veor      q13, q13, q9
 
-  veor      q14, q2, q6
-  veor      q14, q14, q10
-
   vshl.U32  q15, q12, #5
   vsri.U32  q15, q12, #27
   vshl.U32  q12, q15, #9
@@ -565,6 +562,9 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   veor      q1, q1, q12
   veor      q5, q5, q12
   veor      q9, q9, q12
+
+  veor      q14, q2, q6
+  veor      q14, q14, q10
 
   vshl.U32  q15, q13, #5
   vsri.U32  q15, q13, #27
@@ -586,27 +586,21 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
 .endm
 
 .macro rho_w
-  @ NOTE Merge this
   vswp      q7, q6
   vswp      q6, q5
   vswp      q5, q4
 
-  vshl.U32  q15, q8, #11
-  vsri.U32  q15, q8, #21
-  vmov      q8, q15
+  vshl.U32  q12, q8, #11
+  vsri.U32  q12, q8, #21
 
-  vshl.U32  q15, q9, #11
-  vsri.U32  q15, q9, #21
-  vmov      q9, q15
+  vshl.U32  q13, q9, #11
+  vsri.U32  q13, q9, #21
 
-  vshl.U32  q15, q10, #11
-  vsri.U32  q15, q10, #21
-  vmov      q10, q15
+  vshl.U32  q14, q10, #11
+  vsri.U32  q14, q10, #21
 
   vshl.U32  q15, q11, #11
   vsri.U32  q15, q11, #21
-  vmov      q11, q15
-  @ NOTE remove VMOV, remember order.
 .endm
 
 .macro iota $rc
@@ -616,27 +610,27 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
 
 .macro chi
   @a1: q4-q7
-  vbic      q12, q8, q4
-  vbic      q13, q9, q5
-  vbic      q14, q10, q6
-  vbic      q15, q11, q7
+  vbic      q8, q12, q4
+  vbic      q9, q13, q5
+  vbic      q10, q14, q6
+  vbic      q11, q15, q7
+  vpush     {q8-q11}
+
+  vbic      q8, q0, q12
+  vbic      q9, q1, q13
+  vbic      q10, q2, q14
+  vbic      q11, q3, q15
   vpush     {q12-q15}
 
-  vbic      q12, q0, q8
-  vbic      q13, q1, q9
-  vbic      q14, q2, q10
-  vbic      q15, q3, q11
-  vpush     {q12-q15}
+  vbic      q8, q4, q0
+  vbic      q9, q5, q1
+  vbic      q10, q6, q2
+  vbic      q11, q7, q3
 
-  vbic      q12, q4, q0
-  vbic      q13, q5, q1
-  vbic      q14, q6, q2
-  vbic      q15, q7, q3
-
-  veor      q8, q8, q12
-  veor      q9, q9, q13
-  veor      q10, q10, q14
-  veor      q11, q11, q15
+  veor      q8, q12, q8
+  veor      q9, q13, q9
+  veor      q10, q14, q10
+  veor      q11, q15, q11
 
   vpop      {q12-q15}
   veor      q4, q4, q12

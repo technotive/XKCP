@@ -617,16 +617,18 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   vbic      q9, q1, q13
   vbic      q10, q2, q14
   vbic      q11, q3, q15
-  vpush     {q9-q11}
+  vpush     {q10-q11}
 
   vbic      q9, q4, q0
   veor      q9, q9, q12
-
   veor      q4, q4, q8
   vmov      q8, q9
 
   vbic      q9, q5, q1
   veor      q9, q9, q13
+
+  veor      q5, q5, q9
+  vmov      q9, q10
 
   vbic      q10, q6, q2
   veor      q10, q10, q14
@@ -634,8 +636,7 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   vbic      q11, q7, q3
   veor      q11, q11, q15
 
-  vpop      {q13-q15}
-  veor      q5, q5, q13
+  vpop      {q14-q15}
   veor      q6, q6, q14
   veor      q7, q7, q15
 

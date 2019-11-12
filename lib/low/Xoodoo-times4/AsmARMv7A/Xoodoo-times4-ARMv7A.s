@@ -601,6 +601,7 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
 
   vshl.U32  q15, q11, #11
   vsri.U32  q15, q11, #21
+
   @ NOTE remove VMOV, remember order.
 .endm
 
@@ -611,6 +612,11 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
 
 .macro chi
   @a1: q4-q7
+  @ vmov      q8, q12
+  @ vmov      q9, q13
+  @ vmov      q10, q14
+  @ vmov      q11, q15
+
   vbic      q8, q12, q4
   vbic      q9, q13, q5
   vbic      q10, q14, q6

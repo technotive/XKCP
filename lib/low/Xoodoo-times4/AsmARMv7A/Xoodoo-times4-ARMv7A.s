@@ -89,7 +89,8 @@ Xt4_AddBytes_Loop:
 .global Xoodootimes4_AddLanesAll
 .type Xoodootimes4_AddLanesAll, %function
 Xoodootimes4_AddLanesAll:
-  cmp       r2, #12
+  cmp       r2, r3
+  cmpeq     r2, #12
   moveq     r3, lr
   beq       Xt4_AddLanesAll_Full
 
@@ -167,7 +168,6 @@ Xt4_AddLanesAll_Unaligned_Loop:
   pop       {r4-r7,pc}
 Xt4_AddLanesAll_Full:
   vldm      r1!, {d0-d11}
-  mov       pc, r3
   vldm      r1!, {d12-d23}
   vuzp.32   q0, q3
   vuzp.32   q6, q9

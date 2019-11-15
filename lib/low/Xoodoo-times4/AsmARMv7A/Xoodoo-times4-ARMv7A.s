@@ -585,6 +585,11 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
 .endm
 
 .macro rho_w
+  @ NOTE: This could probably be unraveled.
+  vswp      q7, q6
+  vswp      q6, q5
+  vswp      q5, q4
+
   vshl.U32  q12, q8, #11
   vsri.U32  q12, q8, #21
 
@@ -603,41 +608,41 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   vdup.32   q8, r5
   veor      q0, q0, q8
 
-  vbic      q11, q12, q5
+  vbic      q11, q12, q4
   vbic      q9, q0, q12
-  vbic      q10, q5, q0
+  vbic      q10, q4, q0
   veor      q8, q10, q12
-  veor      q12, q5, q9
+  veor      q12, q4, q9
   veor      q0, q0, q11
 
-  vbic      q5, q13, q6
+  vbic      q4, q13, q5
   vbic      q10, q1, q13
-  vbic      q11, q6, q1
+  vbic      q11, q5, q1
   veor      q9, q11, q13
-  veor      q13, q6, q10
-  veor      q1, q1, q5
+  veor      q13, q5, q10
+  veor      q1, q1, q4
 
-  vbic      q6, q14, q7
+  vbic      q5, q14, q6
   vbic      q11, q2, q14
-  vbic      q5, q7, q2
-  veor      q10, q5, q14
-  veor      q14, q7, q11
-  veor      q2, q2, q6
+  vbic      q4, q6, q2
+  veor      q10, q4, q14
+  veor      q14, q6, q11
+  veor      q2, q2, q5
 
-  vbic      q7, q15, q4
-  vbic      q5, q3, q15
-  vbic      q6, q4, q3
-  veor      q6, q6, q15
-  veor      q15, q4, q5
-  veor      q3, q3, q7
+  vbic      q6, q15, q7
+  vbic      q4, q3, q15
+  vbic      q5, q7, q3
+  veor      q5, q5, q15
+  veor      q15, q7, q4
+  veor      q3, q3, q6
 .endm
 
 .macro rho_e
   vshl.U32  q11, q9, #8
   vsri.U32  q11, q9, #24
 
-  vshl.U32  q9, q6, #8
-  vsri.U32  q9, q6, #24
+  vshl.U32  q9, q5, #8
+  vsri.U32  q9, q5, #24
 
   vshl.U32  q5, q8, #8
   vsri.U32  q5, q8, #24

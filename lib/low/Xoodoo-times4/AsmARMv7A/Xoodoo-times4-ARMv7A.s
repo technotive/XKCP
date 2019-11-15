@@ -91,6 +91,7 @@ Xt4_AddBytes_Loop:
 Xoodootimes4_AddLanesAll:
   cmp       r2, r3
   cmpeq     r2, #12
+  tsteq     r1, #3
   moveq     r3, lr
   beq       Xt4_AddLanesAll_Full
 

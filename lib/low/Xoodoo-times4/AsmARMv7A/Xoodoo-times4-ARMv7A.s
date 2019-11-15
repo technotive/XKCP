@@ -89,7 +89,12 @@ Xt4_AddBytes_Loop:
 .global Xoodootimes4_AddLanesAll
 .type Xoodootimes4_AddLanesAll, %function
 Xoodootimes4_AddLanesAll:
+  cmp       r2, #12
+  moveq     r3, lr
+  beq       Xt4_AddLanesAll_Full
+
   push      {r4-r7,lr}
+
   add       r4, r1, r3, lsl #2
   add       r5, r4, r3, lsl #2
   add       r6, r5, r3, lsl #2
@@ -160,7 +165,14 @@ Xt4_AddLanesAll_Unaligned_Loop:
   subs      r2, r2, #1
   bcs       Xt4_AddLanesAll_Unaligned_Loop
   pop       {r4-r7,pc}
-
+Xt4_AddLanesAll_Full:
+  vldm      r1, {d0-d5}
+  vldm      r0, {d6-d11}
+  veor      q0, q0, q3
+  veor      q1, q1, q4
+  veor      q2, q2, q5
+  vstm      r0, {d0-d5}
+  mov       pc, r3
 
 @ Xoodootimes4_OverwriteBytes: void * states -> uint instanceIndex -> const uchar * data -> uint offset -> uint length -> void
 .align 8
@@ -586,9 +598,9 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
 
 .macro rho_w
   @ NOTE: This could probably be unraveled
-  vswp      q7, q6
-  vswp      q6, q5
-  vswp      q5, q4
+    vswp      q7, q6
+    vswp      q6, q5
+    vswp      q5, q4
 
   vshl.U32  q12, q8, #11
   vsri.U32  q12, q8, #21

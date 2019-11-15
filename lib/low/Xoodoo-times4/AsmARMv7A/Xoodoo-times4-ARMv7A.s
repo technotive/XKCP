@@ -198,6 +198,7 @@ Xt4_AddLanesAll_Full:
   veor      q9, q9, q13
   veor      q10, q10, q14
   veor      q11, q11, q15
+  mov       pc, r3
   vstm      r0, {d8-d23}
   mov       pc, r3
 

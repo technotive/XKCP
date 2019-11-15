@@ -174,31 +174,34 @@ Xt4_AddLanesAll_Full:
   vuzp.32   q6, q9
   vtrn.32   q0, q6
   vtrn.32   q3, q9
+
   vuzp.32   q1, q4
   vuzp.32   q7, q10
   vtrn.32   q1, q7
   vtrn.32   q4, q10
+
   vuzp.32   q2, q5
   vuzp.32   q8, q11
   vtrn.32   q2, q8
   vtrn.32   q5, q11
+
   vldm      r0, {d24-d31}
-  veor      q0, q0, q12
-  veor      q1, q1, q13
-  veor      q2, q2, q14
-  veor      q3, q3, q15
-  vstm      r0!, {d0-d7}
-  vldm      r0!, {d0-d7}
+  veor      q12, q0, q12
+  veor      q13, q3, q13
+  veor      q14, q6, q14
+  veor      q15, q9, q15
+  vstm      r0!, {d24-d31}
   vldm      r0, {d24-d31}
-  sub       r0, r0, #64
-  veor      q4, q4, q0
-  veor      q5, q5, q1
-  veor      q6, q6, q2
-  veor      q7, q7, q3
-  veor      q8, q8, q12
-  veor      q9, q9, q13
-  veor      q10, q10, q14
-  veor      q11, q11, q15
+  veor      q12, q1, q12
+  veor      q13, q4, q13
+  veor      q14, q7, q14
+  veor      q15, q10, q15
+  vstm      r0!, {d24-d31}
+  vldm      r0, {d24-d31}
+  veor      q12, q2, q12
+  veor      q13, q5, q13
+  veor      q14, q8, q14
+  veor      q15, q11, q15
   vstm      r0, {d8-d23}
   mov       pc, r3
 

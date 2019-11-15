@@ -166,24 +166,36 @@ Xt4_AddLanesAll_Unaligned_Loop:
   bcs       Xt4_AddLanesAll_Unaligned_Loop
   pop       {r4-r7,pc}
 Xt4_AddLanesAll_Full:
-  ldmia     r1!, {r2-r7}
-  ldmia     r0, {r8-r12,r14}
-  eor       r2, r2, r8
-  eor       r3, r3, r9
-  eor       r4, r4, r10
-  eor       r5, r5, r11
-  eor       r6, r6, r12
-  eor       r7, r7, r14
-  stmia     r0!, {r2-r7}
-  ldmia     r0, {r8-r12,r14}
-  ldmia     r1!, {r2-r7}
-  eor       r2, r2, r8
-  eor       r3, r3, r9
-  eor       r4, r4, r10
-  eor       r5, r5, r11
-  eor       r6, r6, r12
-  eor       r7, r7, r14
-  stmia     r0!, {r2-r7}
+  ldmia     r1!, {d0-d11}
+  ldmia     r1!, {d12-d23}
+  vuzp.32   q0, q3
+  vuzp.32   q6, q9
+  vtrn.32   q0, q6
+  vtrn.32   q3, q9
+  vuzp.32   q1, q4
+  vuzp.32   q7, q10
+  vtrn.32   q1, q7
+  vtrn.32   q4, q10
+  vuzp.32   q2, q5
+  vuzp.32   q8, q11
+  vtrn.32   q2, q8
+  vtrn.32   q5, q11
+  vldm      r0, {d24-d31}
+  veor      q0, q0, q12
+  veor      q1, q1, q13
+  veor      q2, q2, q14
+  veor      q3, q3, q15
+  vstm      r0!, {d0-d7}
+  vldm      r0, {d0-d7,d24-d31}
+  veor      q4, q4, q0
+  veor      q5, q5, q1
+  veor      q6, q6, q2
+  veor      q7, q7, q3
+  veor      q8, q8, q12
+  veor      q9, q9, q13
+  veor      q10, q10, q14
+  veor      q11, q11, q15
+  vstm      r0, {d8-d23}
   pop       {r4-r12,pc}
 
 @ Xoodootimes4_OverwriteBytes: void * states -> uint instanceIndex -> const uchar * data -> uint offset -> uint length -> void

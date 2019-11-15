@@ -186,7 +186,7 @@ Xt4_AddLanesAll_Full:
   veor      q2, q2, q14
   veor      q3, q3, q15
   vstm      r0!, {d0-d7}
-  vldm      r0, {d0-d7,d24-d31}
+  vldm      r0, {d0,d1,d2,d3,d4,d5,d6,d7,d24,d25,d26,d27,d28,d29,d30,d31}
   veor      q4, q4, q0
   veor      q5, q5, q1
   veor      q6, q6, q2

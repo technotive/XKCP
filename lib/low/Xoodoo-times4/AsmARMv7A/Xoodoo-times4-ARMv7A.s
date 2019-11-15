@@ -89,10 +89,10 @@ Xt4_AddBytes_Loop:
 .global Xoodootimes4_AddLanesAll
 .type Xoodootimes4_AddLanesAll, %function
 Xoodootimes4_AddLanesAll:
-  cmp       r2, r3
-  cmpeq     r2, #12
-  moveq     r3, lr
-  beq       Xt4_AddLanesAll_Full
+  @ cmp       r2, r3
+  @ cmpeq     r2, #12
+  @ moveq     r3, lr
+  @ beq       Xt4_AddLanesAll_Full
 
   push      {r4-r7,lr}
 

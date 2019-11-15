@@ -170,37 +170,37 @@ Xt4_AddLanesAll_Unaligned_Loop:
 Xt4_AddLanesAll_Full:
   vldm      r1!, {d0-d11}
   vldm      r1, {d12-d23}
-  vuzp.32   q0, q3
-  vuzp.32   q6, q9
-  vtrn.32   q0, q6
-  vtrn.32   q3, q9
+  vuzp.32   q0, q6
+  vuzp.32   q3, q9
+  vtrn.32   q0, q3
+  vtrn.32   q6, q9
 
-  vuzp.32   q1, q4
-  vuzp.32   q7, q10
-  vtrn.32   q1, q7
-  vtrn.32   q4, q10
+  vuzp.32   q1, q7
+  vuzp.32   q4, q10
+  vtrn.32   q1, q4
+  vtrn.32   q7, q10
 
-  vuzp.32   q2, q5
-  vuzp.32   q8, q11
-  vtrn.32   q2, q8
-  vtrn.32   q5, q11
+  vuzp.32   q2, q8
+  vuzp.32   q5, q11
+  vtrn.32   q2, q5
+  vtrn.32   q8, q11
 
   vldm      r0, {d24-d31}
   veor      q12, q0, q12
-  veor      q13, q3, q13
-  veor      q14, q6, q14
+  veor      q13, q6, q13
+  veor      q14, q3, q14
   veor      q15, q9, q15
   vstm      r0!, {d24-d31}
   vldm      r0, {d24-d31}
   veor      q12, q1, q12
-  veor      q13, q4, q13
-  veor      q14, q7, q14
+  veor      q13, q7, q13
+  veor      q14, q4, q14
   veor      q15, q10, q15
   vstm      r0!, {d24-d31}
   vldm      r0, {d24-d31}
   veor      q12, q2, q12
-  veor      q13, q5, q13
-  veor      q14, q8, q14
+  veor      q13, q8, q13
+  veor      q14, q5, q14
   veor      q15, q11, q15
   vstm      r0, {d24-d31}
   mov       pc, r3

@@ -169,7 +169,8 @@ Xt4_AddLanesAll_Unaligned_Loop:
   pop       {r4-r7,pc}
 Xt4_AddLanesAll_Full:
   vldm      r1!, {d0-d11}
-  vldm      r1!, {d12-d23}
+  mov       pc, r3
+  vldm      r1, {d12-d23}
   vuzp.32   q0, q3
   vuzp.32   q6, q9
   vtrn.32   q0, q6

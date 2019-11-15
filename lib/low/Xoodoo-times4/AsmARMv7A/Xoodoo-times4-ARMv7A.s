@@ -174,7 +174,7 @@ Xt4_AddLanesAll_Full:
   eor       r5, r5, r11
   eor       r6, r6, r12
   eor       r7, r7, r14
-  stmia     r0!, {r7-r7}
+  stmia     r0!, {r2-r7}
   ldmia     r0, {r8-r12,r14}
   ldmia     r1!, {r2-r7}
   eor       r2, r2, r8
@@ -183,7 +183,7 @@ Xt4_AddLanesAll_Full:
   eor       r5, r5, r11
   eor       r6, r6, r12
   eor       r7, r7, r14
-  stmia     r0!, {r7-r7}
+  stmia     r0!, {r2-r7}
   pop       {r4-r12,pc}
 
 @ Xoodootimes4_OverwriteBytes: void * states -> uint instanceIndex -> const uchar * data -> uint offset -> uint length -> void

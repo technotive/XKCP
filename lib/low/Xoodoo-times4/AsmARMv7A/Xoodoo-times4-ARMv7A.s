@@ -202,7 +202,7 @@ Xt4_AddLanesAll_Full:
   veor      q13, q5, q13
   veor      q14, q8, q14
   veor      q15, q11, q15
-  vstm      r0, {d8-d23}
+  vstm      r0, {d24-d31}
   mov       pc, r3
 
 @ Xoodootimes4_OverwriteBytes: void * states -> uint instanceIndex -> const uchar * data -> uint offset -> uint length -> void

@@ -90,7 +90,7 @@ Xt4_AddBytes_Loop:
 .type Xoodootimes4_AddLanesAll, %function
 Xoodootimes4_AddLanesAll:
   cmp       r2, #12
-  moveq     r3, lr
+  pusheq    {r4-r12,lr}
   beq       Xt4_AddLanesAll_Full
 
   push      {r4-r7,lr}
@@ -166,13 +166,25 @@ Xt4_AddLanesAll_Unaligned_Loop:
   bcs       Xt4_AddLanesAll_Unaligned_Loop
   pop       {r4-r7,pc}
 Xt4_AddLanesAll_Full:
-  vldm      r1, {d0-d5}
-  vldm      r0, {d6-d11}
-  veor      q0, q0, q3
-  veor      q1, q1, q4
-  veor      q2, q2, q5
-  vstm      r0, {d0-d5}
-  mov       pc, r3
+  ldmia     r1!, {r2-r7}
+  ldmia     r0, {r8-r12,r14}
+  eor       r2, r2, r8
+  eor       r3, r3, r9
+  eor       r4, r4, r10
+  eor       r5, r5, r11
+  eor       r6, r6, r12
+  eor       r7, r7, r14
+  stmia     r0!, {r7-r7}
+  ldmia     r0, {r8-r12,r14}
+  ldmia     r1!, {r2-r7}
+  eor       r2, r2, r8
+  eor       r3, r3, r9
+  eor       r4, r4, r10
+  eor       r5, r5, r11
+  eor       r6, r6, r12
+  eor       r7, r7, r14
+  stmia     r0!, {r7-r7}
+  pop       {r4-r12,pc}
 
 @ Xoodootimes4_OverwriteBytes: void * states -> uint instanceIndex -> const uchar * data -> uint offset -> uint length -> void
 .align 8

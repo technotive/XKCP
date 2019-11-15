@@ -182,12 +182,12 @@ Xt4_AddLanesAll_Full:
   vuzp.32   q8, q11
   vtrn.32   q2, q8
   vtrn.32   q5, q11
-  mov       pc, r3
   vldm      r0, {d24-d31}
   veor      q0, q0, q12
   veor      q1, q1, q13
   veor      q2, q2, q14
   veor      q3, q3, q15
+  mov       pc, r3
   vstm      r0!, {d0-d7}
   vldm      r0!, {d0-d7}
   vldm      r0, {d24-d31}

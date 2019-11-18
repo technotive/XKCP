@@ -212,7 +212,7 @@ Xt4_AddLanesAll_Full:
 Xoodootimes4_OverwriteBytes:
   push      {r4, lr}
   ldr       r4, [sp, #8]
-  cmp       r3, #48
+  cmp       r4, #48
   tsteq     r2, #3
   beq       Xt4_OverwriteBytes_Full
 
@@ -485,6 +485,8 @@ Xt4_ExtractAndAddBytes_Loop:
   addeq     r0, r0, #12 @ Skip state
   subs      r1, r1, #1
   bcs       Xt4_ExtractAndAddBytes_Loop
+  pop       {r4, r5, pc}
+Xt4_ExtractAndAddBytes_Full
   pop       {r4, r5, pc}
 
 

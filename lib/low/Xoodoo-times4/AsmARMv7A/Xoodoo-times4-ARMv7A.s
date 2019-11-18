@@ -211,7 +211,7 @@ Xt4_AddLanesAll_Full:
 .type Xoodootimes4_OverwriteBytes, %function
 Xoodootimes4_OverwriteBytes:
   push      {r4, r5, r6, lr}
-  ldr       r4, [sp, #8]
+  ldr       r4, [sp, #16]
   cmp       r4, #48
   tsteq     r2, #3
   beq       Xt4_OverwriteBytes_Full

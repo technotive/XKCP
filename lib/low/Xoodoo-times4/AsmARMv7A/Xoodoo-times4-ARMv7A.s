@@ -486,7 +486,7 @@ Xt4_ExtractAndAddBytes_Loop:
   subs      r1, r1, #1
   bcs       Xt4_ExtractAndAddBytes_Loop
   pop       {r4, r5, pc}
-Xt4_ExtractAndAddBytes_Full
+Xt4_ExtractAndAddBytes_Full:
   pop       {r4, r5, pc}
 
 

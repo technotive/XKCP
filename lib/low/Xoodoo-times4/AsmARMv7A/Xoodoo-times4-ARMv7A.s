@@ -464,6 +464,11 @@ Xt4_ExtractLanesAll_Unaligned_Loop:
 Xoodootimes4_ExtractAndAddBytes:
   push      {r4, r5, lr}
   ldr       r4, [sp, #12]
+  ldr       r5, [sp, #16]
+  cmp       r5, #48
+  tsteq     r2, #3
+  tsteq     r3, #3
+  beq       Xt4_ExtractAndAddBytes_Full
 
   add       r1, r1, r4
   and       r4, r4, #3
@@ -471,8 +476,7 @@ Xoodootimes4_ExtractAndAddBytes:
   add       r0, r0, r1, lsl #2 @ states+(WORD instanceIndex)
   add       r0, r0, r4
 
-  ldr       r1, [sp, #16]
-  subs      r1, r1, #1
+  subs      r1, r5, #1
   popcc     {r4, r5, pc}
 
 Xt4_ExtractAndAddBytes_Loop:
@@ -487,6 +491,39 @@ Xt4_ExtractAndAddBytes_Loop:
   bcs       Xt4_ExtractAndAddBytes_Loop
   pop       {r4, r5, pc}
 Xt4_ExtractAndAddBytes_Full:
+  add       r0, r0, r1, lsl #2
+  ldmia     r2!, {r1, r4, r5}
+  ldr       r14, [r0], #16
+  eor       r1, r1, r14
+  ldr       r14, [r0], #16
+  eor       r4, r4, r14
+  ldr       r14, [r0], #16
+  eor       r5, r5, r14
+  stmia     r3!, {r1, r4, r5}
+  ldmia     r2!, {r1, r4, r5}
+  ldr       r14, [r0], #16
+  eor       r1, r1, r14
+  ldr       r14, [r0], #16
+  eor       r4, r4, r14
+  ldr       r14, [r0], #16
+  eor       r5, r5, r14
+  stmia     r3!, {r1, r4, r5}
+  ldmia     r2!, {r1, r4, r5}
+  ldr       r14, [r0], #16
+  eor       r1, r1, r14
+  ldr       r14, [r0], #16
+  eor       r4, r4, r14
+  ldr       r14, [r0], #16
+  eor       r5, r5, r14
+  stmia     r3, {r1, r4, r5}
+  ldmia     r2, {r1, r4, r5}
+  ldr       r14, [r0], #16
+  eor       r1, r1, r14
+  ldr       r14, [r0], #16
+  eor       r4, r4, r14
+  ldr       r14, [r0], #16
+  eor       r5, r5, r14
+  stmia     r3!, {r1, r4, r5}
   pop       {r4, r5, pc}
 
 

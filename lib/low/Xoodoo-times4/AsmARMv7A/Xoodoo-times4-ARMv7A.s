@@ -168,9 +168,9 @@ Xt4_AddLanesAll_Unaligned_Loop:
   bcs       Xt4_AddLanesAll_Unaligned_Loop
   pop       {r4-r7,pc}
 Xt4_AddLanesAll_Full:
-  vldm      r1!, {d0-d11}
-  vldm      r1, {d12-d23}
+  vldm      r1!, {d0-d15}
   vuzp.32   q0, q6
+  vldm      r1, {d16-d23}
   vuzp.32   q3, q9
   vtrn.32   q0, q3
   vtrn.32   q6, q9
@@ -191,19 +191,18 @@ Xt4_AddLanesAll_Full:
   veor      q14, q3, q14
   veor      q15, q9, q15
   vstm      r0!, {d24-d31}
-  vmov      q0, q8
-  vmov      q3, q10
-  vmov      q6, q11
-  vldm      r0, {d16-d31}
-  veor      q8, q1, q8
-  veor      q9, q7, q9
-  veor      q10, q4, q10
-  veor      q11, q3, q11
+  vldm      r0, {d24-d31}
+  veor      q12, q1, q12
+  veor      q13, q7, q13
+  veor      q14, q4, q14
+  veor      q15, q10, q15
+  vstm      r0!, {d24-d31}
+  vldm      r0, {d24-d31}
   veor      q12, q2, q12
-  veor      q13, q0, q13
+  veor      q13, q8, q13
   veor      q14, q5, q14
-  veor      q15, q6, q15
-  vstm      r0, {d16-d31}
+  veor      q15, q11, q15
+  vstm      r0, {d24-d31}
   mov       pc, r3
 
 @ Xoodootimes4_OverwriteBytes: void * states -> uint instanceIndex -> const uchar * data -> uint offset -> uint length -> void
@@ -211,22 +210,26 @@ Xt4_AddLanesAll_Full:
 .global Xoodootimes4_OverwriteBytes
 .type Xoodootimes4_OverwriteBytes, %function
 Xoodootimes4_OverwriteBytes:
+  push      {r4, lr}
+  ldr       r4, [sp, #8]
+  cmp       r3, #48
+  tsteq     r2, #3
+  beq       Xt4_OverwriteBytes_Full
+
   add       r1, r1, r3
   and       r3, r3, #3
   sub       r1, r1, r3
   add       r0, r0, r1, lsl #2 @ states+(WORD instanceIndex)
   add       r0, r0, r3
 
-  ldr       r1, [sp]
-  subs      r1, r1, #1
-  bxcc      lr
+  subs      r1, r4, #1
+  popcc     {r4, pc}
 
   @ r0 start
   @ r1 lenght > 0
   @ r2 data
   @ r3 byte offset {0,1,2,3}
 
-  push      {r4, lr}
 Xt4_OverwriteBytes_Loop:
   ldrb      r4, [r2], #1
   strb      r4, [r0], #1
@@ -235,6 +238,24 @@ Xt4_OverwriteBytes_Loop:
   addeq     r0, r0, #12 @ Skip state
   subs      r1, r1, #1
   bcs       Xt4_OverwriteBytes_Loop
+  pop       {r4, pc}
+Xt4_OverwriteBytes_Full:
+  add       r0, r0, r1, lsl #2
+  ldmia     r2, {r1, r3, r4, r14}
+  str       r1, [r0], #16
+  str       r3, [r0], #16
+  str       r4, [r0], #16
+  str       r14, [r0], #16
+  ldmia     r2, {r1, r3, r4, r14}
+  str       r1, [r0], #16
+  str       r3, [r0], #16
+  str       r4, [r0], #16
+  str       r14, [r0], #16
+  ldmia     r2, {r1, r3, r4, r14}
+  str       r1, [r0], #16
+  str       r3, [r0], #16
+  str       r4, [r0], #16
+  str       r14, [r0], #16
   pop       {r4, pc}
 
 @ Xoodootimes4_OverwriteLanesAll: void * states -> uchar * data -> uint lanecount -> uint laneOffset -> void

@@ -214,7 +214,7 @@ Xoodootimes4_OverwriteBytes:
   ldr       r4, [sp, #8]
   cmp       r4, #48
   tsteq     r2, #3
-  beq       Xt4_OverwriteBytes_Full
+  @ beq       Xt4_OverwriteBytes_Full
 
   add       r1, r1, r3
   and       r3, r3, #3

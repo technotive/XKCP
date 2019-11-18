@@ -241,45 +241,21 @@ Xt4_OverwriteBytes_Loop:
   pop       {r4, pc}
 Xt4_OverwriteBytes_Full:
   add       r0, r0, r1, lsl #2
-  ldr       r4, [r2], #4
+  ldmia     r2!, {r1, r3, r4, r14}
+  str       r1, [r0], #16
+  str       r3, [r0], #16
   str       r4, [r0], #16
-  ldr       r4, [r2], #4
+  str       r14, [r0], #16
+  ldmia     r2!, {r1, r3, r4, r14}
+  str       r1, [r0], #16
+  str       r3, [r0], #16
   str       r4, [r0], #16
-  ldr       r4, [r2], #4
+  str       r14, [r0], #16
+  ldmia     r2, {r1, r3, r4, r14}
+  str       r1, [r0], #16
+  str       r3, [r0], #16
   str       r4, [r0], #16
-  ldr       r4, [r2], #4
-  str       r4, [r0], #16
-  ldr       r4, [r2], #4
-  str       r4, [r0], #16
-  ldr       r4, [r2], #4
-  str       r4, [r0], #16
-  ldr       r4, [r2], #4
-  str       r4, [r0], #16
-  ldr       r4, [r2], #4
-  str       r4, [r0], #16
-  ldr       r4, [r2], #4
-  str       r4, [r0], #16
-  ldr       r4, [r2], #4
-  str       r4, [r0], #16
-  ldr       r4, [r2], #4
-  str       r4, [r0], #16
-  ldr       r4, [r2], #4
-  str       r4, [r0], #16
-  @ ldmia     r2, {r1, r3, r4, r14}
-  @ str       r1, [r0], #16
-  @ str       r3, [r0], #16
-  @ str       r4, [r0], #16
-  @ str       r14, [r0], #16
-  @ ldmia     r2, {r1, r3, r4, r14}
-  @ str       r1, [r0], #16
-  @ str       r3, [r0], #16
-  @ str       r4, [r0], #16
-  @ str       r14, [r0], #16
-  @ ldmia     r2, {r1, r3, r4, r14}
-  @ str       r1, [r0], #16
-  @ str       r3, [r0], #16
-  @ str       r4, [r0], #16
-  @ str       r14, [r0], #16
+  str       r14, [r0], #16
   pop       {r4, pc}
 
 @ Xoodootimes4_OverwriteLanesAll: void * states -> uchar * data -> uint lanecount -> uint laneOffset -> void

@@ -515,7 +515,7 @@ Xt4_ExtractAndAddBytes_Full:
   eor       r4, r4, r14
   ldr       r14, [r0], #16
   eor       r5, r5, r14
-  stmia     r3, {r1, r4, r5}
+  stmia     r3!, {r1, r4, r5}
   ldmia     r2, {r1, r4, r5}
   ldr       r14, [r0], #16
   eor       r1, r1, r14
@@ -523,7 +523,7 @@ Xt4_ExtractAndAddBytes_Full:
   eor       r4, r4, r14
   ldr       r14, [r0], #16
   eor       r5, r5, r14
-  stmia     r3!, {r1, r4, r5}
+  stmia     r3, {r1, r4, r5}
   pop       {r4, r5, pc}
 
 

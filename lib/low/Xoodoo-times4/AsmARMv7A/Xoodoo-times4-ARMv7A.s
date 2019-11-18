@@ -210,8 +210,8 @@ Xt4_AddLanesAll_Full:
 .global Xoodootimes4_OverwriteBytes
 .type Xoodootimes4_OverwriteBytes, %function
 Xoodootimes4_OverwriteBytes:
-  push      {r4, r5, r6, lr}
-  ldr       r4, [sp, #16]
+  push      {r4, lr}
+  ldr       r4, [sp, #8]
   cmp       r4, #48
   tsteq     r2, #3
   beq       Xt4_OverwriteBytes_Full
@@ -223,7 +223,7 @@ Xoodootimes4_OverwriteBytes:
   add       r0, r0, r3
 
   subs      r1, r4, #1
-  popcc     {r4, r5, r6, pc}
+  popcc     {r4, pc}
 
   @ r0 start
   @ r1 lenght > 0
@@ -238,24 +238,25 @@ Xt4_OverwriteBytes_Loop:
   addeq     r0, r0, #12 @ Skip state
   subs      r1, r1, #1
   bcs       Xt4_OverwriteBytes_Loop
-  pop       {r4, r5, r6, pc}
+  pop       {r4, pc}
 Xt4_OverwriteBytes_Full:
   add       r0, r0, r1, lsl #2
-  ldmia     r2!, {r1, r3, r4, r5, r6, r14}
+  ldmia     r2!, {r1, r3, r4, r14}
   str       r1, [r0], #16
   str       r3, [r0], #16
   str       r4, [r0], #16
-  str       r5, [r0], #16
-  str       r6, [r0], #16
   str       r14, [r0], #16
-  ldmia     r2, {r1, r3, r4, r5, r6, r14}
+  ldmia     r2!, {r1, r3, r4, r14}
   str       r1, [r0], #16
   str       r3, [r0], #16
   str       r4, [r0], #16
-  str       r5, [r0], #16
-  str       r6, [r0], #16
   str       r14, [r0], #16
-  pop       {r4, r5, r6, pc}
+  ldmia     r2, {r1, r3, r4, r14}
+  str       r1, [r0], #16
+  str       r3, [r0], #16
+  str       r4, [r0], #16
+  str       r14, [r0], #16
+  pop       {r4, pc}
 
 @ Xoodootimes4_OverwriteLanesAll: void * states -> uchar * data -> uint lanecount -> uint laneOffset -> void
 .align 8
@@ -495,26 +496,32 @@ Xt4_ExtractAndAddBytes_Full:
   ldr       r14, [r0], #16
   eor       r1, r1, r14
   ldr       r14, [r0], #16
+  str       r1, [r3], #4
   eor       r4, r4, r14
   ldr       r14, [r0], #16
-  eor       r5, r5, r14
-  stmia     r3!, {r1, r4, r5}
+  str       r4, [r3], #4
+  eor       r14, r5, r14
+  str       r14, [r3], #4
   ldmia     r2!, {r1, r4, r5}
   ldr       r14, [r0], #16
   eor       r1, r1, r14
   ldr       r14, [r0], #16
+  str       r1, [r3], #4
   eor       r4, r4, r14
   ldr       r14, [r0], #16
-  eor       r5, r5, r14
-  stmia     r3!, {r1, r4, r5}
+  str       r4, [r3], #4
+  eor       r14, r5, r14
+  str       r14, [r3], #4
   ldmia     r2!, {r1, r4, r5}
   ldr       r14, [r0], #16
   eor       r1, r1, r14
   ldr       r14, [r0], #16
+  str       r1, [r3], #4
   eor       r4, r4, r14
   ldr       r14, [r0], #16
-  eor       r5, r5, r14
-  stmia     r3!, {r1, r4, r5}
+  str       r4, [r3], #4
+  eor       r14, r5, r14
+  str       r14, [r3], #4
   ldmia     r2, {r1, r4, r5}
   ldr       r14, [r0], #16
   eor       r1, r1, r14

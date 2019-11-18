@@ -191,18 +191,19 @@ Xt4_AddLanesAll_Full:
   veor      q14, q3, q14
   veor      q15, q9, q15
   vstm      r0!, {d24-d31}
-  vldm      r0, {d0, d1, d6, d7, d12, d13, d18, d19, d24-d31}
-  veor      q12, q1, q12
-  veor      q13, q7, q13
-  veor      q14, q4, q14
-  veor      q15, q10, q15
-  vstm      r0!, {d24-d31}
-  vldm      r0, {d24-d31}
+  vmov      q0, q8
+  vmov      q3, q10
+  vmov      q6, q11
+  vldm      r0, {d16-d31}
+  veor      q8, q1, q8
+  veor      q9, q7, q9
+  veor      q10, q4, q10
+  veor      q11, q3, q11
   veor      q12, q2, q12
-  veor      q13, q8, q13
+  veor      q13, q0, q13
   veor      q14, q5, q14
-  veor      q15, q11, q15
-  vstm      r0, {d24-d31}
+  veor      q15, q6, q15
+  vstm      r0, {d16-d31}
   mov       pc, r3
 
 @ Xoodootimes4_OverwriteBytes: void * states -> uint instanceIndex -> const uchar * data -> uint offset -> uint length -> void

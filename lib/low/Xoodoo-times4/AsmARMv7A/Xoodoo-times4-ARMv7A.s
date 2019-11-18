@@ -496,32 +496,26 @@ Xt4_ExtractAndAddBytes_Full:
   ldr       r14, [r0], #16
   eor       r1, r1, r14
   ldr       r14, [r0], #16
-  str       r1, [r3], #4
   eor       r4, r4, r14
   ldr       r14, [r0], #16
-  str       r4, [r3], #4
-  eor       r14, r5, r14
-  str       r14, [r3], #4
+  eor       r5, r5, r14
+  stmia     r3!, {r1, r4, r5}
   ldmia     r2!, {r1, r4, r5}
   ldr       r14, [r0], #16
   eor       r1, r1, r14
   ldr       r14, [r0], #16
-  str       r1, [r3], #4
   eor       r4, r4, r14
   ldr       r14, [r0], #16
-  str       r4, [r3], #4
-  eor       r14, r5, r14
-  str       r14, [r3], #4
+  eor       r5, r5, r14
+  stmia     r3!, {r1, r4, r5}
   ldmia     r2!, {r1, r4, r5}
   ldr       r14, [r0], #16
   eor       r1, r1, r14
   ldr       r14, [r0], #16
-  str       r1, [r3], #4
   eor       r4, r4, r14
   ldr       r14, [r0], #16
-  str       r4, [r3], #4
-  eor       r14, r5, r14
-  str       r14, [r3], #4
+  eor       r5, r5, r14
+  stmia     r3!, {r1, r4, r5}
   ldmia     r2, {r1, r4, r5}
   ldr       r14, [r0], #16
   eor       r1, r1, r14

@@ -690,9 +690,9 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
 
 .macro rho_w
   @ NOTE: This could probably be unraveled
-    vswp      q7, q6
-    vswp      q6, q5
-    vswp      q5, q4
+  vswp      q7, q6
+  vswp      q6, q5
+  vswp      q5, q4
 
   vshl.U32  q12, q8, #11
   vsri.U32  q12, q8, #21

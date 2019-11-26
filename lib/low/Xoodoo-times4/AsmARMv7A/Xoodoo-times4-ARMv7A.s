@@ -1,14 +1,14 @@
 @
 @ Implementation by Conno Boel, hereby denoted as "the implementer".
 @
-@ Not an official member of the Keccak Team (https://keccak.team/)
+@ *NOT* an official member of the Keccak Team (https://keccak.team/)
 @
 @ To the extent possible under law, the implementer has waived all copyright
 @ and related or neighboring rights to the source code in this file.
 @ http://creativecommons.org/publicdomain/zero/1.0/
 @
 
-@ WARNING: These functions work only on little endian CPU with@ ARMv7a + NEON architecture (Cortex-A8, ...).
+@ WARNING: These functions work only on little endian CPU with@ ARMv7A + NEON architecture (Cortex-A8, ...).
 
 .text
 
@@ -689,7 +689,11 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
 .endm
 
 .macro rho_w
-  @ Partially unraveled
+  @ Partially unraveled by:
+  @ q7 -> q4
+  @ q6 -> q7
+  @ q5 -> q6
+  @ q4 -> q5
   vshl.U32  q12, q8, #11
   vsri.U32  q12, q8, #21
 
@@ -707,14 +711,6 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   @ NOTE: Iota
   vdup.32   q8, r3
   veor      q0, q0, q8
-
-  @ vswp      q7, q6
-  @ vswp      q6, q5
-  @ vswp      q5, q4
-  @ q7 -> q4
-  @ q6 -> q7
-  @ q5 -> q6
-  @ q4 -> q5
 
   vbic      q11, q12, q7
   vbic      q9, q0, q12

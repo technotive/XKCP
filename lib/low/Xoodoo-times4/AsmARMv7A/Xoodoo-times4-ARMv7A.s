@@ -639,8 +639,8 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
 .endm
 
 .macro theta
-  veor      q12, q0, q4
-  veor      q12, q12, q8
+  veor      q14, q0, q4
+  veor      q14, q14, q8
 
   veor      q15, q3, q7
   veor      q15, q15, q11
@@ -661,12 +661,11 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   veor      q4, q4, q15
   veor      q8, q8, q15
 
-  veor      q13, q1, q5
-  veor      q13, q13, q9
+  veor      q15, q1, q5
+  veor      q15, q15, q9
 
-
-  vmov.32   r4, r5, d24
-  vmov.32   r6, r7, d25
+  vmov.32   r4, r5, d28
+  vmov.32   r6, r7, d29
   ror       r4, r4, #27
   ror       r5, r5, #27
   ror       r6, r6, #27
@@ -675,17 +674,17 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   eor       r5, r5, r5, ror #23
   eor       r6, r6, r6, ror #23
   eor       r7, r7, r7, ror #23
-  vmov.32   d24, r4, r5
-  vmov.32   d25, r6, r7
-  veor      q1, q1, q12
-  veor      q5, q5, q12
-  veor      q9, q9, q12
+  vmov.32   d28, r4, r5
+  vmov.32   d29, r6, r7
+  veor      q1, q1, q14
+  veor      q5, q5, q14
+  veor      q9, q9, q14
 
   veor      q14, q2, q6
   veor      q14, q14, q10
 
-  vmov.32   r4, r5, d26
-  vmov.32   r6, r7, d27
+  vmov.32   r4, r5, d30
+  vmov.32   r6, r7, d31
   ror       r4, r4, #27
   ror       r5, r5, #27
   ror       r6, r6, #27
@@ -694,11 +693,11 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   eor       r5, r5, r5, ror #23
   eor       r6, r6, r6, ror #23
   eor       r7, r7, r7, ror #23
-  vmov.32   d26, r4, r5
-  vmov.32   d27, r6, r7
-  veor      q2, q2, q13
-  veor      q6, q6, q13
-  veor      q10, q10, q13
+  vmov.32   d30, r4, r5
+  vmov.32   d31, r6, r7
+  veor      q2, q2, q15
+  veor      q6, q6, q15
+  veor      q10, q10, q15
 
   vmov.32   r4, r5, d28
   vmov.32   r6, r7, d29
@@ -723,15 +722,6 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   @ q6 -> q7
   @ q5 -> q6
   @ q4 -> q5
-
-  @ vmov.32   r4, r5, d16
-  @ vmov.32   r6, r7, d17
-  @ ror       r4, r4, #21
-  @ ror       r5, r5, #21
-  @ ror       r6, r6, #21
-  @ ror       r7, r7, #21
-  @ vmov.32   d24, r4, r5
-  @ vmov.32   d25, r6, r7
 
   vshl.U32  q12, q8, #11
   vsri.U32  q12, q8, #21

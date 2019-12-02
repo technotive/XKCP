@@ -645,11 +645,8 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   veor      q15, q3, q7
   veor      q15, q15, q11
 
-  vshl.U32  q13, q15, #5
-  vsri.U32  q13, q15, #27
-
-  vmov.32   r4, r5, d26
-  vmov.32   r6, r7, d27
+  vmov.32   r4, r5, d30
+  vmov.32   r6, r7, d31
   eor       r4, r4, r4, ror #23
   eor       r5, r5, r5, ror #23
   eor       r6, r6, r6, ror #23
@@ -663,15 +660,12 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   veor      q15, q1, q5
   veor      q15, q15, q9
 
-  vshl.U32  q13, q14, #5
-  vsri.U32  q13, q14, #27
-
-  vmov.32   r4, r5, d26
-  vmov.32   r6, r7, d27
-  @ ror       r4, r4, #27
-  @ ror       r5, r5, #27
-  @ ror       r6, r6, #27
-  @ ror       r7, r7, #27
+  vmov.32   r4, r5, d28
+  vmov.32   r6, r7, d29
+  ror       r4, r4, #27
+  ror       r5, r5, #27
+  ror       r6, r6, #27
+  ror       r7, r7, #27
   eor       r4, r4, r4, ror #23
   eor       r5, r5, r5, ror #23
   eor       r6, r6, r6, ror #23
@@ -685,15 +679,12 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   veor      q14, q2, q6
   veor      q14, q14, q10
 
-  vshl.U32  q13, q15, #5
-  vsri.U32  q13, q15, #27
-
-  vmov.32   r4, r5, d26
-  vmov.32   r6, r7, d27
-  @ ror       r4, r4, #27
-  @ ror       r5, r5, #27
-  @ ror       r6, r6, #27
-  @ ror       r7, r7, #27
+  vmov.32   r4, r5, d30
+  vmov.32   r6, r7, d31
+  ror       r4, r4, #27
+  ror       r5, r5, #27
+  ror       r6, r6, #27
+  ror       r7, r7, #27
   eor       r4, r4, r4, ror #23
   eor       r5, r5, r5, ror #23
   eor       r6, r6, r6, ror #23
@@ -704,15 +695,12 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   veor      q6, q6, q15
   veor      q10, q10, q15
 
-  vshl.U32  q13, q14, #5
-  vsri.U32  q13, q14, #27
-
-  vmov.32   r4, r5, d26
-  vmov.32   r6, r7, d27
-  @ ror       r4, r4, #27
-  @ ror       r5, r5, #27
-  @ ror       r6, r6, #27
-  @ ror       r7, r7, #27
+  vmov.32   r4, r5, d28
+  vmov.32   r6, r7, d29
+  ror       r4, r4, #27
+  ror       r5, r5, #27
+  ror       r6, r6, #27
+  ror       r7, r7, #27
   eor       r4, r4, r4, ror #23
   eor       r5, r5, r5, ror #23
   eor       r6, r6, r6, ror #23

@@ -816,6 +816,7 @@ Xoodootimes4_PermuteAll_6rounds:
 .type Xoodootimes4_PermuteAll_12rounds, %function
 Xoodootimes4_PermuteAll_12rounds:
   vpush     {d8-d15}
+  push      {r4-r7}
   vldm      r0!, {d0-d15}
   vldm      r0, {d16-d23}
   sub       r0, r0, #128
@@ -845,5 +846,6 @@ Xoodootimes4_PermuteAll_12rounds:
   round
   vstm      r0!, {d0-d15}
   vstm      r0, {d16-d23}
+  pop       {r4-r7}
   vpop      {d8-d15}
   bx        lr

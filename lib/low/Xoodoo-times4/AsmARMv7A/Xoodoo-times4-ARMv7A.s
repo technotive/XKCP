@@ -673,8 +673,8 @@ vsri.U32  q6, q14, #31
   eor       r5, r5, r2, ror #25
   ror       r1, r4, #31
   ror       r2, r5, #31
-  vmov.32   d28, r1, r2
-  vmov.32   r4, r5, d30
+  vmov.32   d30, r1, r2
+  vmov.32   r4, r5, d31
   vmov.32   r1, r2, d19
   eor       r4, r4, r1, ror #25
   eor       r5, r5, r2, ror #25

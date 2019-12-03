@@ -691,8 +691,8 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   eor       r4, r4, r3, ror #27
   eor       r5, r5, r8, ror #27
   eor       r4, r4, r6, ror #27
-  eor       r4, r4, r7, ror #27
-  
+  eor       r5, r5, r7, ror #27
+
   eor       r4, r4, r4, ror #23
   eor       r5, r5, r5, ror #23
   eor       r1, r1, r1, ror #23

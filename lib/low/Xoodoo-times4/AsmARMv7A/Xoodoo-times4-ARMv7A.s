@@ -640,6 +640,20 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
 .endm
 
 .macro theta_e
+  vmov.32   r4, r5, d30
+  vmov.32   r1, r2, d18
+  eor       r4, r4, r1, ror #25
+  eor       r5, r5, r2, ror #25
+  ror       r1, r4, #31
+  ror       r2, r5, #31
+  vmov.32   d30, r1, r2
+  vmov.32   r4, r5, d31
+  vmov.32   r1, r2, d19
+  eor       r4, r4, r1, ror #25
+  eor       r5, r5, r2, ror #25
+  ror       r1, r4, #31
+  ror       r2, r5, #31
+  vmov.32   d31, r1, r2
 
 @ vshl.U32  q11, q9, #8
 @ vsri.U32  q11, q9, #24
@@ -666,21 +680,6 @@ vsri.U32  q6, q14, #31
 
 @ vshl.U32  q7, q15, #1
 @ vsri.U32  q7, q15, #31
-
-  vmov.32   r4, r5, d30
-  vmov.32   r1, r2, d18
-  eor       r4, r4, r1, ror #25
-  eor       r5, r5, r2, ror #25
-  ror       r1, r4, #31
-  ror       r2, r5, #31
-  vmov.32   d30, r1, r2
-  vmov.32   r4, r5, d31
-  vmov.32   r1, r2, d19
-  eor       r4, r4, r1, ror #25
-  eor       r5, r5, r2, ror #25
-  ror       r1, r4, #31
-  ror       r2, r5, #31
-  vmov.32   d31, r1, r2
 
   veor      q14, q0, q4
   veor      q14, q14, q8

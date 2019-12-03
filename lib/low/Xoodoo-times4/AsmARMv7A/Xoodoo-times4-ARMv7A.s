@@ -639,35 +639,35 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   rho_e
 .endm
 
-.macro rho_e
-  vshl.U32  q11, q9, #8
-  vsri.U32  q11, q9, #24
-
-  vshl.U32  q9, q4, #8
-  vsri.U32  q9, q4, #24
-
-  vshl.U32  q5, q8, #8
-  vsri.U32  q5, q8, #24
-
-  @ vshl.U32  q8, q10, #8
-  @ vsri.U32  q8, q10, #24
-
-  vmov      q10, q5
-
-  @ vshl.U32  q4, q12, #1
-  @ vsri.U32  q4, q12, #31
-
-  vshl.U32  q5, q13, #1
-  vsri.U32  q5, q13, #31
-
-  vshl.U32  q6, q14, #1
-  vsri.U32  q6, q14, #31
-
-  vshl.U32  q7, q15, #1
-  vsri.U32  q7, q15, #31
-.endm
-
 .macro theta_e
+
+vshl.U32  q11, q9, #8
+vsri.U32  q11, q9, #24
+
+vshl.U32  q9, q4, #8
+vsri.U32  q9, q4, #24
+
+vshl.U32  q5, q8, #8
+vsri.U32  q5, q8, #24
+
+@ vshl.U32  q8, q10, #8
+@ vsri.U32  q8, q10, #24
+
+vmov      q10, q5
+
+@ vshl.U32  q4, q12, #1
+@ vsri.U32  q4, q12, #31
+
+vshl.U32  q5, q13, #1
+vsri.U32  q5, q13, #31
+
+vshl.U32  q6, q14, #1
+vsri.U32  q6, q14, #31
+
+vshl.U32  q7, q15, #1
+vsri.U32  q7, q15, #31
+
+
   vmov.32   r1, r2, d20
   vmov.32   r4, r5, d24
   ror       r1, r1, #24

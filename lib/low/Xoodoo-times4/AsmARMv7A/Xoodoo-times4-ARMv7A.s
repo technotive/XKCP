@@ -641,8 +641,8 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
 
 .macro theta_e
 
-vshl.U32  q11, q9, #8
-vsri.U32  q11, q9, #24
+@ vshl.U32  q11, q9, #8
+@ vsri.U32  q11, q9, #24
 
 vshl.U32  q9, q4, #8
 vsri.U32  q9, q4, #24
@@ -664,30 +664,30 @@ vsri.U32  q5, q13, #31
 vshl.U32  q6, q14, #1
 vsri.U32  q6, q14, #31
 
-vshl.U32  q7, q15, #1
-vsri.U32  q7, q15, #31
+@ vshl.U32  q7, q15, #1
+@ vsri.U32  q7, q15, #31
 
-
-  @ vmov.32   r1, r2, d20
-  @ vmov.32   r4, r5, d24
-  @ ror       r1, r1, #24
-  @ ror       r2, r2, #24
-  @ eor       r1, r1, r4, ror #31
-  @ eor       r2, r2, r5, ror #31
-  @ vmov.32   d8, r1, r2
-  @ vmov.32   r4, r5, d25
-  @ vmov.32   r1, r2, d21
-  @ ror       r1, r1, #24
-  @ ror       r2, r2, #24
-  @ eor       r1, r1, r4, ror #31
-  @ eor       r2, r2, r5, ror #31
-  @ vmov.32   d9, r1, r2
+  vmov.32   r4, r5, d30
+  vmov.32   r1, r2, d18
+  eor       r4, r4, r1, ror #25
+  eor       r5, r5, r2, ror #25
+  ror       r1, r4, #31
+  ror       r2, r5, #31
+  vmov.32   d28, r1, r2
+  vmov.32   r4, r5, d30
+  vmov.32   r1, r2, d19
+  eor       r4, r4, r1, ror #25
+  eor       r5, r5, r2, ror #25
+  ror       r1, r4, #31
+  ror       r2, r5, #31
+  vmov.32   d31, r1, r2
 
   veor      q14, q0, q4
   veor      q14, q14, q8
 
-  veor      q15, q3, q7
-  veor      q15, q15, q11
+  veor      q15, q15, q3
+  @ veor      q15, q3, q7
+  @ veor      q15, q15, q11
 
   @ NOTE: By the power of the BarrelShifter, I command thee.
   vmov.32   r4, r5, d30

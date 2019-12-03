@@ -675,23 +675,26 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
 
   @ NOTE: By the power of the BarrelShifter, I command thee.
   vmov.32   r1, r2, d6
-  vmov.32   r4, r5, d14
-  vmov.32   r6, r7, d22
-  ror       r1, r1, #27
-  ror       r2, r2, #27
-  eor       r1, r1, r4, ror #27
-  eor       r2, r2, r5, ror #27
-  eor       r1, r1, r6, ror #27
-  eor       r2, r2, r7, ror #27
   vmov.32   r4, r5, d7
-  vmov.32   r3, r8, d15
-  vmov.32   r6, r7, d23
+  vmov.32   r3, r6, d14
+  ror       r1, r1, #27
+  vmov.32   r7, r8, d15
+  ror       r2, r2, #27
   ror       r4, r4, #27
   ror       r5, r5, #27
-  eor       r4, r4, r3, ror #27
+  eor       r1, r1, r3, ror #27
+  eor       r2, r2, r6, ror #27
+
+  eor       r4, r4, r7, ror #27
+  vmov.32   r3, r6, d22
   eor       r5, r5, r8, ror #27
-  eor       r4, r4, r6, ror #27
-  eor       r5, r5, r7, ror #27
+
+  vmov.32   r7, r8, d23
+
+  eor       r1, r1, r3, ror #27
+  eor       r2, r2, r6, ror #27
+  eor       r4, r4, r7, ror #27
+  eor       r5, r5, r8, ror #27
 
   eor       r4, r4, r4, ror #23
   eor       r5, r5, r5, ror #23

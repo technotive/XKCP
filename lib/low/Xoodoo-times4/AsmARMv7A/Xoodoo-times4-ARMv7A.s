@@ -630,7 +630,8 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
 @ Xoodootimes4_Permute_once:
 @ q0: a00 -> q1: a01 -> q2:  a02 -> q3:  a03 ->
 @ q4: a10 -> q5: a11 -> q6:  a12 -> q7:  a13 ->
-@ q8: a20 -> q9: a21 -> q10: a22 -> q11: a23 ->
+@ q8: a20 -> q9: a21 -> q10: a22 -> q11: a23
+
 .macro round
   theta
   rho_w
@@ -638,6 +639,126 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   rho_e
 .endm
 
+.macro rho_e
+  vshl.U32  q11, q9, #8
+  vsri.U32  q11, q9, #24
+
+  vshl.U32  q9, q4, #8
+  vsri.U32  q9, q4, #24
+
+  vshl.U32  q5, q8, #8
+  vsri.U32  q5, q8, #24
+
+  @ vshl.U32  q8, q10, #8
+  @ vsri.U32  q8, q10, #24
+
+  vmov      q10, q5
+
+  @ vshl.U32  q4, q12, #1
+  @ vsri.U32  q4, q12, #31
+
+  vshl.U32  q5, q13, #1
+  vsri.U32  q5, q13, #31
+
+  vshl.U32  q6, q14, #1
+  vsri.U32  q6, q14, #31
+
+  vshl.U32  q7, q15, #1
+  vsri.U32  q7, q15, #31
+.endm
+
+.macro theta_e
+  vmov.32   r1, r2, d20
+  vmov.32   r4, r5, d24
+  ror       r1, r1, #24
+  ror       r2, r2, #24
+  eor       r1, r1, r4, #31
+  eor       r2, r2, r5, #31
+  vmov.32   d8, r1, r2
+  vmov.32   r4, r5, d25
+  vmov.32   r1, r2, d21
+  ror       r1, r1, #24
+  ror       r2, r2, #24
+  eor       r1, r1, r4, #31
+  eor       r2, r2, r5, #31
+  vmov.32   d9, r1, r2
+
+  veor      q14, q0, q8
+
+  veor      q15, q3, q7
+  veor      q15, q15, q11
+
+  @ NOTE: By the power of the BarrelShifter, I command thee.
+  vmov.32   r4, r5, d30
+  vmov.32   r1, r2, d31
+  ror       r4, r4, #27
+  ror       r5, r5, #27
+  ror       r1, r1, #27
+  ror       r2, r2, #27
+  eor       r4, r4, r4, ror #23
+  eor       r5, r5, r5, ror #23
+  eor       r1, r1, r1, ror #23
+  eor       r2, r2, r2, ror #23
+  vmov.32   d30, r4, r5
+  vmov.32   d31, r1, r2
+  veor      q0, q0, q15
+  veor      q4, q4, q15
+  veor      q8, q8, q15
+
+  veor      q15, q1, q5
+  veor      q15, q15, q9
+
+  vmov.32   r4, r5, d28
+  vmov.32   r1, r2, d29
+  ror       r4, r4, #27
+  ror       r5, r5, #27
+  ror       r1, r1, #27
+  ror       r2, r2, #27
+  eor       r4, r4, r4, ror #23
+  eor       r5, r5, r5, ror #23
+  eor       r1, r1, r1, ror #23
+  eor       r2, r2, r2, ror #23
+  vmov.32   d28, r4, r5
+  vmov.32   d29, r1, r2
+  veor      q1, q1, q14
+  veor      q5, q5, q14
+  veor      q9, q9, q14
+
+  veor      q14, q2, q6
+  veor      q14, q14, q10
+
+  vmov.32   r4, r5, d30
+  vmov.32   r1, r2, d31
+  ror       r4, r4, #27
+  ror       r5, r5, #27
+  ror       r1, r1, #27
+  ror       r2, r2, #27
+  eor       r4, r4, r4, ror #23
+  eor       r5, r5, r5, ror #23
+  eor       r1, r1, r1, ror #23
+  eor       r2, r2, r2, ror #23
+  vmov.32   d30, r4, r5
+  vmov.32   d31, r1, r2
+  veor      q2, q2, q15
+  veor      q6, q6, q15
+  veor      q10, q10, q15
+
+  vmov.32   r4, r5, d28
+  vmov.32   r1, r2, d29
+  ror       r4, r4, #27
+  ror       r5, r5, #27
+  ror       r1, r1, #27
+  ror       r2, r2, #27
+  eor       r4, r4, r4, ror #23
+  eor       r5, r5, r5, ror #23
+  eor       r1, r1, r1, ror #23
+  eor       r2, r2, r2, ror #23
+  vmov.32   d28, r4, r5
+  vmov.32   d29, r1, r2
+  veor      q3, q3, q14
+  veor      q7, q7, q14
+  veor      q11, q11, q14
+.endm
 
 .macro theta
   @ NOTE: We might be able to make a separate theta that merges rho_e (partially) by putting q4 and q8 in core registers. Subsequent merges for q11,q7 and q10, q6 and q9, q5.
@@ -770,7 +891,6 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
 .endm
 
 .macro rho_e
-  @NOTE: We might able to merge this into the next theta five times (only not the first one). It could have positive effects (going by the partial move in theta).
   vshl.U32  q11, q9, #8
   vsri.U32  q11, q9, #24
 
@@ -808,18 +928,36 @@ Xoodootimes4_PermuteAll_6rounds:
   vldm      r0!, {d0-d15}
   vldm      r0, {d16-d23}
   sub       r0, r0, #128 @ (16*64)/8
+  theta
+  rho_w
   mov       r3, #0x00000060
-  round
+  chi
+
+  theta_e
+  rho_w
   mov       r3, #0x0000002C
-  round
+  chi
+
+  theta_e
+  rho_w
   mov       r3, #0x00000380
-  round
+  chi
+
+  theta_e
+  rho_w
   mov       r3, #0x000000F0
-  round
+  chi
+
+  theta_e
+  rho_w
   mov       r3, #0x000001A0
-  round
+  chi
+
+  theta_e
+  rho_w
   mov       r3, #0x00000012
-  round
+  chi
+  rho_e
   vstm      r0!, {d0-d15}
   vstm      r0, {d16-d23}
   pop       {r4-r5}

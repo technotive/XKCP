@@ -641,61 +641,60 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
 
 .macro theta_e
 
-  vshl.U32  q11, q9, #8
-  vsri.U32  q11, q9, #24
+vshl.U32  q11, q9, #8
+vsri.U32  q11, q9, #24
 
-  vshl.U32  q9, q4, #8
-  vsri.U32  q9, q4, #24
+vshl.U32  q9, q4, #8
+vsri.U32  q9, q4, #24
 
-  vshl.U32  q5, q8, #8
-  vsri.U32  q5, q8, #24
+vshl.U32  q5, q8, #8
+vsri.U32  q5, q8, #24
 
-  vshl.U32  q8, q10, #8
-  vsri.U32  q8, q10, #24
+vshl.U32  q8, q10, #8
+vsri.U32  q8, q10, #24
 
-  vmov      q10, q5
+vmov      q10, q5
 
-  vshl.U32  q4, q12, #1
-  vsri.U32  q4, q12, #31
+vshl.U32  q4, q12, #1
+vsri.U32  q4, q12, #31
 
-  vshl.U32  q5, q13, #1
-  vsri.U32  q5, q13, #31
+vshl.U32  q5, q13, #1
+vsri.U32  q5, q13, #31
 
-  vshl.U32  q6, q14, #1
-  vsri.U32  q6, q14, #31
+vshl.U32  q6, q14, #1
+vsri.U32  q6, q14, #31
 
-  vshl.U32  q7, q15, #1
-  vsri.U32  q7, q15, #31
+vshl.U32  q7, q15, #1
+vsri.U32  q7, q15, #31
 
-  veor      q14, q0, q4
-  veor      q14, q14, q8
 
-  @ veor      q15, q3, q7
-  @ veor      q15, q15, q11
+  vmov.32   r1, r2, d20
+  vmov.32   r4, r5, d24
+  ror       r1, r1, #24
+  ror       r2, r2, #24
+  eor       r1, r1, r4, ror #31
+  eor       r2, r2, r5, ror #31
+  vmov.32   d8, r1, r2
+  vmov.32   r4, r5, d25
+  vmov.32   r1, r2, d21
+  ror       r1, r1, #24
+  ror       r2, r2, #24
+  eor       r1, r1, r4, ror #31
+  eor       r2, r2, r5, ror #31
+  vmov.32   d9, r1, r2
+
+  veor      q14, q0, q8
+
+  veor      q15, q3, q7
+  veor      q15, q15, q11
 
   @ NOTE: By the power of the BarrelShifter, I command thee.
-  vmov.32   r1, r2, d6
-  vmov.32   r4, r5, d7
-  vmov.32   r3, r6, d14
-  ror       r1, r1, #27
-  vmov.32   r7, r8, d15
-  ror       r2, r2, #27
+  vmov.32   r4, r5, d30
+  vmov.32   r1, r2, d31
   ror       r4, r4, #27
   ror       r5, r5, #27
-  eor       r1, r1, r3, ror #27
-  eor       r2, r2, r6, ror #27
-
-  eor       r4, r4, r7, ror #27
-  vmov.32   r3, r6, d22
-  eor       r5, r5, r8, ror #27
-
-  vmov.32   r7, r8, d23
-
-  eor       r1, r1, r3, ror #27
-  eor       r2, r2, r6, ror #27
-  eor       r4, r4, r7, ror #27
-  eor       r5, r5, r8, ror #27
-
+  ror       r1, r1, #27
+  ror       r2, r2, #27
   eor       r4, r4, r4, ror #23
   eor       r5, r5, r5, ror #23
   eor       r1, r1, r1, ror #23
@@ -925,7 +924,7 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
 .type Xoodootimes4_PermuteAll_6rounds, %function
 Xoodootimes4_PermuteAll_6rounds:
   vpush     {d8-d15}
-  push      {r4-r8}
+  push      {r4-r5}
   vldm      r0!, {d0-d15}
   vldm      r0, {d16-d23}
   sub       r0, r0, #128 @ (16*64)/8
@@ -961,7 +960,7 @@ Xoodootimes4_PermuteAll_6rounds:
   rho_e
   vstm      r0!, {d0-d15}
   vstm      r0, {d16-d23}
-  pop       {r4-r8}
+  pop       {r4-r5}
   vpop      {d8-d15}
   bx        lr
 

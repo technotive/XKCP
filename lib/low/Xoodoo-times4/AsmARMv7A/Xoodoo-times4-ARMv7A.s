@@ -638,13 +638,16 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   rho_e
 .endm
 
+
 .macro theta
+  @ NOTE: We might be able to make a separate theta that merges rho_e (partially) by putting q4 and q8 in core registers. Subsequent merges for q11,q7 and q10, q6 and q9, q5.
   veor      q14, q0, q4
   veor      q14, q14, q8
 
   veor      q15, q3, q7
   veor      q15, q15, q11
 
+  @ NOTE: By the power of the BarrelShifter, I command thee.
   vmov.32   r4, r5, d30
   vmov.32   r1, r2, d31
   ror       r4, r4, #27
@@ -717,12 +720,7 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
 .endm
 
 .macro rho_w
-  @ Partially unraveled by:
-  @ q7 -> q4
-  @ q6 -> q7
-  @ q5 -> q6
-  @ q4 -> q5
-
+  @ NOTE: Merge might be possible, but is not convenient.
   vshl.U32  q12, q8, #11
   vsri.U32  q12, q8, #21
 
@@ -741,6 +739,7 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   vdup.32   q8, r3
   veor      q0, q0, q8
 
+  @ NOTE: Probably this is optimal.  (Prove?)
   vbic      q11, q12, q7
   vbic      q9, q0, q12
   vbic      q10, q7, q0
@@ -771,6 +770,7 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
 .endm
 
 .macro rho_e
+  @NOTE: We might able to merge this into the next theta five times (only not the first one). It could have positive effects (going by the partial move in theta).
   vshl.U32  q11, q9, #8
   vsri.U32  q11, q9, #24
 

@@ -647,16 +647,19 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   vshl.U32  q9, q4, #8
   vsri.U32  q9, q4, #24
 
-  vshl.U32  q5, q8, #8
-  vsri.U32  q5, q8, #24
-
+  vmov.32   r1, r2, d16
+  vmov.32   r4, r5, d17
+  ror       r1, r1, #24
   vshl.U32  q8, q10, #8
+  ror       r2, r2, #24
   vsri.U32  q8, q10, #24
-
-  vmov      q10, q5
+  ror       r4, r4, #24
 
   vshl.U32  q4, q12, #1
+  ror       r5, r5, #24
   vsri.U32  q4, q12, #31
+  vmov.32   d20, r1, r2
+  vmov.32   d21, r4, r5
 
   vshl.U32  q5, q13, #1
   vsri.U32  q5, q13, #31
@@ -667,29 +670,12 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   vshl.U32  q7, q15, #1
   vsri.U32  q7, q15, #31
 
-
-  @ vmov.32   r1, r2, d20
-  @ vmov.32   r4, r5, d24
-  @ ror       r1, r1, #24
-  @ ror       r2, r2, #24
-  @ eor       r1, r1, r4, ror #31
-  @ eor       r2, r2, r5, ror #31
-  @ vmov.32   d8, r1, r2
-  @ vmov.32   r4, r5, d25
-  @ vmov.32   r1, r2, d21
-  @ ror       r1, r1, #24
-  @ ror       r2, r2, #24
-  @ eor       r1, r1, r4, ror #31
-  @ eor       r2, r2, r5, ror #31
-  @ vmov.32   d9, r1, r2
-
   veor      q14, q0, q4
   veor      q14, q14, q8
 
   veor      q15, q3, q7
   veor      q15, q15, q11
 
-  @ NOTE: By the power of the BarrelShifter, I command thee.
   vmov.32   r4, r5, d30
   vmov.32   r1, r2, d31
   ror       r4, r4, #27
@@ -898,13 +884,19 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   vshl.U32  q9, q4, #8
   vsri.U32  q9, q4, #24
 
-  vshl.U32  q5, q8, #8
-  vsri.U32  q5, q8, #24
-
+  vmov.32   r1, r2, d16
+  vmov.32   r4, r5, d17
+  ror       r1, r1, #24
   vshl.U32  q8, q10, #8
+  ror       r2, r2, #24
   vsri.U32  q8, q10, #24
+  ror       r4, r4, #24
 
-  vmov      q10, q5
+  vshl.U32  q4, q12, #1
+  ror       r5, r5, #24
+  vsri.U32  q4, q12, #31
+  vmov.32   d20, r1, r2
+  vmov.32   d21, r4, r5
 
   vshl.U32  q4, q12, #1
   vsri.U32  q4, q12, #31
@@ -925,7 +917,7 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
 .type Xoodootimes4_PermuteAll_6rounds, %function
 Xoodootimes4_PermuteAll_6rounds:
   vpush     {d8-d15}
-  push      {r4-r5}
+  push      {r4-r7}
   vldm      r0!, {d0-d15}
   vldm      r0, {d16-d23}
   sub       r0, r0, #128 @ (16*64)/8
@@ -961,7 +953,7 @@ Xoodootimes4_PermuteAll_6rounds:
   rho_e
   vstm      r0!, {d0-d15}
   vstm      r0, {d16-d23}
-  pop       {r4-r5}
+  pop       {r4-r7}
   vpop      {d8-d15}
   bx        lr
 

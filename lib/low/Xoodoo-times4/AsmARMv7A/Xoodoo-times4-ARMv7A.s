@@ -824,13 +824,13 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   vshl.U32  q7, q15, #1
   vsri.U32  q7, q15, #31
 
-  veor      q15, q3, q7
-  vmov.32   r3, r6, d22
+  veor      q15, q3, q11
+  vmov.32   r3, r6, d14
   vmov.32   r4, r5, d30
   vmov.32   r1, r2, d31
   eor       r4, r4, r3
   eor       r5, r5, r6
-  vmov.32   r3, r6, d23
+  vmov.32   r3, r6, d15
   eor       r1, r1, r3
   eor       r2, r2, r6
 

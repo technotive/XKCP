@@ -825,10 +825,18 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   vsri.U32  q7, q15, #31
 
   veor      q15, q3, q7
-  veor      q15, q15, q11
+  vmov.32   r3, r6, d22
+  vmov.32   r1, r2, d30
+  vmov.32   r4, r5, d31
+  eor       r1, r1, r3
+  eor       r2, r2, r6
+  vmov.32   r3, r6, d23
+  eor       r4, r4, r3
+  eor       r5, r5, r6
 
-  vmov.32   r4, r5, d30
-  vmov.32   r1, r2, d31
+
+  @ vmov.32   r4, r5, d30
+  @ vmov.32   r1, r2, d31
   ror       r4, r4, #27
   veor      q14, q0, q4
   ror       r5, r5, #27
@@ -904,7 +912,7 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
 .type Xoodootimes4_PermuteAll_6rounds, %function
 Xoodootimes4_PermuteAll_6rounds:
   vpush     {d8-d15}
-  push      {r4-r5}
+  push      {r4-r6}
   vldm      r0!, {d0-d15}
   vldm      r0, {d16-d23}
   sub       r0, r0, #128 @ (16*64)/8
@@ -942,7 +950,7 @@ Xoodootimes4_PermuteAll_6rounds:
 
   vstm      r0!, {d0-d15}
   vstm      r0, {d16-d23}
-  pop       {r4-r5}
+  pop       {r4-r6}
   vpop      {d8-d15}
   bx        lr
 

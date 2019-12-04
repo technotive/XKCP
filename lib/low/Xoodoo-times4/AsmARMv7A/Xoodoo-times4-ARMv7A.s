@@ -908,6 +908,7 @@ Xoodootimes4_PermuteAll_6rounds:
   vldm      r0!, {d0-d15}
   vldm      r0, {d16-d23}
   sub       r0, r0, #128 @ (16*64)/8
+  
   theta
   rho_w
   mov       r3, #0x00000060
@@ -922,7 +923,6 @@ Xoodootimes4_PermuteAll_6rounds:
   rho_w
   mov       r3, #0x00000380
   chi
-  rho_e
 
   theta_e
   rho_w
@@ -933,13 +933,13 @@ Xoodootimes4_PermuteAll_6rounds:
   rho_w
   mov       r3, #0x000001A0
   chi
-  rho_e
 
   theta_e
   rho_w
   mov       r3, #0x00000012
   chi
   rho_e
+
   vstm      r0!, {d0-d15}
   vstm      r0, {d16-d23}
   pop       {r4-r5}

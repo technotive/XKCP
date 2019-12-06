@@ -777,8 +777,8 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   ror       r2, r2, #24
   vsri.U32  q8, q10, #24
   ror       r4, r4, #24
-  ror       r5, r5, #24
   vmov.32   d20, r1, r2
+  ror       r5, r5, #24
   vmov.32   d21, r4, r5
 
   vshl.U32  q4, q12, #1
@@ -808,9 +808,11 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   ror       r2, r2, #24
   vsri.U32  q8, q10, #24
   ror       r4, r4, #24
-  ror       r5, r5, #24
   vmov.32   d20, r1, r2
+  ror       r5, r5, #24
   vmov.32   d21, r4, r5
+
+  @ NOTE: The idea was to maybe merge rho_e and theta partially, however because P depends on the registers it also XORs into, we do not save cycles by stepping to core registers. Because at no point can we use the barrel shifter, which is the only reason we should want to choose the core registers over the vector registers.
 
   vshl.U32  q4, q12, #1
   vsri.U32  q4, q12, #31
@@ -908,7 +910,7 @@ Xoodootimes4_PermuteAll_6rounds:
   vldm      r0!, {d0-d15}
   vldm      r0, {d16-d23}
   sub       r0, r0, #128 @ (16*64)/8
-  
+
   theta
   rho_w
   mov       r3, #0x00000060

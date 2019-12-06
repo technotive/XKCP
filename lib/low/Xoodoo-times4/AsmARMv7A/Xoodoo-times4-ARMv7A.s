@@ -719,18 +719,18 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   @ vsri.U32  q12, q8, #21
   vmov.32   r1, r2, d16
   vshl.U32  q13, q9, #11
-  vmov.32   r4, r5, d17
+  vmov.32   r3, r4, d17
   vsri.U32  q13, q9, #21
   ror       r1, r1, #21
   vshl.U32  q14, q10, #11
   ror       r2, r2, #21
   vsri.U32  q14, q10, #21
-  ror       r4, r4, #21
+  ror       r3, r3, #21
   vshl.U32  q15, q11, #11
-  ror       r5, r5, #21
+  ror       r4, r4, #21
   vsri.U32  q15, q11, #21
   vmov.32   d24, r1, r2
-  vmov.32   d25, r4, r5
+  vmov.32   d25, r3, r4
   @ NOTE: Here we are hiding in the shadows. What happens is that the ROR action is interleaved with the vector actions so that they get executed for free instead of a NOP .
 .endm
 

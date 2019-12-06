@@ -643,70 +643,70 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   veor      q15, q3, q7
   veor      q15, q15, q11
 
-  vmov.32   r4, r5, d30
+  vmov.32   r3, r4, d30
   vmov.32   r1, r2, d31
-  ror       r4, r4, #27
+  ror       r3, r3, #27
   veor      q14, q0, q4
-  ror       r5, r5, #27
+  ror       r4, r4, #27
   veor      q14, q14, q8
   ror       r1, r1, #27
   ror       r2, r2, #27
+  eor       r3, r3, r3, ror #23
   eor       r4, r4, r4, ror #23
-  eor       r5, r5, r5, ror #23
   eor       r1, r1, r1, ror #23
-  vmov.32   d30, r4, r5
+  vmov.32   d30, r3, r4
   eor       r2, r2, r2, ror #23
   vmov.32   d31, r1, r2
 
-  vmov.32   r4, r5, d28
+  vmov.32   r3, r4, d28
   vmov.32   r1, r2, d29
-  ror       r4, r4, #27
+  ror       r3, r3, #27
   veor      q0, q0, q15
-  ror       r5, r5, #27
+  ror       r4, r4, #27
   veor      q4, q4, q15
   ror       r1, r1, #27
   veor      q8, q8, q15
   ror       r2, r2, #27
   veor      q15, q1, q5
-  eor       r4, r4, r4, ror #23
+  eor       r3, r3, r3, ror #23
   veor      q15, q15, q9
-  eor       r5, r5, r5, ror #23
+  eor       r4, r4, r4, ror #23
   eor       r1, r1, r1, ror #23
-  vmov.32   d28, r4, r5
+  vmov.32   d28, r3, r4
   eor       r2, r2, r2, ror #23
   vmov.32   d29, r1, r2
 
-  vmov.32   r4, r5, d30
+  vmov.32   r3, r4, d30
   vmov.32   r1, r2, d31
-  ror       r4, r4, #27
+  ror       r3, r3, #27
   veor      q1, q1, q14
-  ror       r5, r5, #27
+  ror       r4, r4, #27
   veor      q5, q5, q14
   ror       r1, r1, #27
   veor      q9, q9, q14
   ror       r2, r2, #27
   veor      q14, q2, q6
-  eor       r4, r4, r4, ror #23
+  eor       r3, r3, r3, ror #23
   veor      q14, q14, q10
-  eor       r5, r5, r5, ror #23
+  eor       r4, r4, r4, ror #23
   eor       r1, r1, r1, ror #23
-  vmov.32   d30, r4, r5
+  vmov.32   d30, r3, r4
   eor       r2, r2, r2, ror #23
   vmov.32   d31, r1, r2
 
-  vmov.32   r4, r5, d28
+  vmov.32   r3, r4, d28
   vmov.32   r1, r2, d29
-  ror       r4, r4, #27
+  ror       r3, r3, #27
   veor      q2, q2, q15
-  ror       r5, r5, #27
+  ror       r4, r4, #27
   veor      q6, q6, q15
   ror       r1, r1, #27
   veor      q10, q10, q15
   ror       r2, r2, #27
+  eor       r3, r3, r3, ror #23
   eor       r4, r4, r4, ror #23
-  eor       r5, r5, r5, ror #23
   eor       r1, r1, r1, ror #23
-  vmov.32   d28, r4, r5
+  vmov.32   d28, r3, r4
   eor       r2, r2, r2, ror #23
   vmov.32   d29, r1, r2
   veor      q3, q3, q14
@@ -719,18 +719,18 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   @ vsri.U32  q12, q8, #21
   vmov.32   r1, r2, d16
   vshl.U32  q13, q9, #11
-  vmov.32   r4, r5, d17
+  vmov.32   r3, r4, d17
   vsri.U32  q13, q9, #21
   ror       r1, r1, #21
   vshl.U32  q14, q10, #11
   ror       r2, r2, #21
   vsri.U32  q14, q10, #21
-  ror       r4, r4, #21
+  ror       r3, r3, #21
   vshl.U32  q15, q11, #11
-  ror       r5, r5, #21
+  ror       r4, r4, #21
   vsri.U32  q15, q11, #21
   vmov.32   d24, r1, r2
-  vmov.32   d25, r4, r5
+  vmov.32   d25, r3, r4
   @ NOTE: Here we are hiding in the shadows. What happens is that the ROR action is interleaved with the vector actions so that they get executed for free instead of a NOP .
 .endm
 
@@ -777,15 +777,15 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   vsri.U32  q9, q4, #24
 
   vmov.32   r1, r2, d16
-  vmov.32   r4, r5, d17
+  vmov.32   r3, r4, d17
   ror       r1, r1, #24
   vshl.U32  q8, q10, #8
   ror       r2, r2, #24
   vsri.U32  q8, q10, #24
-  ror       r4, r4, #24
+  ror       r3, r3, #24
   vmov.32   d20, r1, r2
-  ror       r5, r5, #24
-  vmov.32   d21, r4, r5
+  ror       r4, r4, #24
+  vmov.32   d21, r3, r4
 
   vshl.U32  q4, q12, #1
   vsri.U32  q4, q12, #31
@@ -808,7 +808,7 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
 .type Xoodootimes4_PermuteAll_6rounds, %function
 Xoodootimes4_PermuteAll_6rounds:
   vpush     {d8-d15}
-  push      {r4-r5}
+  push      {r4}
   vldm      r0!, {d0-d15}
   vldm      r0, {d16-d23}
   sub       r0, r0, #128 @ (16*64)/8
@@ -851,7 +851,7 @@ Xoodootimes4_PermuteAll_6rounds:
 
   vstm      r0!, {d0-d15}
   vstm      r0, {d16-d23}
-  pop       {r4-r5}
+  pop       {r4}
   vpop      {d8-d15}
   bx        lr
 

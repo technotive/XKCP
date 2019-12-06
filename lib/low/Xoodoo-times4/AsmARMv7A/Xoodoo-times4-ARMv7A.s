@@ -865,30 +865,78 @@ Xoodootimes4_PermuteAll_12rounds:
   vldm      r0!, {d0-d15}
   vldm      r0, {d16-d23}
   sub       r0, r0, #128
+
+  theta
+  rho_w
   mov       r3, #0x00000058
-  round
+  chi
+  rho_e
+
+  theta
+  rho_w
   mov       r3, #0x00000038
-  round
+  chi
+  rho_e
+
+  theta
+  rho_w
   mov       r3, #0x000003C0
-  round
+  chi
+  rho_e
+
+  theta
+  rho_w
   mov       r3, #0x000000D0
-  round
+  chi
+  rho_e
+
+  theta
+  rho_w
   mov       r3, #0x00000120
-  round
+  chi
+  rho_e
+
+  theta
+  rho_w
   mov       r3, #0x00000014
-  round
+  chi
+  rho_e
+
+  theta
+  rho_w
   mov       r3, #0x00000060
-  round
+  chi
+  rho_e
+
+  theta
+  rho_w
   mov       r3, #0x0000002C
-  round
+  chi
+  rho_e
+
+  theta
+  rho_w
   mov       r3, #0x00000380
-  round
+  chi
+  rho_e
+
+  theta
+  rho_w
   mov       r3, #0x000000F0
-  round
+  chi
+  rho_e
+
+  theta
+  rho_w
   mov       r3, #0x000001A0
-  round
+  chi
+  rho_e
+
+  theta
+  rho_w
   mov       r3, #0x00000012
-  round
+  chi
+  rho_e
   vstm      r0!, {d0-d15}
   vstm      r0, {d16-d23}
   pop       {r4-r5}

@@ -1008,7 +1008,7 @@ Xft4_AddIs8:
   eor       r3, r3, r14
   strb      r3, [r0]!
   subs      r2, r2, #8
-  bcs       Xtf4_AddIs8
+  bcs       Xft4_AddIs8
 Xft4_AddIs7:
   cmp       r2, #0
   beq       Xft4_AddIs0

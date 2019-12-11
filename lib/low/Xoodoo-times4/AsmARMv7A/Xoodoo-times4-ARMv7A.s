@@ -1022,3 +1022,96 @@ Xft4_AddIs7:
   strb      r3, [r0]!
 Xft4_AddIs0:
   pop       {pc}
+
+
+.macro rollc4
+  ldmia     r0, {r4-r11}
+  vmov      d0, r4, r8
+  eor       r4, r4, r4, lsl #13
+  vmov      d2, r5, r9
+  eor       r4, r4, r8, ror #29
+  vmov      d4, r6, r10
+  vmov      d6, r7, r11
+  ldr       r12, [r0, #76]
+  vmov      d14, r11, r12
+  vmov      d22, r12, r4
+  ldr       r12, [r0, #72]
+  vmov      d12, r10, r12
+  vmov      d20, r12, r7
+  ldr       r12, [r0, #68]
+  vmov      d10, r9, r12
+  vmov      d18, r12, r6
+  ldr       r12, [r0, #64]
+  vmov      d8, r8, r12
+  vmov      d16, r12, r5
+  @ State 1 and 2 are now loaded.
+  @ State 3 needs offset 8 (r12) and offset 4 (r8), the latter being the new offset 0.
+  @ Note that the rolling function makes that most state can be copied per doubleword.
+  vmov      d1, d16
+  eor       r8, r8, r8, lsl #13
+  vmov      d3, d18
+  eor       r8, r8, r12, ror #29
+  vmov      d5, d20
+  vmov      d7, d22
+
+  vmov      d15, r4, r8
+  vmov      d13, d6
+  vmov      d11, d4
+  vmov      d9, d2
+
+  eor       r12, r12, r12, lsl #13
+  vmov      d17, d10
+  eor       r12, r12, r5, ror #29
+  vmov      d19, d12
+  eor       r5, r5, r5, lsl #13 @ Next round prep
+  vmov      d21, d14
+  eor       r5, r5, r9, ror #29 @ Next round prep
+  vmov      d23, r8, r12
+
+  @ Prepare next round so we can just plug it into this formula again next time.
+  stmia     r0!, {r9-r11}
+  add       r9, r0, #24
+  ldmia     r9, {r9-r11}
+  stmia     r0!, {r8-r12}
+  stmia     r0!, {r6, r7}
+  stmia     r0, {r4, r5}
+
+.endm
+
+@ Xooffftimes4_CompressFastLoop: uchar * k -> uchar * x -> uchar * input -> size_t length -> size_t
+.align 8
+.global Xooffftimes4_CompressFastLoop
+.type Xooffftimes4_CompressFastLoop, %function
+Xooffftimes4_CompressFastLoop:
+  push      {r4-r12, lr}
+  vpush     {d8-d15}
+  mov       r14, r3
+Xft4_CompressFast:
+  sub       r3, r3, #192
+  rollc4
+  @ TODO: AddLanesAll
+
+
+  cmp       r3, #192
+  bhi       Xft4_CompressFast
+  sub       r0, r14, r3
+  vpop      {d8-d15}
+  pop       {r4-r12, pc}
+
+@ Xooffftimes4_ExpandFastLoop: uchar * yAccu -> uchar * kRoll -> uchar * output -> size_t length -> size_t
+.align 8
+.global Xooffftimes4_ExpandFastLoop
+.type Xooffftimes4_ExpandFastLoop, %function
+Xooffftimes4_ExpandFastLoop:
+  push      {r4-r11, lr}
+  vpush     {d8-d15}
+  mov       r14, r3
+Xft4_ExpandFast:
+  sub       r3, r3, #192
+
+
+  cmp       r3, #192
+  bhi       Xft4_ExpandFast
+  sub       r0, r14, r3
+  vpop      {d8-d15}
+  pop       {r4-r11, pc}

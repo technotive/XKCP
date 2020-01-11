@@ -626,18 +626,9 @@ Xt4_ExtractAndAddLanesAll_Unaligned_Loop:
   bcs       Xt4_ExtractAndAddLanesAll_Unaligned_Loop
   pop       {r4-r11,pc}
 
-
-@ Xoodootimes4_Permute_once:
 @ q0: a00 -> q1: a01 -> q2:  a02 -> q3:  a03 ->
 @ q4: a10 -> q5: a11 -> q6:  a12 -> q7:  a13 ->
 @ q8: a20 -> q9: a21 -> q10: a22 -> q11: a23
-
-.macro round
-  theta
-  rho_w
-  chi
-  rho_e
-.endm
 
 .macro theta
   veor      q15, q3, q7
@@ -943,6 +934,169 @@ Xoodootimes4_PermuteAll_12rounds:
   vpop      {d8-d15}
   bx        lr
 
+@
+@ FASTLOOP SUPPORT
+@
+
+.macro theta_star
+  veor      q15, q3, q7
+  veor      q15, q15, q11
+
+  vmov.32   r7, r8, d30
+  vmov.32   r5, r6, d31
+  ror       r7, r7, #27
+  veor      q14, q0, q4
+  ror       r8, r8, #27
+  veor      q14, q14, q8
+  ror       r5, r5, #27
+  ror       r6, r6, #27
+  eor       r7, r7, r7, ror #23
+  eor       r8, r8, r8, ror #23
+  eor       r5, r5, r5, ror #23
+  vmov.32   d30, r7, r8
+  eor       r6, r6, r6, ror #23
+  vmov.32   d31, r5, r6
+
+  vmov.32   r7, r8, d28
+  vmov.32   r5, r6, d29
+  ror       r7, r7, #27
+  veor      q0, q0, q15
+  ror       r8, r8, #27
+  veor      q4, q4, q15
+  ror       r5, r5, #27
+  veor      q8, q8, q15
+  ror       r6, r6, #27
+  veor      q15, q1, q5
+  eor       r7, r7, r7, ror #23
+  veor      q15, q15, q9
+  eor       r8, r8, r8, ror #23
+  eor       r5, r5, r5, ror #23
+  vmov.32   d28, r7, r8
+  eor       r6, r6, r6, ror #23
+  vmov.32   d29, r5, r6
+
+  vmov.32   r7, r8, d30
+  vmov.32   r5, r6, d31
+  ror       r7, r7, #27
+  veor      q1, q1, q14
+  ror       r8, r8, #27
+  veor      q5, q5, q14
+  ror       r5, r5, #27
+  veor      q9, q9, q14
+  ror       r6, r6, #27
+  veor      q14, q2, q6
+  eor       r7, r7, r7, ror #23
+  veor      q14, q14, q10
+  eor       r8, r8, r8, ror #23
+  eor       r5, r5, r5, ror #23
+  vmov.32   d30, r7, r8
+  eor       r6, r6, r6, ror #23
+  vmov.32   d31, r5, r6
+
+  vmov.32   r7, r8, d28
+  vmov.32   r5, r6, d29
+  ror       r7, r7, #27
+  veor      q2, q2, q15
+  ror       r8, r8, #27
+  veor      q6, q6, q15
+  ror       r5, r5, #27
+  veor      q10, q10, q15
+  ror       r6, r6, #27
+  eor       r7, r7, r7, ror #23
+  eor       r8, r8, r8, ror #23
+  eor       r5, r5, r5, ror #23
+  vmov.32   d28, r7, r8
+  eor       r6, r6, r6, ror #23
+  vmov.32   d29, r5, r6
+  veor      q3, q3, q14
+  veor      q7, q7, q14
+  veor      q11, q11, q14
+.endm
+
+.macro rho_w_star
+  @ vshl.U32  q12, q8, #11
+  @ vsri.U32  q12, q8, #21
+  vmov.32   r5, r6, d16
+  vshl.U32  q13, q9, #11
+  vmov.32   r7, r8, d17
+  vsri.U32  q13, q9, #21
+  ror       r5, r5, #21
+  vshl.U32  q14, q10, #11
+  ror       r6, r6, #21
+  vsri.U32  q14, q10, #21
+  ror       r7, r7, #21
+  vshl.U32  q15, q11, #11
+  ror       r8, r8, #21
+  vsri.U32  q15, q11, #21
+  vmov.32   d24, r5, r6
+  vmov.32   d25, r7, r8
+  @ NOTE: Here we are hiding in the shadows. What happens is that the ROR action is interleaved with the vector actions so that they get executed for free instead of a NOP .
+.endm
+
+.macro chi_star
+  @ NOTE: Iota
+  vdup.32   q8, r7
+  veor      q0, q0, q8
+
+  vbic      q11, q12, q7
+  vbic      q9, q0, q12
+  vbic      q10, q7, q0
+  veor      q8, q10, q12
+  veor      q12, q7, q9
+  veor      q0, q0, q11
+
+  vbic      q7, q13, q4
+  vbic      q10, q1, q13
+  vbic      q11, q4, q1
+  veor      q9, q11, q13
+  veor      q13, q4, q10
+  veor      q1, q1, q7
+
+  vbic      q4, q14, q5
+  vbic      q11, q2, q14
+  vbic      q7, q5, q2
+  veor      q10, q7, q14
+  veor      q14, q5, q11
+  veor      q2, q2, q4
+
+  vbic      q5, q15, q6
+  vbic      q7, q3, q15
+  vbic      q4, q6, q3
+  veor      q4, q4, q15
+  veor      q15, q6, q7
+  veor      q3, q3, q5
+.endm
+
+.macro rho_e_star
+  vshl.U32  q11, q9, #8
+  vsri.U32  q11, q9, #24
+
+  vshl.U32  q9, q4, #8
+  vsri.U32  q9, q4, #24
+
+  vmov.32   r5, r6, d16
+  vmov.32   r7, r8, d17
+  ror       r5, r5, #24
+  vshl.U32  q8, q10, #8
+  ror       r6, r6, #24
+  vsri.U32  q8, q10, #24
+  ror       r7, r7, #24
+  vmov.32   d20, r5, r6
+  ror       r8, r8, #24
+  vmov.32   d21, r7, r8
+
+  vshl.U32  q4, q12, #1
+  vsri.U32  q4, q12, #31
+
+  vshl.U32  q5, q13, #1
+  vsri.U32  q5, q13, #31
+
+  vshl.U32  q6, q14, #1
+  vsri.U32  q6, q14, #31
+
+  vshl.U32  q7, q15, #1
+  vsri.U32  q7, q15, #31
+.endm
 
 @ Xooffftimes4_AddIs: uchar * output -> uchar * input -> size_t bitLen -> void
 @ Note that when dealing with 4096-byte or 512-byte code, bitLen can only take eight (four each) distinct values.
@@ -1023,42 +1177,42 @@ Xft4_AddIs7:
 Xft4_AddIs0:
   pop       {pc}
 
-.macro x6
-  theta
-  rho_w
-  mov       r3, #0x00000060
-  chi
-  rho_e
+.macro xoodoo_6_star
+  theta_star
+  rho_w_star
+  mov       r7, #0x00000060
+  chi_star
+  rho_e_star
 
-  theta
-  rho_w
-  mov       r3, #0x0000002C
-  chi
-  rho_e
+  theta_star
+  rho_w_star
+  mov       r7, #0x0000002C
+  chi_star
+  rho_e_star
 
-  theta
-  rho_w
-  mov       r3, #0x00000380
-  chi
-  rho_e
+  theta_star
+  rho_w_star
+  mov       r7, #0x00000380
+  chi_star
+  rho_e_star
 
-  theta
-  rho_w
-  mov       r3, #0x000000F0
-  chi
-  rho_e
+  theta_star
+  rho_w_star
+  mov       r7, #0x000000F0
+  chi_star
+  rho_e_star
 
-  theta
-  rho_w
-  mov       r3, #0x000001A0
-  chi
-  rho_e
+  theta_star
+  rho_w_star
+  mov       r7, #0x000001A0
+  chi_star
+  rho_e_star
 
-  theta
-  rho_w
-  mov       r3, #0x00000012
-  chi
-  rho_e
+  theta_star
+  rho_w_star
+  mov       r7, #0x00000012
+  chi_star
+  rho_e_star
 .endm
 
 .macro everest
@@ -1206,14 +1360,12 @@ Xft4_AddIs0:
 .global Xooffftimes4_CompressFastLoop
 .type Xooffftimes4_CompressFastLoop, %function
 Xooffftimes4_CompressFastLoop:
-  mov r0, #0
-  bx lr
   push      {r4-r8, lr}
   vpush     {d8-d15}
   sub       r3, r3, #192
 Xft4_CompressFast:
   everest
-  x6
+  xoodoo_6_star
   avalanche
   subs      r3, r3, #192
   bcs       Xft4_CompressFast

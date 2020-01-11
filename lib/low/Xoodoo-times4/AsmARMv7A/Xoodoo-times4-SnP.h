@@ -36,7 +36,8 @@ void Xoodootimes4_ExtractAndAddBytes(const void *states, unsigned int instanceIn
 void Xoodootimes4_ExtractAndAddLanesAll(const void *states, const unsigned char *input, unsigned char *output, unsigned int laneCount, unsigned int laneOffset);
 
 #define Xoodootimes4_FastXoofff_supported
-void Xooffftimes4_AddIs(unsigned char *output, const unsigned char *input, size_t bitLen);
+// void Xooffftimes4_AddIs(unsigned char *output, const unsigned char *input, size_t bitLen);
+// Keep AddIs commented until you know Compress and Expand work correctly.
 size_t Xooffftimes4_CompressFastLoop(unsigned char *k, unsigned char *x, const unsigned char *input, size_t length);
 size_t Xooffftimes4_ExpandFastLoop(unsigned char *yAccu, const unsigned char *kRoll, unsigned char *output, size_t length);
 

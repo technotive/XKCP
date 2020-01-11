@@ -1023,59 +1023,182 @@ Xft4_AddIs7:
 Xft4_AddIs0:
   pop       {pc}
 
+.macro x6
+  theta
+  rho_w
+  mov       r3, #0x00000060
+  chi
+  rho_e
 
-.macro rollc4
-  ldmia     r0, {r4-r11}
-  vmov      d0, r4, r8
+  theta
+  rho_w
+  mov       r3, #0x0000002C
+  chi
+  rho_e
+
+  theta
+  rho_w
+  mov       r3, #0x00000380
+  chi
+  rho_e
+
+  theta
+  rho_w
+  mov       r3, #0x000000F0
+  chi
+  rho_e
+
+  theta
+  rho_w
+  mov       r3, #0x000001A0
+  chi
+  rho_e
+
+  theta
+  rho_w
+  mov       r3, #0x00000012
+  chi
+  rho_e
+.endm
+
+.macro everest
+  @ Key seed bytes
+  vldm      r0, {d0-d5}
+
+  @ Message Bytes
+  vldm      r2!, {d8-d23}
+  vldm      r2!, {d24-d31}
+
+  @ Get key generation inputs
+  vmov      r4, r5, d0 @ 0,1
+  vmov      r6, r7, d2 @ 4,5
+  vmov      r8, s8 @ 8
+
+  @ climbing to 12-15
   eor       r4, r4, r4, lsl #13
-  vmov      d2, r5, r9
-  eor       r4, r4, r8, ror #29
-  vmov      d4, r6, r10
-  vmov      d6, r7, r11
-  ldr       r12, [r0, #76]
-  vmov      d14, r11, r12
-  vmov      d22, r12, r4
-  ldr       r12, [r0, #72]
-  vmov      d12, r10, r12
-  vmov      d20, r12, r7
-  ldr       r12, [r0, #68]
-  vmov      d10, r9, r12
-  vmov      d18, r12, r6
-  ldr       r12, [r0, #64]
-  vmov      d8, r8, r12
-  vmov      d16, r12, r5
-  @ State 1 and 2 are now loaded.
-  @ State 3 needs offset 8 (r12) and offset 4 (r8), the latter being the new offset 0.
-  @ Note that the rolling function makes that most state can be copied per doubleword.
-  vmov      d1, d16
+  eor       r4, r4, r6, ror #29
+  @ r4 = 12
+  eor       r6, r6, r6, lsl #13
+  eor       r6, r6, r8, ror #29
+  @ r6 = 13
   eor       r8, r8, r8, lsl #13
-  vmov      d3, d18
-  eor       r8, r8, r12, ror #29
-  vmov      d5, d20
-  vmov      d7, d22
+  eor       r8, r8, r5, ror #29
+  @ r8 = 14
+  eor       r5, r5, r5, lsl #13
+  eor       r5, r5, r7, ror #29
+  @ r5 = 15
 
-  vmov      d15, r4, r8
-  vmov      d13, d6
-  vmov      d11, d4
-  vmov      d9, d2
+  @ 0,1,2,3
+  veor      q4, q0, q4
+  @ 4,5,6,7
+  veor      q5, q1, q5
+  veor      q7, q1, q7
+  @ 8,9,10,11
+  veor      q6, q2, q6
+  veor      q8, q2, q8
+  veor      q10, q2, q10
 
-  eor       r12, r12, r12, lsl #13
-  vmov      d17, d10
-  eor       r12, r12, r5, ror #29
-  vmov      d19, d12
-  eor       r5, r5, r5, lsl #13 @ Next round prep
-  vmov      d21, d14
-  eor       r5, r5, r9, ror #29 @ Next round prep
-  vmov      d23, r8, r12
+  @ Roll
+  vmov      s12, s1
+  vmov      s13, s2
+  vmov      s14, s3
+  vmov      s15, r4
 
-  @ Prepare next round so we can just plug it into this formula again next time.
-  stmia     r0!, {r9-r11}
-  add       r9, r0, #24
-  ldmia     r9, {r9-r11}
-  stmia     r0!, {r8-r12}
-  stmia     r0!, {r6, r7}
-  stmia     r0, {r4, r5}
+  vmov      s0, s5
+  vmov      s1, s6
+  vmov      s2, s7
+  vmov      s3, r6
 
+  vmov      s4, s9
+  vmov      s5, s10
+  vmov      s6, s11
+  vmov      s7, r8
+
+  vmov      s8, s13
+  vmov      s9, s14
+  vmov      d5, r4, r5
+  vstm      r0, {d0-d5}
+
+  @ 1,2,3,12
+  veor      q9, q3, q9
+  veor      q11, q3, q11
+  veor      q13, q3, q13
+
+  @ 5,6,7,13
+  veor      q12, q0, q12
+  veor      q14, q0, q14
+
+  @ 9,10,11,14
+  veor      q15, q1, q15
+
+  @ Shatter
+  vuzp.32   q4, q10
+  vuzp.32   q7, q13
+  vtrn.32   q4, q7
+  vtrn.32   q10, q13
+  @ q4, q10, q7, q13
+
+  vuzp.32   q5, q11
+  vuzp.32   q8, q14
+  vtrn.32   q5, q8
+  vtrn.32   q11, q14
+  @ q5, q11, q8, q14
+
+  vuzp.32   q6, q12
+  vuzp.32   q9, q15
+  vtrn.32   q6, q9
+  vtrn.32   q12, q15
+  @ q6, q12, q9, q15
+
+  @ Reordering (merge later, this is for convenience) (try merge up first!)
+  vmov      q0, q4
+  vmov      q1, q10
+  vmov      q2, q7
+  vmov      q3, q13
+  vmov      q4, q5
+  vmov      q5, q11
+  vswp      q6, q8 @ q6 nonempty
+  vmov      q7, q14
+  @ q8 done
+  vswp      q9, q12 @q9 nonempty
+  vmov      q10, q12
+  vmov      q11, q15
+.endm
+
+.macro avalanche
+  vldm      r1, {d24-d29}
+
+  vtrn.32   q0, q2
+  vtrn.32   q1, q3
+  vzip.32   q0, q1
+  vzip.32   q2, q3
+
+  veor      q0, q0, q1
+  veor      q2, q2, q3
+  veor      q12, q12, q0
+  veor      q12, q12, q2
+
+  vtrn.32   q4, q6
+  vtrn.32   q5, q7
+  vzip.32   q4, q5
+  vzip.32   q6, q7
+
+  veor      q4, q4, q5
+  veor      q6, q6, q7
+  veor      q13, q13, q4
+  veor      q13, q13, q6
+
+  vtrn.32   q8, q10
+  vtrn.32   q9, q11
+  vzip.32   q8, q9
+  vzip.32   q10, q11
+
+  veor      q8, q8, q9
+  veor      q10, q10, q11
+  veor      q14, q14, q9
+  veor      q14, q14, q11
+
+  vstm      r1, {d24-d29}
 .endm
 
 @ Xooffftimes4_CompressFastLoop: uchar * k -> uchar * x -> uchar * input -> size_t length -> size_t
@@ -1085,16 +1208,16 @@ Xft4_AddIs0:
 Xooffftimes4_CompressFastLoop:
   push      {r4-r12, lr}
   vpush     {d8-d15}
-  mov       r14, r3
-Xft4_CompressFast:
   sub       r3, r3, #192
-  rollc4
-  @ TODO: AddLanesAll
-
-
-  cmp       r3, #192
-  bhi       Xft4_CompressFast
-  sub       r0, r14, r3
+Xft4_CompressFast:
+  @ rollc4 | decommisioned
+  @ avalanche | decommisioned
+  everest
+  x6
+  avalanche
+  subs      r3, r3, #192
+  bcs       Xft4_CompressFast
+  add       r0, r3, #192
   vpop      {d8-d15}
   pop       {r4-r12, pc}
 

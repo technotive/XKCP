@@ -1206,12 +1206,11 @@ Xft4_AddIs0:
 .global Xooffftimes4_CompressFastLoop
 .type Xooffftimes4_CompressFastLoop, %function
 Xooffftimes4_CompressFastLoop:
-  push      {r4-r12, lr}
+  push      {r4-r8, lr}
+  pop       {r4-r8, pc}
   vpush     {d8-d15}
   sub       r3, r3, #192
 Xft4_CompressFast:
-  @ rollc4 | decommisioned
-  @ avalanche | decommisioned
   everest
   x6
   avalanche
@@ -1219,7 +1218,7 @@ Xft4_CompressFast:
   bcs       Xft4_CompressFast
   add       r0, r3, #192
   vpop      {d8-d15}
-  pop       {r4-r12, pc}
+  pop       {r4-r8, pc}
 
 @ Xooffftimes4_ExpandFastLoop: uchar * yAccu -> uchar * kRoll -> uchar * output -> size_t length -> size_t
 .align 8

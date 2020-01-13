@@ -938,6 +938,24 @@ Xoodootimes4_PermuteAll_12rounds:
 @ FASTLOOP SUPPORT
 @
 
+
+@ Xooffftimes4_AddIs: uchar * output -> uchar * input -> size_t bitLen -> void
+@ Note that when dealing with 4096-byte or 512-byte code, bitLen can only take eight (four each) distinct values.
+.align 8
+.global Xooffftimes4_AddIs
+.type Xooffftimes4_AddIs, %function
+Xooffftimes4_AddIs:
+  @ Unoptimized
+  push      {r4, lr}
+Xft4_AddIs_Loop:
+  ldrb      r3, [r0]
+  ldrb      r4, [r1], #1
+  eor       r3, r3, r4
+  strb      r3, [r0], #1
+  subs      r2, r2, #1
+  bhi       Xft4_AddIs_Loop
+  pop       {r4, pc}
+
 .macro theta_star
   veor      q15, q3, q7
   veor      q15, q15, q11

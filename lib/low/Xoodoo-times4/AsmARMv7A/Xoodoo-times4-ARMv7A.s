@@ -948,7 +948,7 @@ Xooffftimes4_AddIs:
   @ Unoptimized
   push      {r4, lr}
 Xft4_AddIs_32:
-  cmp       r2, #32
+  subs      r2, #32
   bls       Xft4_AddIs_leftover
   ldr       r3, [r0]
   ldr       r4, [r1], #4
@@ -957,6 +957,7 @@ Xft4_AddIs_32:
   b         Xft4_AddIs_32
 Xft4_AddIs_leftover:
   popeq     {r4, pc}
+  add       r2, #32
   ldr       r3, [r0]
   ldr       r4, [r1]
   eor       r3, r3, r4

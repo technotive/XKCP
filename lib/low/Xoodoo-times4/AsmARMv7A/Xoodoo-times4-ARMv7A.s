@@ -1323,6 +1323,7 @@ Xft4_CompressFast:
   xoodoo_6_star
   avalanche
   mov r0, #192
+  vpop {d8-d15}
   pop {r4-r9, pc}
 
   add       r9, #192

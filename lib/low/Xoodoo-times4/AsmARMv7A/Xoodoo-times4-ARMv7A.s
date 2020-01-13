@@ -947,18 +947,18 @@ Xoodootimes4_PermuteAll_12rounds:
 Xooffftimes4_AddIs:
   @ Unoptimized
   push      {r4, lr}
-Xft4_AddIs_8:
-  cmp       r2, #8
-  bcc       Xft4_AddIs_leftover
-  ldrb      r3, [r0]
-  ldrb      r4, [r1], #1
+Xft4_AddIs_32:
+  cmp       r2, #32
+  bls       Xft4_AddIs_leftover
+  ldr       r3, [r0]
+  ldr       r4, [r1], #4
   eor       r3, r3, r4
-  strb      r3, [r0], #1
-  b         Xft4_AddIs_8
+  strb      r3, [r0], #4
+  b         Xft4_AddIs_32
 Xft4_AddIs_leftover:
   popeq     {r4, pc}
-  ldrb      r3, [r0]
-  ldrb      r4, [r1]
+  ldr       r3, [r0]
+  ldr       r4, [r1]
   eor       r3, r3, r4
   mov       r14, #1
   lsl       r14, r14, r2

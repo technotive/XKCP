@@ -938,6 +938,86 @@ Xoodootimes4_PermuteAll_12rounds:
 @ FASTLOOP SUPPORT
 @
 
+
+@ Xooffftimes4_AddIs: uchar * output -> uchar * input -> size_t bitLen -> void
+@ Note that when dealing with 4096-byte or 512-byte code, bitLen can only take eight (four each) distinct values.
+.align 8
+.global Xooffftimes4_AddIs
+.type Xooffftimes4_AddIs, %function
+Xooffftimes4_AddIs:
+  @using q4-q7 forces us to push/pop so let us maximize by choosing 128*8 successive loads. (top part)
+  push      {lr}
+Xft4_AddIs1024:
+  cmp       r2, #1024
+  bcc       Xft4_AddIs512
+  vldm      r0, {d16-d31}
+  vldm      r1!, {d0-d7}
+  veor      q8, q8, q0
+  veor      q9, q9, q1
+  veor      q10, q10, q2
+  veor      q11, q11, q3
+  vstm      r0!, {d16-d23}
+  vldm      r1!, {d0-d7}
+  veor      q8, q8, q0
+  veor      q9, q9, q1
+  veor      q10, q10, q2
+  veor      q11, q11, q3
+  vstm      r0!, {d24-d31}
+  subs      r2, r2, #1024
+  b         Xft4_AddIs1024
+Xft4_AddIs512:
+  cmp       r2, #512
+  bcc       Xft4_AddIs128
+  vldm      r0, {d16-d23}
+  vldm      r1!, {d0-d7}
+  veor      q8, q8, q0
+  veor      q9, q9, q1
+  veor      q10, q10, q2
+  veor      q11, q11, q3
+  vstm      r0!, {d16-d23}
+  subs      r2, r2, #512
+  b         Xft4_AddIs512
+Xft4_AddIs128:
+  cmp       r2, #128
+  bcc       Xft4_AddIs32
+  vldm      r0, {d2-d3}
+  vldm      r1!, {d0-d1}
+  veor      q1, q1, q0
+  vstm      r0!, {d2-d3}
+  subs      r2, r2, #128
+  b         Xft4_AddIs128
+Xft4_AddIs32:
+  cmp       r2, #32
+  bcc       Xft4_AddIs8
+  ldr       r3, [r0]
+  ldr       r14, [r1]!
+  eor       r3, r3, r14
+  str       r3, [r0]!
+  subs      r2, r2, #32
+  b         Xft4_AddIs32
+Xft4_AddIs8:
+  cmp       r2, #8
+  bcc       Xft4_AddIs7
+  ldrb      r3, [r0]
+  ldrb      r14, [r1]!
+  eor       r3, r3, r14
+  strb      r3, [r0]!
+  subs      r2, r2, #8
+  bcs       Xft4_AddIs8
+Xft4_AddIs7:
+  cmp       r2, #0
+  beq       Xft4_AddIs0
+  ldrb      r3, [r0]
+  ldrb      r14, [r1]!
+  eor       r3, r3, r14
+  mov       r14, #1
+  lsl       r14, r2
+  sub       r14, #1
+  and       r3, r3, r14
+  strb      r3, [r0]!
+Xft4_AddIs0:
+  pop       {pc}
+
 .macro theta_star
   veor      q15, q3, q7
   veor      q15, q15, q11
@@ -1030,7 +1110,6 @@ Xoodootimes4_PermuteAll_12rounds:
   vsri.U32  q15, q11, #21
   vmov.32   d24, r5, r6
   vmov.32   d25, r7, r8
-  @ NOTE: Here we are hiding in the shadows. What happens is that the ROR action is interleaved with the vector actions so that they get executed for free instead of a NOP .
 .endm
 
 .macro chi_star
@@ -1097,85 +1176,6 @@ Xoodootimes4_PermuteAll_12rounds:
   vshl.U32  q7, q15, #1
   vsri.U32  q7, q15, #31
 .endm
-
-@ Xooffftimes4_AddIs: uchar * output -> uchar * input -> size_t bitLen -> void
-@ Note that when dealing with 4096-byte or 512-byte code, bitLen can only take eight (four each) distinct values.
-.align 8
-.global Xooffftimes4_AddIs
-.type Xooffftimes4_AddIs, %function
-Xooffftimes4_AddIs:
-  @using q4-q7 forces us to push/pop so let us maximize by choosing 128*8 successive loads. (top part)
-  push      {lr}
-Xft4_AddIs1024:
-  cmp       r2, #1024
-  bcc       Xft4_AddIs512
-  vldm      r0, {d16-d31}
-  vldm      r1!, {d0-d7}
-  veor      q8, q8, q0
-  veor      q9, q9, q1
-  veor      q10, q10, q2
-  veor      q11, q11, q3
-  vstm      r0!, {d16-d23}
-  vldm      r1!, {d0-d7}
-  veor      q8, q8, q0
-  veor      q9, q9, q1
-  veor      q10, q10, q2
-  veor      q11, q11, q3
-  vstm      r0!, {d24-d31}
-  subs      r2, r2, #1024
-  b         Xft4_AddIs1024
-Xft4_AddIs512:
-  cmp       r2, #512
-  bcc       Xft4_AddIs128
-  vldm      r0, {d16-d23}
-  vldm      r1!, {d0-d7}
-  veor      q8, q8, q0
-  veor      q9, q9, q1
-  veor      q10, q10, q2
-  veor      q11, q11, q3
-  vstm      r0!, {d16-d23}
-  subs      r2, r2, #512
-  b         Xft4_AddIs512
-Xft4_AddIs128:
-  cmp       r2, #128
-  bcc       Xft4_AddIs32
-  vldm      r0, {d2-d3}
-  vldm      r1!, {d0-d1}
-  veor      q1, q1, q0
-  vstm      r0!, {d2-d3}
-  subs      r2, r2, #128
-  b         Xft4_AddIs128
-Xft4_AddIs32:
-  cmp       r2, #32
-  bcc       Xft4_AddIs8
-  ldr       r3, [r0]
-  ldr       r14, [r1]!
-  eor       r3, r3, r14
-  str       r3, [r0]!
-  subs      r2, r2, #32
-  b         Xft4_AddIs32
-Xft4_AddIs8:
-  cmp       r2, #8
-  bcc       Xft4_AddIs7
-  ldrb      r3, [r0]
-  ldrb      r14, [r1]!
-  eor       r3, r3, r14
-  strb      r3, [r0]!
-  subs      r2, r2, #8
-  bcs       Xft4_AddIs8
-Xft4_AddIs7:
-  cmp       r2, #0
-  beq       Xft4_AddIs0
-  ldrb      r3, [r0]
-  ldrb      r14, [r1]!
-  eor       r3, r3, r14
-  mov       r14, #1
-  lsl       r14, r2
-  sub       r14, #1
-  and       r3, r3, r14
-  strb      r3, [r0]!
-Xft4_AddIs0:
-  pop       {pc}
 
 .macro xoodoo_6_star
   theta_star
@@ -1306,17 +1306,20 @@ Xft4_AddIs0:
 
   @ Reordering (merge later, this is for convenience) (try merge up first!)
   vmov      q0, q4
-  vmov      q1, q10
-  vmov      q2, q7
-  vmov      q3, q13
   vmov      q4, q5
   vmov      q5, q11
-  vswp      q6, q8 @ q6 nonempty
-  vmov      q7, q14
-  @ q8 done
-  vswp      q9, q12 @q9 nonempty
-  vmov      q10, q12
   vmov      q11, q15
+
+  vmov      q1, q10
+  vmov      q10, q9
+  vmov      q9, q12
+
+  vmov      q2, q7
+  vmov      q7, q14
+
+  vmov      q3, q13
+
+  vswp      q6, q8
 .endm
 
 .macro avalanche

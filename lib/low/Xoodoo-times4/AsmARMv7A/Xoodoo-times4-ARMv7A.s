@@ -1322,7 +1322,7 @@ Xft4_CompressFast:
   everest
   xoodoo_6_star
   avalanche
-  mov r0, r3
+  mov r0, #192
   pop {r4-r8, pc}
 
   add       r14, #192

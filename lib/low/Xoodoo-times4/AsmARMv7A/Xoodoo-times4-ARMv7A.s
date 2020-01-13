@@ -948,7 +948,7 @@ Xooffftimes4_AddIs:
   @ Unoptimized
   push      {r4, lr}
 Xft4_AddIs_8:
-  cmp       r2, r2, #8
+  cmp       r2, #8
   bcc       Xft4_AddIs_leftover
   ldrb      r3, [r0]
   ldrb      r4, [r1], #1

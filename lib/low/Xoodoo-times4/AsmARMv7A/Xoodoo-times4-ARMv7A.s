@@ -1321,7 +1321,7 @@ Xooffftimes4_CompressFastLoop:
   vpush     {d8-d15}
   sub       r3, r3, #192
 Xft4_CompressFast:
-  @ everest
+  everest
   xoodoo_6_star
   avalanche
   subs      r3, r3, #192

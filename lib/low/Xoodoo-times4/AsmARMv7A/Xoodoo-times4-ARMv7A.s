@@ -947,14 +947,26 @@ Xoodootimes4_PermuteAll_12rounds:
 Xooffftimes4_AddIs:
   @ Unoptimized
   push      {r4, lr}
-Xft4_AddIs_Loop:
+Xft4_AddIs_8:
+  cmp       r2, r2, #8
+  bcc       Xft4_AddIs_leftover
   ldrb      r3, [r0]
   ldrb      r4, [r1], #1
   eor       r3, r3, r4
   strb      r3, [r0], #1
-  subs      r2, r2, #1
-  bhi       Xft4_AddIs_Loop
+  b         Xft4_AddIs_8
+Xft4_AddIs_leftover:
+  popeq     {r4, pc}
+  ldrb      r3, [r0]
+  ldrb      r4, [r1]
+  eor       r3, r3, r4
+  mov       r14, #1
+  lsl       r14, r14, r2
+  sub       r14, r14, #1
+  and       r3, r3, r14
+  strb      r3, [r0]
   pop       {r4, pc}
+
 
 .macro theta_star
   veor      q15, q3, q7

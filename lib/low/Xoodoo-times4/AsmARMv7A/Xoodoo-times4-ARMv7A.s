@@ -1314,19 +1314,20 @@ Xoodootimes4_PermuteAll_12rounds:
 .global Xooffftimes4_CompressFastLoop
 .type Xooffftimes4_CompressFastLoop, %function
 Xooffftimes4_CompressFastLoop:
-  push      {r4-r8, lr}
+  push      {r4-r9, lr}
   vpush     {d8-d15}
-  mov       r14, #192
+  mov       r9, #0
+  sub       r3, #192
 Xft4_CompressFast:
   everest
   xoodoo_6_star
   avalanche
-  add       r14, #192
-  cmp       r14, r3
-  bcs       Xft4_CompressFast
-  sub       r0, r14, r3
+  add       r9, #192
+  subs      r3, #192
+  bhi       Xft4_CompressFast
+  mov       r0, r9
   vpop      {d8-d15}
-  pop       {r4-r8, pc}
+  pop       {r4-r9, pc}
 
 @ Xooffftimes4_ExpandFastLoop: uchar * yAccu -> uchar * kRoll -> uchar * output -> size_t length -> size_t
 @ .align 8

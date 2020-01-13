@@ -941,32 +941,32 @@ Xoodootimes4_PermuteAll_12rounds:
 
 @ Xooffftimes4_AddIs: uchar * output -> uchar * input -> size_t bitLen -> void
 @ Note that when dealing with 4096-byte or 512-byte code, bitLen can only take eight (four each) distinct values.
-.align 8
-.global Xooffftimes4_AddIs
-.type Xooffftimes4_AddIs, %function
-Xooffftimes4_AddIs:
-  @ Unoptimized
-  push      {r4, lr}
-Xft4_AddIs_32:
-  subs      r2, #32
-  bls       Xft4_AddIs_leftover
-  ldr       r3, [r0]
-  ldr       r4, [r1], #4
-  eor       r3, r3, r4
-  strb      r3, [r0], #4
-  b         Xft4_AddIs_32
-Xft4_AddIs_leftover:
-  popeq     {r4, pc}
-  add       r2, #32
-  ldr       r3, [r0]
-  ldr       r4, [r1]
-  eor       r3, r3, r4
-  mov       r14, #1
-  lsl       r14, r14, r2
-  sub       r14, r14, #1
-  and       r3, r3, r14
-  strb      r3, [r0]
-  pop       {r4, pc}
+@ .align 8
+@ .global Xooffftimes4_AddIs
+@ .type Xooffftimes4_AddIs, %function
+@ Xooffftimes4_AddIs:
+@   @ Unoptimized
+@   push      {r4, lr}
+@ Xft4_AddIs_32:
+@   subs      r2, #32
+@   bls       Xft4_AddIs_leftover
+@   ldr       r3, [r0]
+@   ldr       r4, [r1], #4
+@   eor       r3, r3, r4
+@   strb      r3, [r0], #4
+@   b         Xft4_AddIs_32
+@ Xft4_AddIs_leftover:
+@   popeq     {r4, pc}
+@   add       r2, #32
+@   ldr       r3, [r0]
+@   ldr       r4, [r1]
+@   eor       r3, r3, r4
+@   mov       r14, #1
+@   lsl       r14, r14, r2
+@   sub       r14, r14, #1
+@   and       r3, r3, r14
+@   strb      r3, [r0]
+@   pop       {r4, pc}
 
 
 .macro theta_star

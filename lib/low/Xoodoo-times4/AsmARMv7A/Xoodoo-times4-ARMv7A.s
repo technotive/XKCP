@@ -1316,14 +1316,14 @@ Xoodootimes4_PermuteAll_12rounds:
 Xooffftimes4_CompressFastLoop:
   push      {r4-r8, lr}
   vpush     {d8-d15}
-  mov       r14, r3
+  mov       r14, #192
 Xft4_CompressFast:
-  sub       r3, r3, #192
   everest
   xoodoo_6_star
   avalanche
-  cmp       r3, #192
-  bcc       Xft4_CompressFast
+  add       r14, #192
+  cmp       r14, r3
+  bcs       Xft4_CompressFast
   sub       r0, r14, r3
   vpop      {d8-d15}
   pop       {r4-r8, pc}

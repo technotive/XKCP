@@ -1310,25 +1310,25 @@ Xoodootimes4_PermuteAll_12rounds:
 .endm
 
 @ Xooffftimes4_CompressFastLoop: uchar * k -> uchar * x -> uchar * input -> size_t length -> size_t
-@ .align 8
-@ .global Xooffftimes4_CompressFastLoop
-@ .type Xooffftimes4_CompressFastLoop, %function
-@ Xooffftimes4_CompressFastLoop:
-@   mov r0, #0
-@   bx lr
-@
-@   push      {r4-r8, lr}
-@   vpush     {d8-d15}
-@   sub       r3, r3, #192
-@ Xft4_CompressFast:
-@   everest
-@   xoodoo_6_star
-@   avalanche
-@   subs      r3, r3, #192
-@   bcs       Xft4_CompressFast
-@   add       r0, r3, #192
-@   vpop      {d8-d15}
-@   pop       {r4-r8, pc}
+.align 8
+.global Xooffftimes4_CompressFastLoop
+.type Xooffftimes4_CompressFastLoop, %function
+Xooffftimes4_CompressFastLoop:
+  mov r0, #0
+  bx lr
+
+  push      {r4-r8, lr}
+  vpush     {d8-d15}
+  sub       r3, r3, #192
+Xft4_CompressFast:
+  everest
+  xoodoo_6_star
+  avalanche
+  subs      r3, r3, #192
+  bcs       Xft4_CompressFast
+  add       r0, r3, #192
+  vpop      {d8-d15}
+  pop       {r4-r8, pc}
 
 @ Xooffftimes4_ExpandFastLoop: uchar * yAccu -> uchar * kRoll -> uchar * output -> size_t length -> size_t
 @ .align 8

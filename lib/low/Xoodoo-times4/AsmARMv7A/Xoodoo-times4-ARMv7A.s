@@ -1321,8 +1321,6 @@ Xft4_AddIs_0:
 .global Xooffftimes4_CompressFastLoop
 .type Xooffftimes4_CompressFastLoop, %function
 Xooffftimes4_CompressFastLoop:
-  mov r0, #0
-  bx lr
   push      {r4-r8, lr}
   vpush     {d8-d15}
   mov       r14, #0
@@ -1343,23 +1341,23 @@ Xft4_CompressFast:
   vpop      {d8-d15}
   pop       {r4-r8, pc}
 
-@ Xooffftimes4_ExpandFastLoop: uchar * yAccu -> uchar * kRoll -> uchar * output -> size_t length -> size_t
-@ .align 8
-@ .global Xooffftimes4_ExpandFastLoop
-@ .type Xooffftimes4_ExpandFastLoop, %function
-@ Xooffftimes4_ExpandFastLoop:
-@   mov r0, #0
-@   bx lr
-@
-@   push      {r4-r11, lr}
-@   vpush     {d8-d15}
-@   mov       r14, r3
-@ Xft4_ExpandFast:
-@   sub       r3, r3, #192
-@
-@
-@   cmp       r3, #192
-@   bhi       Xft4_ExpandFast
-@   sub       r0, r14, r3
-@   vpop      {d8-d15}
-@   pop       {r4-r11, pc}
+Xooffftimes4_ExpandFastLoop: uchar * yAccu -> uchar * kRoll -> uchar * output -> size_t length -> size_t
+.align 8
+.global Xooffftimes4_ExpandFastLoop
+.type Xooffftimes4_ExpandFastLoop, %function
+Xooffftimes4_ExpandFastLoop:
+  mov r0, #0
+  bx lr
+
+  push      {r4-r11, lr}
+  vpush     {d8-d15}
+  mov       r14, r3
+Xft4_ExpandFast:
+  sub       r3, r3, #192
+
+
+  cmp       r3, #192
+  bhi       Xft4_ExpandFast
+  sub       r0, r14, r3
+  vpop      {d8-d15}
+  pop       {r4-r11, pc}

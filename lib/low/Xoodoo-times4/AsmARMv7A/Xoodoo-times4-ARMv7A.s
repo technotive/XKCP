@@ -1310,7 +1310,6 @@ Xoodootimes4_PermuteAll_12rounds:
 .endm
 
 @ Xooffftimes4_AddIs: uchar * output -> uchar * input -> size_t bitLen -> void
-@ Note that when dealing with 4096-byte or 512-byte code, bitLen can only take eight (four each) distinct values.
 .align 8
 .global Xooffftimes4_AddIs
 .type Xooffftimes4_AddIs, %function

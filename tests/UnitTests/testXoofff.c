@@ -264,7 +264,7 @@ void TempTests(){
     b[i+1] = (uint32_t)((a[i]*11)+1);
     c[i+1] = a[i+1]^b[i+1];
   }
-  c[words] ^= ((1 << tail)-1);
+  c[words] &= ((1 << tail)-1);
   printf("%hhx\n", a[8]);
   printf("%hhx\n", b[8]);
   printf("%hhx\n", a[8]^b[8]);

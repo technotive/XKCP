@@ -280,7 +280,7 @@ void TempTests(){
 
   for(i = 0; i < vsize; i++) {
     if(i%48 == 0) { printf("\n"); }
-    printf("%d", input[i]);
+    printf("%03d ", input[i]);
   }
   printf("\n");
 
@@ -289,7 +289,7 @@ void TempTests(){
 
   for(i = 0; i < vsize; i++) {
     if(i%48 == 0) { printf("\n"); }
-    printf("%d", input[i]);
+    printf("%03d ", input[i]);
   }
   printf("\n");
 }

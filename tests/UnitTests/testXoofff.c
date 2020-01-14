@@ -129,7 +129,7 @@ static void performTestXoofffOneInput(BitLength keyLen, BitLength inputLen, BitL
         BitSequence *pInput = input;
         BitSequence *pOutput = output;
         BitLength ilen = inputLen, olen = outputLen;
-        
+
         do
         {
             unsigned int len = ((rand() << 15) ^ rand()) % (ilen + 1);
@@ -213,7 +213,7 @@ static void performTestXoofff(unsigned char *checksum, unsigned int mode)
     for(keyLen=0; keyLen<keyBitSize; keyLen = (keyLen < 2*SnP_width) ? (keyLen+1) : (keyLen+8)) {
         performTestXoofffOneInput(keyLen, inputLen, outputLen, flags, &spongeChecksum, mode);
     }
-    
+
     #ifdef OUTPUT
     printf("i ");
     #endif
@@ -222,7 +222,7 @@ static void performTestXoofff(unsigned char *checksum, unsigned int mode)
     for(inputLen=0; inputLen<=inputBitSize; inputLen = (inputLen < 2*SnP_width) ? (inputLen+1) : (inputLen+8)) {
         performTestXoofffOneInput(keyLen, inputLen, outputLen, flags, &spongeChecksum, mode);
     }
-    
+
     #ifdef OUTPUT
     printf("o ");
     #endif
@@ -231,7 +231,7 @@ static void performTestXoofff(unsigned char *checksum, unsigned int mode)
     for(outputLen=0; outputLen<=outputBitSize; outputLen = (outputLen < 2*SnP_width) ? (outputLen+1) : (outputLen+8)) {
         performTestXoofffOneInput(keyLen, inputLen, outputLen, flags, &spongeChecksum, mode);
     }
-    
+
     KeccakWidth1600_SpongeSqueeze(&spongeChecksum, checksum, checksumByteSize);
 
     #ifdef VERBOSE
@@ -246,10 +246,35 @@ static void performTestXoofff(unsigned char *checksum, unsigned int mode)
     #endif
 }
 
+void TempTests(){
+  /**
+   * Self-test add-in for individual fastloop.
+   * Remove when done.
+   */
+   int a[3], b[3], c;
+   c = 32+32+6;
+   a[0] = 22;
+   b[0] = 22 << 1;
+   a[1] = 0;
+   b[1] = 32;
+   a[2] = 96;
+   b[2] = 0;
+   printf("%d, %d, %d\n", a[0], a[1], a[2]);
+   printf("%d, %d, %d\n", b[0], b[1], b[2]);
+   Xooffftimes4_AddIs(a, b, c);
+   printf("%d, %d, %d\n", b[0], b[1], b[2]);
+}
+
 void selfTestXoofff(const unsigned char *expected)
 {
     unsigned char checksum[checksumByteSize];
     unsigned int mode;
+
+    /**
+     * Self-test add-in for individual fastloop.
+     * Remove when done.
+     */
+    TempTests()
 
     for(mode = 0; mode <= 2; ++mode) {
         #ifdef OUTPUT

@@ -1307,20 +1307,20 @@ Xft4_AddIs_0:
   vzip.32   q10, q11
   vstm      r2!, {d16-d23}
 
-  veor      q0, q0, q1
-  veor      q2, q2, q3
-  veor      q12, q12, q0
-  veor      q12, q12, q2
-
-  veor      q4, q4, q5
-  veor      q6, q6, q7
-  veor      q13, q13, q4
-  veor      q13, q13, q6
-
-  veor      q8, q8, q9
-  veor      q10, q10, q11
-  veor      q14, q14, q9
-  veor      q14, q14, q11
+  @ veor      q0, q0, q1
+  @ veor      q2, q2, q3
+  @ veor      q12, q12, q0
+  @ veor      q12, q12, q2
+  @
+  @ veor      q4, q4, q5
+  @ veor      q6, q6, q7
+  @ veor      q13, q13, q4
+  @ veor      q13, q13, q6
+  @
+  @ veor      q8, q8, q9
+  @ veor      q10, q10, q11
+  @ veor      q14, q14, q9
+  @ veor      q14, q14, q11
 
   vstm      r1, {d24-d29}
 .endm

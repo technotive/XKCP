@@ -1313,7 +1313,7 @@ Xoodootimes4_PermuteAll_12rounds:
 .align 8
 .global Xooffftimes4_AddIs
 .type Xooffftimes4_AddIs, %function
-Xooffftimes4_AddIs:
+Xooffftimes4_AddIs: @Unoptimized garbage. optimize this.
   push      {r4,lr}
 Xft4_AddIs_32:
   cmp       r2, #32

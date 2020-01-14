@@ -1302,10 +1302,10 @@ Xft4_AddIs_0:
   vzip.32   q10, q11
   vstm      r2!, {d16-d23}
 
-  @ veor      q0, q0, q1
-  @ veor      q2, q2, q3
-  @ veor      q12, q12, q0
-  @ veor      q12, q12, q2
+  veor      q0, q0, q1
+  veor      q2, q2, q3
+  veor      q12, q12, q0
+  veor      q12, q12, q2
   @
   @ veor      q4, q4, q5
   @ veor      q6, q6, q7

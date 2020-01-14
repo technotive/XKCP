@@ -1179,8 +1179,9 @@ Xft4_AddIs_0:
 
   @ Message Bytes
   vldm      r2!, {d8-d23}
-  vldm      r2, {d24-d31}
-  sub       r2, r2, #128
+  vldm      r2!, {d24-d31}
+  @ vldm      r2, {d24-d31}
+  @ sub       r2, r2, #128
 
   @ Get key generation inputs
   vmov      r4, r5, d0 @ 0,1
@@ -1199,6 +1200,7 @@ Xft4_AddIs_0:
   @ r8 = 14
   eor       r5, r5, r5, lsl #13
   eor       r5, r5, r7, ror #29
+  @ r5 = 15
 
   @ 0,1,2,3
   veor      q4, q0, q4
@@ -1287,30 +1289,27 @@ Xft4_AddIs_0:
   vtrn.32   q1, q3
   vzip.32   q0, q1
   vzip.32   q2, q3
-  vstm      r2!, {d0-d7}
-
-  vtrn.32   q4, q6
-  vtrn.32   q5, q7
-  vzip.32   q4, q5
-  vzip.32   q6, q7
-  vstm      r2!, {d8-d15}
-
-  vtrn.32   q8, q10
-  vtrn.32   q9, q11
-  vzip.32   q8, q9
-  vzip.32   q10, q11
-  vstm      r2!, {d16-d23}
-
+  @ vstm      r2!, {d0-d7}
   veor      q0, q0, q1
   veor      q2, q2, q3
   veor      q12, q12, q0
   veor      q12, q12, q2
 
+  vtrn.32   q4, q6
+  vtrn.32   q5, q7
+  vzip.32   q4, q5
+  vzip.32   q6, q7
+  @ vstm      r2!, {d8-d15}
   veor      q4, q4, q5
   veor      q6, q6, q7
   veor      q13, q13, q4
   veor      q13, q13, q6
 
+  vtrn.32   q8, q10
+  vtrn.32   q9, q11
+  vzip.32   q8, q9
+  vzip.32   q10, q11
+  @ vstm      r2!, {d16-d23}
   veor      q8, q8, q9
   veor      q10, q10, q11
   veor      q14, q14, q8

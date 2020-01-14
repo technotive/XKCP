@@ -251,7 +251,7 @@ void TempTests(){
    * Self-test add-in for individual fastloop.
    * Remove when done.
    */
-   int a[3], b[3], c[3];
+   int a[3], b[3];
    size_t c = 32+32+6;
    a[0] = 22;
    b[0] = 22 << 1;

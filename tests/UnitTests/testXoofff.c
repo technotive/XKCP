@@ -276,11 +276,11 @@ void TempTests(){
   uint32_t input[vsize], key[psize], acc[psize];
 
   for(i = 0; i < psize; i++) {
-    key[i] = 0;
+    key[i] = i;
     acc[i] = 0;
   }
   for(i = 0; i < vsize; i++) {
-    input[i] = i;
+    input[i] = 0;
   }
 
   for(i = 0; i < vsize; i++) {

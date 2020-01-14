@@ -968,10 +968,10 @@ Xft4_AddIs_7:
   lsl       r3, r3, r2
   sub       r2, r3, #1
   ldrb      r3, [r0]
-  ldrb      r4, [r1]
+  ldrb      r4, [r1], #1
   eor       r3, r3, r4
   and       r3, r3, r2
-  strb      r3, [r0]
+  strb      r3, [r0], #1
 Xft4_AddIs_0:
   pop       {r4,pc}
 

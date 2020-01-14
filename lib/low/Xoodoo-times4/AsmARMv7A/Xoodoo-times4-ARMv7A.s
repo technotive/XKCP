@@ -1188,18 +1188,23 @@ Xft4_AddIs_0:
   vmov      r8, s8 @ 8
 
   @ climbing to 12-15
-  @ eor       r4, r4, r4, lsl #13
-  @ eor       r4, r4, r6, ror #29
-  @ @ r4 = 12
-  @ eor       r6, r6, r6, lsl #13
-  @ eor       r6, r6, r8, ror #29
-  @ @ r6 = 13
-  @ eor       r8, r8, r8, lsl #13
-  @ eor       r8, r8, r5, ror #29
-  @ @ r8 = 14
-  @ eor       r5, r5, r5, lsl #13
-  @ eor       r5, r5, r7, ror #29
+  eor       r4, r4, r4, lsl #13
+  eor       r4, r4, r6, ror #29
+  @ r4 = 12
+  eor       r6, r6, r6, lsl #13
+  eor       r6, r6, r8, ror #29
+  @ r6 = 13
+  eor       r8, r8, r8, lsl #13
+  eor       r8, r8, r5, ror #29
+  @ r8 = 14
+  eor       r5, r5, r5, lsl #13
+  eor       r5, r5, r7, ror #29
   @ r5 = 15
+
+  mov r4, #200
+  mov r5, #200
+  mov r6, #200
+  mov r8, #200
 
   @ 0,1,2,3
   veor      q4, q0, q4

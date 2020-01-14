@@ -1201,11 +1201,6 @@ Xft4_AddIs_0:
   eor       r5, r5, r7, ror #29
   @ r5 = 15
 
-  mov r4, #200
-  mov r5, #200
-  mov r6, #200
-  mov r8, #200
-
   @ 0,1,2,3
   veor      q4, q0, q4
   @ 4,5,6,7

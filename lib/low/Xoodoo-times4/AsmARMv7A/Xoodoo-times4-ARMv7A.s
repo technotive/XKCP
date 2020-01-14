@@ -975,7 +975,6 @@ Xft4_AddIs_7:
 Xft4_AddIs_0:
   pop       {r4,pc}
 
-
 .macro theta_star
   veor      q15, q3, q7
   veor      q15, q15, q11

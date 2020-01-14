@@ -1201,53 +1201,48 @@ Xft4_AddIs_0:
   @ eor       r5, r5, r7, ror #29
   @ r5 = 15
 
-  mov r4, #0
-  mov r5, #0
-  mov r6, #0
-  mov r8, #0
-
-  @ 0,1,2,3
-  veor      q4, q0, q4
-  @ 4,5,6,7
-  veor      q5, q1, q5
-  veor      q7, q1, q7
-  @ 8,9,10,11
-  veor      q6, q2, q6
-  veor      q8, q2, q8
-  veor      q10, q2, q10
-
-  @ Roll
-  vmov      s12, s1
-  vmov      s13, s2
-  vmov      s14, s3
-  vmov      s15, r4
-
-  vmov      s0, s5
-  vmov      s1, s6
-  vmov      s2, s7
-  vmov      s3, r6
-
-  vmov      s4, s9
-  vmov      s5, s10
-  vmov      s6, s11
-  vmov      s7, r8
-
-  vmov      s8, s13
-  vmov      s9, s14
-  vmov      d5, r4, r5
-  vstm      r0, {d0-d5}
-
-  @ 1,2,3,12
-  veor      q9, q3, q9
-  veor      q11, q3, q11
-  veor      q13, q3, q13
-
-  @ 5,6,7,13
-  veor      q12, q0, q12
-  veor      q14, q0, q14
-
-  @ 9,10,11,14
-  veor      q15, q1, q15
+  @ @ 0,1,2,3
+  @ veor      q4, q0, q4
+  @ @ 4,5,6,7
+  @ veor      q5, q1, q5
+  @ veor      q7, q1, q7
+  @ @ 8,9,10,11
+  @ veor      q6, q2, q6
+  @ veor      q8, q2, q8
+  @ veor      q10, q2, q10
+  @
+  @ @ Roll
+  @ vmov      s12, s1
+  @ vmov      s13, s2
+  @ vmov      s14, s3
+  @ vmov      s15, r4
+  @
+  @ vmov      s0, s5
+  @ vmov      s1, s6
+  @ vmov      s2, s7
+  @ vmov      s3, r6
+  @
+  @ vmov      s4, s9
+  @ vmov      s5, s10
+  @ vmov      s6, s11
+  @ vmov      s7, r8
+  @
+  @ vmov      s8, s13
+  @ vmov      s9, s14
+  @ vmov      d5, r4, r5
+  @ vstm      r0, {d0-d5}
+  @
+  @ @ 1,2,3,12
+  @ veor      q9, q3, q9
+  @ veor      q11, q3, q11
+  @ veor      q13, q3, q13
+  @
+  @ @ 5,6,7,13
+  @ veor      q12, q0, q12
+  @ veor      q14, q0, q14
+  @
+  @ @ 9,10,11,14
+  @ veor      q15, q1, q15
 
   @ Shatter
   vuzp.32   q4, q10

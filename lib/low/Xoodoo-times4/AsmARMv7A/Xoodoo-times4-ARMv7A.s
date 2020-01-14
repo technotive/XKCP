@@ -1187,7 +1187,7 @@ Xft4_AddIs_0:
   vmov      r6, r7, d2 @ 4,5
   vmov      r8, s8 @ 8
 
-  climbing to 12-15
+  @ climbing to 12-15
   eor       r4, r4, r4, lsl #13
   eor       r4, r4, r6, ror #29
   @ r4 = 12

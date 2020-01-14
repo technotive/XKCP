@@ -278,7 +278,7 @@ void TempTests(){
   for(i = 0; i < psize; i++) {
     key[i] = 0;
     acc[i] = 0;
-    expect[i] = i; expect[i+12] = expect[i]+12; expect[i+24] = expect[i]+24; expect[i+36] = expect[i]+36;
+    expect[i*4] = i; expect[i*4+1] = expect[i*4]+12; expect[i*4+2] = expect[i*4]+24; expect[i*4+3] = expect[i*4]+36;
   }
   for(i = 0; i < vsize; i++) {
     input[i] = i;

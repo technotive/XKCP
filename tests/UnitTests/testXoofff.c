@@ -252,6 +252,9 @@ void TempTests(){
   size_t bits = words*32 + tail;
   size_t bytes = (bits+7)/8;
   uint32_t a[words+1], b[words+1], c[words+1];
+  unsigned char * ab = (unsigned char *) a;
+  unsigned char * bb = (unsigned char *) b;
+  unsigned char * cb = (unsigned char *) c;
 
   a[0] = 27;
   b[0] = 12;
@@ -262,11 +265,15 @@ void TempTests(){
     c[i+1] = a[i+1]^b[i+1];
   }
   c[words] ^= ((1 << tail)-1);
+  printf("%hhx\n", a[8]);
+  printf("%hhx\n", b[8]);
+  printf("%hhx\n", a[8]^b[8]);
+  printf("%hhx\n", c[8]);
 
   Xooffftimes4_AddIs((char *) a, (char *) b, bits);
 
-  unsigned char * ab = (unsigned char *) a;
-  unsigned char * cb = (unsigned char *) c;
+  printf("%hhx\n", a[8]);
+
   for(i = 0; i < bytes; i++) {
     printf("%hhx ", ab[i]);
   }

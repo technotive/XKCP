@@ -272,27 +272,29 @@ void TempTests(){
 
   size_t psize = 48;
   size_t vsize = psize*4;
+  size_t wordsize = vsize/4;
   size_t l;
   unsigned char input[vsize], key[psize], acc[psize];
+  uint32_t * out = (uint32_t *) input;
 
   for(i = 0; i < psize; i++) { key[i] = 0; acc[i] = 0; }
-  for(i = 0; i < vsize; i++) {
-    input[i] = i%48;
-    if(i >= 48) { input[i] = 0; }
+  for(i = 0; i < wordsize; i++) {
+    input[i] = i;
+    if(i >= 12) { input[i] = 0; }
   }
 
-  for(i = 0; i < vsize; i++) {
-    if(i%48 == 0) { printf("\n"); }
-    printf("%03d ", input[i]);
+  for(i = 0; i < wordsize; i++) {
+    if(i%12 == 0) { printf("\n"); }
+    printf("%03d ", out[i]);
   }
   printf("\n");
 
   l = Xooffftimes4_CompressFastLoop(key, acc, input, vsize+5);
   printf("l=%d\n", l);
 
-  for(i = 0; i < vsize; i++) {
-    if(i%48 == 0) { printf("\n"); }
-    printf("%03d ", input[i]);
+  for(i = 0; i < wordsize; i++) {
+    if(i%12 == 0) { printf("\n"); }
+    printf("%03d ", out[i]);
   }
   printf("\n");
 }

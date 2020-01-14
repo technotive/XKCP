@@ -280,7 +280,8 @@ void TempTests(){
     acc[i] = 0;
   }
   for(i = 0; i < vsize; i++) {
-    input[i] = i;
+    input[i] = 1;
+    if(i > 12) { input[i] = 0; }
   }
 
   for(i = 0; i < vsize; i++) {
@@ -301,6 +302,11 @@ void TempTests(){
     printf("%03d ", input[i]);
   }
   printf("\n");
+
+  for (i = 0; i < psize; i++) {
+    if(i%4 == 0) { printf("\nq%d : ", i/4); }
+    printf("%03d ", acc[i]);
+  }
 
   printf("Compression self-test passed...\n");
 }

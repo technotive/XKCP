@@ -251,7 +251,7 @@ void TempTests(){
    * Self-test add-in for individual fastloop.
    * Remove when done.
    */
-   int a[3], b[3];
+   int a[3], b[3], c[3];
    size_t c = 32+32+6;
    a[0] = 22;
    b[0] = 22 << 1;
@@ -262,7 +262,7 @@ void TempTests(){
    printf("%d, %d, %d\n", a[0], a[1], a[2]);
    printf("%d, %d, %d\n", b[0], b[1], b[2]);
    Xooffftimes4_AddIs((char *) a, (char *) b, c);
-   printf("%d, %d, %d\n", b[0], b[1], b[2]);
+   printf("%d, %d, %d\n", a[0], a[1], a[2]);
 }
 
 void selfTestXoofff(const unsigned char *expected)

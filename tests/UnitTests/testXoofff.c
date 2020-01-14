@@ -268,11 +268,11 @@ void TempTests(){
   unsigned char * ab = (unsigned char *) a;
   unsigned char * cb = (unsigned char *) c;
   for(i = 0; i < bytes; i++) {
-    printf("%hhx", ab[i]);
+    printf("%hhx ", ab[i]);
   }
   printf("\n");
   for(i = 0; i < bytes; i++) {
-    printf("%hhx", cb[i]);
+    printf("%hhx ", cb[i]);
   }
   printf("\n");
 

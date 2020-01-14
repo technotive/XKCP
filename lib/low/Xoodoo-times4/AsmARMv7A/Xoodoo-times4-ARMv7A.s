@@ -1341,7 +1341,7 @@ Xft4_CompressFast:
   vpop      {d8-d15}
   pop       {r4-r8, pc}
 
-Xooffftimes4_ExpandFastLoop: uchar * yAccu -> uchar * kRoll -> uchar * output -> size_t length -> size_t
+@ Xooffftimes4_ExpandFastLoop: uchar * yAccu -> uchar * kRoll -> uchar * output -> size_t length -> size_t
 .align 8
 .global Xooffftimes4_ExpandFastLoop
 .type Xooffftimes4_ExpandFastLoop, %function

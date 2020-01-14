@@ -1199,7 +1199,6 @@ Xft4_AddIs_0:
   @ r8 = 14
   eor       r5, r5, r5, lsl #13
   eor       r5, r5, r7, ror #29
-  r5 = 15
 
   @ 0,1,2,3
   veor      q4, q0, q4

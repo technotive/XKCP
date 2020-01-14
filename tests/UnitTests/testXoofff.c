@@ -276,7 +276,7 @@ void TempTests(){
   unsigned char input[vsize], key[psize], acc[psize];
 
   for(i = 0; i < psize; i++) { key[i] = 0; acc[i] = 0; }
-  for(i = 0; i < vsize; i++) { input[i] = i%48; }
+  for(i = 0; i < psize; i++) { input[i] = i%48; }
 
   for(i = 0; i < vsize; i++) {
     if(i%48 == 0) { printf("\n"); }

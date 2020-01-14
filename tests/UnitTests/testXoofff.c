@@ -247,22 +247,26 @@ static void performTestXoofff(unsigned char *checksum, unsigned int mode)
 }
 
 void TempTests(){
-  /**
-   * Self-test add-in for individual fastloop.
-   * Remove when done.
-   */
-   int a[3], b[3];
-   size_t c = 32+32+6;
-   a[0] = 22;
-   b[0] = 22 << 1;
-   a[1] = 0;
-   b[1] = 32;
-   a[2] = 96;
-   b[2] = 0;
-   printf("%d, %d, %d\n", a[0], a[1], a[2]);
-   printf("%d, %d, %d\n", b[0], b[1], b[2]);
-   Xooffftimes4_AddIs((char *) a, (char *) b, c);
-   printf("%d, %d, %d\n", a[0], a[1], a[2]);
+  // Test AddIs:
+  size_t words = 100, tail = 5, i;
+  size_t bits = words*32 + tail;
+  size_t bytes = (bits+7)/8;
+  uint32_t a[words+1], b[words+1], c[words+1];
+
+  a[0] = 27;
+  b[0] = 12;
+  c[0] = a[0]^b[0];
+  for(i = 1; i < 100; i++) {
+    a[i] = (uint32_t)(a[i-1]*3)-1);
+    b[i] = (uint32_t)(a[i-1]*11)+1);
+    c[i] = a[i]^b[i];
+  }
+  c[words] ^= ((1 << tail)-1);
+  Xooffftimes4_AddIs((char *) a, (char *) b, bits);
+  assert(memcmp(a, c, bytes) == 0)
+  // Done, good.
+
+
 }
 
 void selfTestXoofff(const unsigned char *expected)

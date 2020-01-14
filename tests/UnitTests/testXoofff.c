@@ -273,7 +273,7 @@ void TempTests(){
   size_t psize = 12;
   size_t vsize = psize*4;
   size_t l;
-  uint32_t input[wordsize], key[psize], acc[psize];
+  uint32_t input[vsize], key[psize], acc[psize];
 
   for(i = 0; i < psize; i++) { key[i] = 0; acc[i] = 0; }
   for(i = 0; i < vsize; i++) {

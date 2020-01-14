@@ -1328,6 +1328,7 @@ Xooffftimes4_CompressFastLoop:
 Xft4_CompressFast:
   everest
 
+  mov r0, #0
   vpop {d8-d15}
   pop {r4-r8, pc}
 

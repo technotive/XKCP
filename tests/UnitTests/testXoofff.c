@@ -273,12 +273,15 @@ void TempTests(){
   size_t psize = 12;
   size_t vsize = psize*4;
   size_t l;
-  uint32_t input[vsize], key[psize], acc[psize];
+  uint32_t input[vsize], expect [vsize], key[psize], acc[psize];
 
-  for(i = 0; i < psize; i++) { key[i] = 0; acc[i] = 0; }
+  for(i = 0; i < psize; i++) {
+    key[i] = 0;
+    acc[i] = 0;
+    expect[i] = i; expect[i+12] = expect[i]+12; expect[i+24] = expect[i]+24; expect[i+36] = expect[i]+36;
+  }
   for(i = 0; i < vsize; i++) {
     input[i] = i;
-    // if(i >= psize) { input[i] = 0; }
   }
 
   for(i = 0; i < vsize; i++) {
@@ -288,7 +291,10 @@ void TempTests(){
   printf("\n");
 
   l = Xooffftimes4_CompressFastLoop((unsigned char *) key, (unsigned char *) acc, (unsigned char *) input, (vsize*4)+5);
-  printf("l=%d\n", l);
+
+  assert(memcmp((char *)input, (char *)expect, vsize*4) == 0);
+  printf("AddIs self-test passed...\n");
+
 
   for(i = 0; i < vsize; i++) {
     if(i%4 == 0) { printf("\n"); }

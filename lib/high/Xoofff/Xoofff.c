@@ -377,8 +377,7 @@ static const unsigned char * Xoodoo_CompressBlocks( unsigned char *k, unsigned c
     #endif
     #if (XoodooMaxParallellism >= 4)
     #if defined(Xoodootimes4_FastXoofff_supported)
-    // ParallelCompressLoopFast( 4 )
-    ParallelCompressLoopPlSnP( 4 )
+    ParallelCompressLoopFast( 4 )
     #else
     ParallelCompressLoopPlSnP( 4 )
     #endif

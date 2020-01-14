@@ -278,7 +278,7 @@ void TempTests(){
   for(i = 0; i < psize; i++) { key[i] = 0; acc[i] = 0; }
   for(i = 0; i < vsize; i++) {
     input[i] = i;
-    if(i >= psize) { input[i] = 0; }
+    // if(i >= psize) { input[i] = 0; }
   }
 
   for(i = 0; i < vsize; i++) {

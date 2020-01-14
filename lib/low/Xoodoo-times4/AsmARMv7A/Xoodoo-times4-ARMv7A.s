@@ -938,35 +938,42 @@ Xoodootimes4_PermuteAll_12rounds:
 @ FASTLOOP SUPPORT
 @
 
-
 @ Xooffftimes4_AddIs: uchar * output -> uchar * input -> size_t bitLen -> void
-@ Note that when dealing with 4096-byte or 512-byte code, bitLen can only take eight (four each) distinct values.
-@ .align 8
-@ .global Xooffftimes4_AddIs
-@ .type Xooffftimes4_AddIs, %function
-@ Xooffftimes4_AddIs:
-@   @ Unoptimized
-@   push      {r4, lr}
-@ Xft4_AddIs_32:
-@   subs      r2, #32
-@   bls       Xft4_AddIs_leftover
-@   ldr       r3, [r0]
-@   ldr       r4, [r1], #4
-@   eor       r3, r3, r4
-@   strb      r3, [r0], #4
-@   b         Xft4_AddIs_32
-@ Xft4_AddIs_leftover:
-@   popeq     {r4, pc}
-@   add       r2, #32
-@   ldr       r3, [r0]
-@   ldr       r4, [r1]
-@   eor       r3, r3, r4
-@   mov       r14, #1
-@   lsl       r14, r14, r2
-@   sub       r14, r14, #1
-@   and       r3, r3, r14
-@   strb      r3, [r0]
-@   pop       {r4, pc}
+.align 8
+.global Xooffftimes4_AddIs
+.type Xooffftimes4_AddIs, %function
+Xooffftimes4_AddIs: @Unoptimized garbage. optimize this.
+  push      {r4,lr}
+Xft4_AddIs_32:
+  cmp       r2, #32
+  bcc       Xft4_AddIs_8
+  ldr       r3, [r0]
+  ldr       r4, [r1], #4
+  eor       r3, r3, r4
+  str       r3, [r0], #4
+  sub       r2, #32
+  b         Xft4_AddIs_32
+Xft4_AddIs_8:
+  cmp       r2, #8
+  bcc       Xft4_AddIs_7
+  ldrb      r3, [r0]
+  ldrb      r4, [r1], #1
+  eor       r3, r3, r4
+  strb      r3, [r0], #1
+  sub       r2, #8
+  b         Xft4_AddIs_8
+Xft4_AddIs_7:
+  beq       Xft4_AddIs_0
+  mov       r3, #1
+  lsl       r3, r3, r2
+  sub       r2, r3, #1
+  ldrb      r3, [r0]
+  ldrb      r4, [r1], #1
+  eor       r3, r3, r4
+  and       r3, r3, r2
+  strb      r3, [r0], #1
+Xft4_AddIs_0:
+  pop       {r4,pc}
 
 
 .macro theta_star
@@ -1309,43 +1316,6 @@ Xoodootimes4_PermuteAll_12rounds:
   vstm      r1, {d24-d29}
 .endm
 
-@ Xooffftimes4_AddIs: uchar * output -> uchar * input -> size_t bitLen -> void
-.align 8
-.global Xooffftimes4_AddIs
-.type Xooffftimes4_AddIs, %function
-Xooffftimes4_AddIs: @Unoptimized garbage. optimize this.
-  push      {r4,lr}
-Xft4_AddIs_32:
-  cmp       r2, #32
-  bcc       Xft4_AddIs_8
-  ldr       r3, [r0]
-  ldr       r4, [r1], #4
-  eor       r3, r3, r4
-  str       r3, [r0], #4
-  sub       r2, #32
-  b         Xft4_AddIs_32
-Xft4_AddIs_8:
-  cmp       r2, #8
-  bcc       Xft4_AddIs_7
-  ldrb      r3, [r0]
-  ldrb      r4, [r1], #1
-  eor       r3, r3, r4
-  strb      r3, [r0], #1
-  sub       r2, #8
-  b         Xft4_AddIs_8
-Xft4_AddIs_7:
-  beq       Xft4_AddIs_0
-  mov       r3, #1
-  lsl       r3, r3, r2
-  sub       r2, r3, #1
-  ldrb      r3, [r0]
-  ldrb      r4, [r1], #1
-  eor       r3, r3, r4
-  and       r3, r3, r2
-  strb      r3, [r0], #1
-Xft4_AddIs_0:
-  pop       {r4,pc}
-
 @ Xooffftimes4_CompressFastLoop: uchar * k -> uchar * x -> uchar * input -> size_t length -> size_t
 .align 8
 .global Xooffftimes4_CompressFastLoop
@@ -1357,15 +1327,12 @@ Xooffftimes4_CompressFastLoop:
   sub       r3, #192
 Xft4_CompressFast:
   everest
-  xoodoo_6_star
-  avalanche
 
-  @ Test
-  mov r0, #192
   vpop {d8-d15}
   pop {r4-r8, pc}
-  @ Test
 
+  xoodoo_6_star
+  avalanche
   add       r14, #192
   subs      r3, #192
   bhi       Xft4_CompressFast

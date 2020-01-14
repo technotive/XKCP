@@ -1201,6 +1201,11 @@ Xft4_AddIs_0:
   @ eor       r5, r5, r7, ror #29
   @ r5 = 15
 
+  mov r4, #0
+  mov r5, #0
+  mov r6, #0
+  mov r8, #0
+
   @ 0,1,2,3
   veor      q4, q0, q4
   @ 4,5,6,7
@@ -1316,7 +1321,7 @@ Xft4_AddIs_0:
   veor      q10, q10, q11
   veor      q14, q14, q9
   veor      q14, q14, q11
-  
+
   vstm      r1, {d24-d29}
 .endm
 

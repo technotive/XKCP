@@ -1187,62 +1187,62 @@ Xft4_AddIs_0:
   vmov      r6, r7, d2 @ 4,5
   vmov      r8, s8 @ 8
 
-  @ climbing to 12-15
-  @ eor       r4, r4, r4, lsl #13
-  @ eor       r4, r4, r6, ror #29
-  @ @ r4 = 12
-  @ eor       r6, r6, r6, lsl #13
-  @ eor       r6, r6, r8, ror #29
-  @ @ r6 = 13
-  @ eor       r8, r8, r8, lsl #13
-  @ eor       r8, r8, r5, ror #29
-  @ @ r8 = 14
-  @ eor       r5, r5, r5, lsl #13
-  @ eor       r5, r5, r7, ror #29
-  @ r5 = 15
+  climbing to 12-15
+  eor       r4, r4, r4, lsl #13
+  eor       r4, r4, r6, ror #29
+  @ r4 = 12
+  eor       r6, r6, r6, lsl #13
+  eor       r6, r6, r8, ror #29
+  @ r6 = 13
+  eor       r8, r8, r8, lsl #13
+  eor       r8, r8, r5, ror #29
+  @ r8 = 14
+  eor       r5, r5, r5, lsl #13
+  eor       r5, r5, r7, ror #29
+  r5 = 15
 
-  @ @ 0,1,2,3
-  @ veor      q4, q0, q4
-  @ @ 4,5,6,7
-  @ veor      q5, q1, q5
-  @ veor      q7, q1, q7
-  @ @ 8,9,10,11
-  @ veor      q6, q2, q6
-  @ veor      q8, q2, q8
-  @ veor      q10, q2, q10
-  @
-  @ @ Roll
-  @ vmov      s12, s1
-  @ vmov      s13, s2
-  @ vmov      s14, s3
-  @ vmov      s15, r4
-  @
-  @ vmov      s0, s5
-  @ vmov      s1, s6
-  @ vmov      s2, s7
-  @ vmov      s3, r6
-  @
-  @ vmov      s4, s9
-  @ vmov      s5, s10
-  @ vmov      s6, s11
-  @ vmov      s7, r8
-  @
-  @ vmov      s8, s13
-  @ vmov      s9, s14
-  @ vmov      d5, r4, r5
-  @ vstm      r0, {d0-d5}
-  @
-  @ @ 1,2,3,12
-  @ veor      q9, q3, q9
-  @ veor      q11, q3, q11
-  @ veor      q13, q3, q13
-  @
-  @ @ 5,6,7,13
-  @ veor      q12, q0, q12
-  @ veor      q14, q0, q14
-  @
-  @ @ 9,10,11,14
-  @ veor      q15, q1, q15
+  @ 0,1,2,3
+  veor      q4, q0, q4
+  @ 4,5,6,7
+  veor      q5, q1, q5
+  veor      q7, q1, q7
+  @ 8,9,10,11
+  veor      q6, q2, q6
+  veor      q8, q2, q8
+  veor      q10, q2, q10
+
+  @ Roll
+  vmov      s12, s1
+  vmov      s13, s2
+  vmov      s14, s3
+  vmov      s15, r4
+
+  vmov      s0, s5
+  vmov      s1, s6
+  vmov      s2, s7
+  vmov      s3, r6
+
+  vmov      s4, s9
+  vmov      s5, s10
+  vmov      s6, s11
+  vmov      s7, r8
+
+  vmov      s8, s13
+  vmov      s9, s14
+  vmov      d5, r4, r5
+  vstm      r0, {d0-d5}
+
+  @ 1,2,3,12
+  veor      q9, q3, q9
+  veor      q11, q3, q11
+  veor      q13, q3, q13
+
+  @ 5,6,7,13
+  veor      q12, q0, q12
+  veor      q14, q0, q14
+
+  @ 9,10,11,14
+  veor      q15, q1, q15
 
   @ Shatter
   vuzp.32   q4, q10
@@ -1331,13 +1331,8 @@ Xooffftimes4_CompressFastLoop:
   sub       r3, #192
 Xft4_CompressFast:
   everest
-  avalanche
-
-  mov r0, #0
-  vpop {d8-d15}
-  pop {r4-r8, pc}
-
   xoodoo_6_star
+  avalanche
   add       r14, #192
   subs      r3, #192
   bhi       Xft4_CompressFast

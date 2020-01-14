@@ -248,7 +248,7 @@ static void performTestXoofff(unsigned char *checksum, unsigned int mode)
 
 void TempTests(){
   // Test AddIs:
-  size_t words = 2, tail = 7, i;
+  size_t words = 100, tail = 5, i;
   size_t bits = words*32 + tail;
   size_t bytes = (bits+7)/8;
   uint32_t a[words+1], b[words+1], c[words+1];
@@ -265,28 +265,12 @@ void TempTests(){
     c[i+1] = a[i+1]^b[i+1];
   }
   c[words] &= ((1 << tail)-1);
-  printf("%hhx\n", a[8]);
-  printf("%hhx\n", b[8]);
-  printf("%hhx\n", a[8]^b[8]);
-  printf("%hhx\n", c[8]);
 
   Xooffftimes4_AddIs((char *) a, (char *) b, bits);
-
-  printf("%hhx\n", a[8]);
-
-  for(i = 0; i < bytes; i++) {
-    printf("%hhx ", ab[i]);
-  }
-  printf("\n");
-  for(i = 0; i < bytes; i++) {
-    printf("%hhx ", cb[i]);
-  }
-  printf("\n");
-
   assert(memcmp((char *)a, (char *)c, bytes) == 0);
-  // Done, good.
+  printf("AddIs self-test passed...\n");
 
-
+  
 }
 
 void selfTestXoofff(const unsigned char *expected)

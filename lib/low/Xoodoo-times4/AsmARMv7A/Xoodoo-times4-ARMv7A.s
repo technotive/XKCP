@@ -1311,11 +1311,11 @@ Xft4_AddIs_0:
   veor      q6, q6, q7
   veor      q13, q13, q4
   veor      q13, q13, q6
-  
+
   veor      q8, q8, q9
   veor      q10, q10, q11
-  veor      q14, q14, q9
-  veor      q14, q14, q11
+  veor      q14, q14, q8
+  veor      q14, q14, q10
 
   vstm      r1, {d24-d29}
 .endm

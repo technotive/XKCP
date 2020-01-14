@@ -288,6 +288,11 @@ void TempTests(){
     printf("%03d ", input[i]);
   }
   printf("\n");
+  for(i = 0; i < vsize; i++) {
+    if(i%4 == 0) { printf("\n"); }
+    printf("%03d ", input[i]);
+  }
+  printf("\n");
 
   l = Xooffftimes4_CompressFastLoop((unsigned char *) key, (unsigned char *) acc, (unsigned char *) input, (vsize*4)+5);
 
@@ -297,6 +302,11 @@ void TempTests(){
   // }
   for(i = 0; i < vsize; i++) {
     if(i%12 == 0) { printf("\n"); }
+    printf("%03d ", input[i]);
+  }
+  printf("\n");
+  for(i = 0; i < vsize; i++) {
+    if(i%4 == 0) { printf("\n"); }
     printf("%03d ", input[i]);
   }
   printf("\n");

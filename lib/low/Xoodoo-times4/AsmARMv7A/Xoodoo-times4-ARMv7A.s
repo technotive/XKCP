@@ -1188,17 +1188,17 @@ Xft4_AddIs_0:
   vmov      r8, s8 @ 8
 
   @ climbing to 12-15
-  eor       r4, r4, r4, lsl #13
-  eor       r4, r4, r6, ror #29
-  @ r4 = 12
-  eor       r6, r6, r6, lsl #13
-  eor       r6, r6, r8, ror #29
-  @ r6 = 13
-  eor       r8, r8, r8, lsl #13
-  eor       r8, r8, r5, ror #29
-  @ r8 = 14
-  eor       r5, r5, r5, lsl #13
-  eor       r5, r5, r7, ror #29
+  @ eor       r4, r4, r4, lsl #13
+  @ eor       r4, r4, r6, ror #29
+  @ @ r4 = 12
+  @ eor       r6, r6, r6, lsl #13
+  @ eor       r6, r6, r8, ror #29
+  @ @ r6 = 13
+  @ eor       r8, r8, r8, lsl #13
+  @ eor       r8, r8, r5, ror #29
+  @ @ r8 = 14
+  @ eor       r5, r5, r5, lsl #13
+  @ eor       r5, r5, r7, ror #29
   @ r5 = 15
 
   @ 0,1,2,3
@@ -1279,9 +1279,6 @@ Xft4_AddIs_0:
   vmov      q3, q13
 
   vswp      q6, q8
-
-  vstm      r2!, {d0-d15}
-  vstm      r2!, {d16-d23}
 .endm
 
 .macro avalanche
@@ -1291,6 +1288,7 @@ Xft4_AddIs_0:
   vtrn.32   q1, q3
   vzip.32   q0, q1
   vzip.32   q2, q3
+  vstm      r2! {d0-d7}
 
   veor      q0, q0, q1
   veor      q2, q2, q3
@@ -1301,6 +1299,7 @@ Xft4_AddIs_0:
   vtrn.32   q5, q7
   vzip.32   q4, q5
   vzip.32   q6, q7
+  vstm      r2! {d8-d15}
 
   veor      q4, q4, q5
   veor      q6, q6, q7
@@ -1311,6 +1310,7 @@ Xft4_AddIs_0:
   vtrn.32   q9, q11
   vzip.32   q8, q9
   vzip.32   q10, q11
+  vstm      r2! {d16-d23}
 
   veor      q8, q8, q9
   veor      q10, q10, q11
@@ -1331,13 +1331,13 @@ Xooffftimes4_CompressFastLoop:
   sub       r3, #192
 Xft4_CompressFast:
   everest
+  avalanche
 
   mov r0, #0
   vpop {d8-d15}
   pop {r4-r8, pc}
 
   xoodoo_6_star
-  avalanche
   add       r14, #192
   subs      r3, #192
   bhi       Xft4_CompressFast

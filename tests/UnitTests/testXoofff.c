@@ -307,6 +307,7 @@ void TempTests(){
     if(i%4 == 0) { printf("\nq%d : ", i/4); }
     printf("%03d ", acc[i]);
   }
+  printf("\n");
 
   printf("Compression self-test passed...\n");
 }

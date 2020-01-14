@@ -270,29 +270,27 @@ void TempTests(){
   assert(memcmp((char *)a, (char *)c, bytes) == 0);
   printf("AddIs self-test passed...\n");
 
-  size_t psize = 48;
+  size_t psize = 12;
   size_t vsize = psize*4;
-  size_t wordsize = vsize/4;
   size_t l;
-  unsigned char input[vsize], key[psize], acc[psize];
-  uint32_t * out = (uint32_t *) input;
+  uint32_t input[wordsize], key[psize], acc[psize];
 
   for(i = 0; i < psize; i++) { key[i] = 0; acc[i] = 0; }
-  for(i = 0; i < wordsize; i++) {
+  for(i = 0; i < vsize; i++) {
     input[i] = i;
-    if(i >= 12) { input[i] = 0; }
+    if(i >= psize) { input[i] = 0; }
   }
 
-  for(i = 0; i < wordsize; i++) {
+  for(i = 0; i < vsize; i++) {
     if(i%12 == 0) { printf("\n"); }
     printf("%03d ", out[i]);
   }
   printf("\n");
 
-  l = Xooffftimes4_CompressFastLoop(key, acc, input, vsize+5);
+  l = Xooffftimes4_CompressFastLoop((unsigned char *) key, (unsigned char *) acc, (unsigned char *) input, (vsize*4)+5);
   printf("l=%d\n", l);
 
-  for(i = 0; i < wordsize; i++) {
+  for(i = 0; i < vsize; i++) {
     if(i%12 == 0) { printf("\n"); }
     printf("%03d ", out[i]);
   }

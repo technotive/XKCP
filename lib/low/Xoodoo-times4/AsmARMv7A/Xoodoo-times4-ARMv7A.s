@@ -1315,77 +1315,37 @@ Xoodootimes4_PermuteAll_12rounds:
 .global Xooffftimes4_AddIs
 .type Xooffftimes4_AddIs, %function
 Xooffftimes4_AddIs:
-  push      {lr}
-Xft4_AddIs1024:
-  cmp       r2, #1024
-  bcc       Xft4_AddIs512
-  vldm      r0, {d16-d31}
-  vldm      r1!, {d0-d7}
-  veor      q8, q8, q0
-  veor      q9, q9, q1
-  veor      q10, q10, q2
-  veor      q11, q11, q3
-  vstm      r0!, {d16-d23}
-  vldm      r1!, {d0-d7}
-  veor      q8, q8, q0
-  veor      q9, q9, q1
-  veor      q10, q10, q2
-  veor      q11, q11, q3
-  vstm      r0!, {d24-d31}
-  subs      r2, r2, #1024
-  b         Xft4_AddIs1024
-Xft4_AddIs512:
-  cmp       r2, #512
-  bcc       Xft4_AddIs128
-  vldm      r0, {d16-d23}
-  vldm      r1!, {d0-d7}
-  veor      q8, q8, q0
-  veor      q9, q9, q1
-  veor      q10, q10, q2
-  veor      q11, q11, q3
-  vstm      r0!, {d16-d23}
-  subs      r2, r2, #512
-  b         Xft4_AddIs512
-Xft4_AddIs128:
-  cmp       r2, #128
-  bcc       Xft4_AddIs32
-  vldm      r0, {d2-d3}
-  vldm      r1!, {d0-d1}
-  veor      q1, q1, q0
-  vstm      r0!, {d2-d3}
-  subs      r2, r2, #128
-  b         Xft4_AddIs128
-Xft4_AddIs32:
+  push      {r4,lr}
+Xft4_AddIs_32:
   cmp       r2, #32
-  bcc       Xft4_AddIs8
+  bcc       Xft4_AddIs_8
   ldr       r3, [r0]
-  ldr       r14, [r1]!
-  eor       r3, r3, r14
-  str       r3, [r0]!
-  subs      r2, r2, #32
-  b         Xft4_AddIs32
-Xft4_AddIs8:
+  ldr       r4, [r1], #4
+  eor       r3, r3, r4
+  str       r3, [r0], #4
+  sub       r2, #32
+  b         Xft4_AddIs_32
+Xft4_AddIs_8:
   cmp       r2, #8
-  bcc       Xft4_AddIs7
+  bcc       Xft4_AddIs_7
   ldrb      r3, [r0]
-  ldrb      r14, [r1]!
-  eor       r3, r3, r14
-  strb      r3, [r0]!
-  subs      r2, r2, #8
-  bcs       Xft4_AddIs8
-Xft4_AddIs7:
-  cmp       r2, #0
-  beq       Xft4_AddIs0
+  ldrb      r4, [r1], #1
+  eor       r3, r3, r4
+  strb      r3, [r0], #1
+  sub       r2, #8
+  b         Xft4_AddIs_8
+Xft4_AddIs_7:
+  beq       Xft4_AddIs_0
+  mov       r3, #1
+  lsl       r3, r3, r2
+  sub       r2, r3, #1
   ldrb      r3, [r0]
-  ldrb      r14, [r1]!
-  eor       r3, r3, r14
-  mov       r14, #1
-  lsl       r14, r2
-  sub       r14, #1
-  and       r3, r3, r14
-  strb      r3, [r0]!
-Xft4_AddIs0:
-  pop       {pc}
+  ldrb      r4, [r1], #1
+  eor       r3, r3, r4
+  and       r3, r3, r2
+  strb      r3, [r0], #1
+Xtf4_AddIs_0:
+  pop       {r4,pc}
 
 @ Xooffftimes4_CompressFastLoop: uchar * k -> uchar * x -> uchar * input -> size_t length -> size_t
 .align 8

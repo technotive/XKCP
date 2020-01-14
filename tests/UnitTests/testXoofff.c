@@ -248,7 +248,7 @@ static void performTestXoofff(unsigned char *checksum, unsigned int mode)
 
 void TempTests(){
   // Test AddIs:
-  size_t words = 2, tail = 5, i;
+  size_t words = 2, tail = 7, i;
   size_t bits = words*32 + tail;
   size_t bytes = (bits+7)/8;
   uint32_t a[words+1], b[words+1], c[words+1];

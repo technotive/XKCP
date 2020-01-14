@@ -1344,7 +1344,7 @@ Xft4_AddIs_7:
   eor       r3, r3, r4
   and       r3, r3, r2
   strb      r3, [r0], #1
-Xtf4_AddIs_0:
+Xft4_AddIs_0:
   pop       {r4,pc}
 
 @ Xooffftimes4_CompressFastLoop: uchar * k -> uchar * x -> uchar * input -> size_t length -> size_t

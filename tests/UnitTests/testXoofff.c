@@ -274,7 +274,7 @@ void selfTestXoofff(const unsigned char *expected)
      * Self-test add-in for individual fastloop.
      * Remove when done.
      */
-    TempTests()
+    TempTests();
 
     for(mode = 0; mode <= 2; ++mode) {
         #ifdef OUTPUT

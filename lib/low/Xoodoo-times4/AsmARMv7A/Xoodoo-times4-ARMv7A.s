@@ -1321,6 +1321,8 @@ Xft4_AddIs_0:
 .global Xooffftimes4_CompressFastLoop
 .type Xooffftimes4_CompressFastLoop, %function
 Xooffftimes4_CompressFastLoop:
+  mov r0, #0
+  bx lr
   push      {r4-r8, lr}
   vpush     {d8-d15}
   mov       r14, #0

@@ -1280,8 +1280,8 @@ Xft4_AddIs_0:
 
   vswp      q6, q8
 
-  vstm      r2!, {d0-d16}
-  vstm      r2!, {d17-d23}
+  vstm      r2!, {d0-d15}
+  vstm      r2!, {d16-d23}
 .endm
 
 .macro avalanche

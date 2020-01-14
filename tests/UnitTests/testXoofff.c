@@ -256,14 +256,14 @@ void TempTests(){
   a[0] = 27;
   b[0] = 12;
   c[0] = a[0]^b[0];
-  for(i = 1; i < 100; i++) {
-    a[i] = (uint32_t)((a[i-1]*3)-1);
-    b[i] = (uint32_t)((a[i-1]*11)+1);
-    c[i] = a[i]^b[i];
+  for(i = 0; i < words; i++) {
+    a[i+1] = (uint32_t)((a[i]*3)-1);
+    b[i+1] = (uint32_t)((a[i]*11)+1);
+    c[i+1] = a[i+1]^b[i+1];
   }
   c[words] ^= ((1 << tail)-1);
   Xooffftimes4_AddIs((char *) a, (char *) b, bits);
-  assert(memcmp(a, c, bytes) == 0);
+  assert(memcmp((char *)a, (char *)c, bytes) == 0);
   // Done, good.
 
 

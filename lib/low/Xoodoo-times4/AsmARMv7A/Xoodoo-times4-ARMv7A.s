@@ -1179,7 +1179,8 @@ Xft4_AddIs_0:
 
   @ Message Bytes
   vldm      r2!, {d8-d23}
-  vldm      r2!, {d24-d31}
+  vldm      r2, {d24-d31}
+  sub       r2, r2, #128
 
   @ Get key generation inputs
   vmov      r4, r5, d0 @ 0,1
@@ -1187,17 +1188,17 @@ Xft4_AddIs_0:
   vmov      r8, s8 @ 8
 
   @ climbing to 12-15
-  eor       r4, r4, r4, lsl #13
-  eor       r4, r4, r6, ror #29
-  @ r4 = 12
-  eor       r6, r6, r6, lsl #13
-  eor       r6, r6, r8, ror #29
-  @ r6 = 13
-  eor       r8, r8, r8, lsl #13
-  eor       r8, r8, r5, ror #29
-  @ r8 = 14
-  eor       r5, r5, r5, lsl #13
-  eor       r5, r5, r7, ror #29
+  @ eor       r4, r4, r4, lsl #13
+  @ eor       r4, r4, r6, ror #29
+  @ @ r4 = 12
+  @ eor       r6, r6, r6, lsl #13
+  @ eor       r6, r6, r8, ror #29
+  @ @ r6 = 13
+  @ eor       r8, r8, r8, lsl #13
+  @ eor       r8, r8, r5, ror #29
+  @ @ r8 = 14
+  @ eor       r5, r5, r5, lsl #13
+  @ eor       r5, r5, r7, ror #29
   @ r5 = 15
 
   @ 0,1,2,3
@@ -1278,6 +1279,9 @@ Xft4_AddIs_0:
   vmov      q3, q13
 
   vswp      q6, q8
+
+  vstm      r2!, {d0-d16}
+  vstm      r2!, {d17-d23}
 .endm
 
 .macro avalanche
@@ -1342,22 +1346,22 @@ Xft4_CompressFast:
   pop       {r4-r8, pc}
 
 @ Xooffftimes4_ExpandFastLoop: uchar * yAccu -> uchar * kRoll -> uchar * output -> size_t length -> size_t
-.align 8
-.global Xooffftimes4_ExpandFastLoop
-.type Xooffftimes4_ExpandFastLoop, %function
-Xooffftimes4_ExpandFastLoop:
-  mov r0, #0
-  bx lr
-
-  push      {r4-r11, lr}
-  vpush     {d8-d15}
-  mov       r14, r3
-Xft4_ExpandFast:
-  sub       r3, r3, #192
-
-
-  cmp       r3, #192
-  bhi       Xft4_ExpandFast
-  sub       r0, r14, r3
-  vpop      {d8-d15}
-  pop       {r4-r11, pc}
+@ .align 8
+@ .global Xooffftimes4_ExpandFastLoop
+@ .type Xooffftimes4_ExpandFastLoop, %function
+@ Xooffftimes4_ExpandFastLoop:
+@   mov r0, #0
+@   bx lr
+@
+@   push      {r4-r11, lr}
+@   vpush     {d8-d15}
+@   mov       r14, r3
+@ Xft4_ExpandFast:
+@   sub       r3, r3, #192
+@
+@
+@   cmp       r3, #192
+@   bhi       Xft4_ExpandFast
+@   sub       r0, r14, r3
+@   vpop      {d8-d15}
+@   pop       {r4-r11, pc}

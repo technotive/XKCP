@@ -63,7 +63,7 @@ typedef enum
     #define XoodooMaxParallellism   4
     #define Xoofff_Alignment        Xoodootimes4_statesAlignment
     #if defined(Xoodootimes4_FastXoofff_supported)
-        // #define    Xoofff_AddIs    Xooffftimes4_AddIs
+        #define    Xoofff_AddIs    Xooffftimes4_AddIs
     #endif
 #else
     #define XoodooMaxParallellism   1

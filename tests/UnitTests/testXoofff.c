@@ -291,7 +291,7 @@ void TempTests(){
   printf("l=%d\n", l);
 
   for(i = 0; i < vsize; i++) {
-    if(i%12 == 0) { printf("\n"); }
+    if(i%4 == 0) { printf("\n"); }
     printf("%03d ", input[i]);
   }
   printf("\n");

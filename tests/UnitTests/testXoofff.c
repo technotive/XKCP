@@ -263,7 +263,7 @@ void TempTests(){
   }
   c[words] ^= ((1 << tail)-1);
   Xooffftimes4_AddIs((char *) a, (char *) b, bits);
-  assert(memcmp(a, c, bytes) == 0)
+  assert(memcmp(a, c, bytes) == 0);
   // Done, good.
 
 

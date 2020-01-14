@@ -281,7 +281,7 @@ void TempTests(){
   }
   for(i = 0; i < vsize; i++) {
     input[i] = 1;
-    if(i > 12) { input[i] = 0; }
+    if(i >= 12) { input[i] = 0; }
   }
 
   for(i = 0; i < vsize; i++) {

@@ -304,7 +304,7 @@ void TempTests(){
   printf("\n");
 
   for (i = 0; i < psize; i++) {
-    if(i%4 == 0) { printf("\nq%d : ", i/4); }
+    if(i%4 == 0) { printf("\nq%d : ", (i/4)+12); }
     printf("%03d ", acc[i]);
   }
   printf("\n");

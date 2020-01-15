@@ -1051,8 +1051,6 @@ Xft4_AddIs_0:
 .endm
 
 .macro rho_w_star
-  @ vshl.U32  q12, q8, #11
-  @ vsri.U32  q12, q8, #21
   vmov.32   r5, r6, d16
   vshl.U32  q13, q9, #11
   vmov.32   r7, r8, d17
@@ -1327,12 +1325,12 @@ Xooffftimes4_CompressFastLoop:
   mov       r14, #0
   sub       r3, #192
 Xft4_CompressFast:
-  everest
+  @ everest
   xoodoo_6_star
-  avalanche
+  @ avalanche
   add       r14, #192
   subs      r3, #192
-  bhi       Xft4_CompressFast 
+  bhi       Xft4_CompressFast
   mov       r0, r14
   vpop      {d8-d15}
   pop       {r4-r8, pc}

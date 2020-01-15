@@ -1325,11 +1325,7 @@ Xooffftimes4_CompressFastLoop:
   mov       r14, #0
   sub       r3, #192
 Xft4_CompressFast:
-  @ everest
-  vldm      r2!, {d0-d7}
-  vldm      r2!, {d8-d15}
-  vldm      r2, {d16-d23}
-  sub       r2, r2, #128
+  everest
   xoodoo_6_star
   vstm      r2!, {d0-d7}
   vstm      r2!, {d8-d15}

@@ -1176,7 +1176,7 @@ Xoodootimes4_PermuteAll_12rounds:
 
   @ Message Bytes
   vldm      r2!, {d8-d23}
-  vldm      r2!, {d24-d31}
+  vldm      r2!, {d24-d31} @ BUS ERROR
   @ vldm      r2, {d24-d31}
   @ sub       r2, r2, #128
 
@@ -1330,7 +1330,7 @@ Xft4_CompressFast:
   avalanche
   add       r14, #192
   subs      r3, #192
-  bhi       Xft4_CompressFast
+  bcs       Xft4_CompressFast
   mov       r0, r14
   vpop      {d8-d15}
   pop       {r4-r8, pc}

@@ -619,7 +619,6 @@ static void performTestXoofffSANE_OneInput(BitLength keyLen, BitLength nonceLen,
         result = XoofffSANE_Wrap(&kvEnc, input, output, dataLen, AD, ADLen, tag);
         assert(result == 0);
         result = XoofffSANE_Unwrap(&kvDec, output, inputPrime, dataLen, AD, ADLen, tag);
-        printf("%d\n", result);
         assert(result == 0);
         assert(!memcmp(input,inputPrime,(dataLen + 7) / 8));
         KeccakWidth1600_SpongeAbsorb(pSpongeChecksum, output, (dataLen + 7) / 8);

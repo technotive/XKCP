@@ -279,11 +279,7 @@ void TempTests(){
     key[i] = 0;
     acc[i] = 0;
   }
-  for(i = 0; i < vsize; i++) {
-    input[i] = 0;
-    // input[i] = 1;
-    // if(i >= 12) { input[i] = 0; }
-  }
+  for(i = 0; i < vsize; i++) { input[i] = 0; }
 
   for(i = 0; i < vsize; i++) {
     if(i%12 == 0) { printf("\n"); }

@@ -344,7 +344,7 @@ int XoofffSANE_Unwrap(XoofffSANE_Instance *xp, const BitSequence *ciphertext, Bi
      /* Wipe plaintext on tag difference */
     if ( memcmp( tagPrime, tag, XoofffSANE_TagLength) != 0) {
         memset(plaintext, 0, (dataBitLen + 7) / 8);
-        return 6;
+        return 1;
     }
     return 0;
 }

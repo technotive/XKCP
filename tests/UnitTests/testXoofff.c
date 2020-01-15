@@ -266,8 +266,8 @@ void TempTests(){
   }
   c[words] &= ((1 << tail)-1);
 
-  // Xooffftimes4_AddIs((char *) a, (char *) b, bits);
-  // assert(memcmp((char *)a, (char *)c, bytes) == 0);
+  Xooffftimes4_AddIs((char *) a, (char *) b, bits);
+  assert(memcmp((char *)a, (char *)c, bytes) == 0);
   printf("AddIs self-test passed...\n");
 
   size_t psize = 12;

@@ -310,7 +310,7 @@ void TempTests(){
   }
   printf("\n");
 
-  for(i = 0; i < vsize; i++) { input[i] = 0; }
+  // for(i = 0; i < vsize; i++) { input[i] = 0; }
   Xoodootimes4_PermuteAll_6rounds(input);
   for(i = 0; i < vsize; i++) {
     if(i%4 == 0) { printf("\nq%d : ", i/4); }

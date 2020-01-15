@@ -1326,7 +1326,7 @@ Xooffftimes4_CompressFastLoop:
   sub       r3, #192
 Xft4_CompressFast:
   everest
-  xoodoo_6_star
+  @ xoodoo_6_star
   vstm      r2!, {d0-d7}
   vstm      r2!, {d8-d15}
   vstm      r2!, {d16-d23}

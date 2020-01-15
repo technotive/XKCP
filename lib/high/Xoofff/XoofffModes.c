@@ -330,21 +330,21 @@ int XoofffSANE_Unwrap(XoofffSANE_Instance *xp, const BitSequence *ciphertext, Bi
     if ((ADBitLen != 0) || (dataBitLen == 0)) {
         /* history <- A || 0 || e ° history */
         if (XoofffSANE_AddToHistory(xp, AD, ADBitLen, 0 ) != 0)
-            return 2;
+            return 1;
     }
     if (dataBitLen != 0) {
         /* history <- C || 1 || e  ° history */
         if (XoofffSANE_AddToHistory(xp, ciphertext, dataBitLen, 1 ) != 0)
-            return 3;
+            return 1;
     }
     /* Tprime = Fk(history) */
     if (Xoofff_Expand(&xp->xoofff, tagPrime, XoofffSANE_TagLength * 8, Xoofff_FlagNone) != 0)
-        return 4;
+        return 1;
     xp->e ^= 1;
      /* Wipe plaintext on tag difference */
     if ( memcmp( tagPrime, tag, XoofffSANE_TagLength) != 0) {
         memset(plaintext, 0, (dataBitLen + 7) / 8);
-        return 5;
+        return 6;
     }
     return 0;
 }

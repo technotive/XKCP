@@ -1332,7 +1332,7 @@ Xft4_CompressFast:
   avalanche
   add       r14, #192
   subs      r3, #192
-  bcs       Xft4_CompressFast
+  bhi       Xft4_CompressFast 
   mov       r0, r14
   vpop      {d8-d15}
   pop       {r4-r8, pc}

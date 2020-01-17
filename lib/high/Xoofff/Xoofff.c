@@ -614,11 +614,11 @@ int Xoofff(Xoofff_Instance *xp, const BitSequence *input, BitLength inputBitLen,
 {
 
     flags |= Xoofff_FlagLastPart;
-    printf("Compressing with I:%u\n", input);
+    printf("Compressing with X:%u\n", xp);
     if ( Xoofff_Compress(xp, input, inputBitLen, flags) != 0 )
         return 1;
     printf("Compressed...\n");
-    printf("Expanding with O:%u\n", output);
+    printf("Expanding with X:%u\n", xp);
     return Xoofff_Expand(xp, output, outputBitLen, flags);
     printf("Expanded...\n");
 }

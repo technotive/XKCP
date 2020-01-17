@@ -106,6 +106,7 @@ static void DumpBuf( const unsigned char * pText, const unsigned char * pData, u
 #define ParallelCompressLoopFast( Parallellism ) \
     if ( messageByteLen >= Parallellism * SnP_widthInBytes ) { \
         size_t processed = Xooffftimes##Parallellism##_CompressFastLoop((uint8_t*)k, (uint8_t*)x, message, messageByteLen); \
+        printf("processed: %u\n", processed);
         message += processed; \
         messageByteLen -= processed; \
     }
@@ -379,8 +380,7 @@ static const unsigned char * Xoodoo_CompressBlocks( unsigned char *k, unsigned c
     #endif
     #if (XoodooMaxParallellism >= 4)
     #if defined(Xoodootimes4_FastXoofff_supported)
-    ParallelCompressLoopPlSnP( 4 )
-    // ParallelCompressLoopFast( 4 )
+    ParallelCompressLoopFast( 4 )
     #else
     ParallelCompressLoopPlSnP( 4 )
     #endif

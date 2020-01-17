@@ -32,7 +32,7 @@ http://creativecommons.org/publicdomain/zero/1.0/
 **
 #define    DEBUG_DUMP
 */
-
+#define    DEBUG_DUMP
 /*
  * Uncomment this define if your CPU can not handle misaligned memory accesses.
 #define NO_MISALIGNED_ACCESSES
@@ -578,9 +578,7 @@ int Xoofff_Expand(Xoofff_Instance *xp, BitSequence *output, BitLength outputBitL
     #endif
     #endif
     if ( outputByteLen >= SnP_widthInBytes ) {
-        printf("Explicit fastloop...\n");
         size_t processed = Xoofff_ExpandFastLoop(xp->yAccu.a, xp->kRoll.a, output, outputByteLen);
-        printf("... done.\n");
         output += processed;
         outputByteLen -= processed;
     }

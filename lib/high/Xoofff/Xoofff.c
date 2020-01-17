@@ -394,7 +394,6 @@ static const unsigned char * Xoodoo_CompressBlocks( unsigned char *k, unsigned c
     ParallelCompressLoopPlSnP( 2 )
     #endif
     #endif
-    printf("Safe...\n");
     fflush(stdout);
 
     if (messageByteLen >= SnP_widthInBytes) {
@@ -485,15 +484,18 @@ int Xoofff_Compress(Xoofff_Instance *xp, const BitSequence *input, BitLength inp
         inputBitLen -= bitlen;
         xp->queueOffset += bitlen;
         if ( xp->queueOffset == SnP_width ) { /* queue full */
+          printf("A\n");
             Xoodoo_CompressBlocks(xp->kRoll.a, xp->xAccu.a, xp->queue.a, &xp->queueOffset, 0);
             xp->queueOffset = 0;
         }
         else if ( finalFlag != 0 ) {
+          printf("B\n");
             Xoodoo_CompressBlocks(xp->kRoll.a, xp->xAccu.a, xp->queue.a, &xp->queueOffset, 1);
             return 0;
         }
     }
     if ( (inputBitLen >= SnP_width) || (finalFlag != 0) ) { /* Compress blocks */
+      printf("C\n");
         input = Xoodoo_CompressBlocks(xp->kRoll.a, xp->xAccu.a, input, &inputBitLen, finalFlag);
     }
     if ( inputBitLen != 0 ) { /* Queue eventual residual message bytes */

@@ -107,9 +107,11 @@ int XoofffWBC_Encipher(Xoofff_Instance *xp, const BitSequence *plaintext, BitSeq
     else {
         if (Xoofff_Compress(xp, R0, nR0, Xoofff_FlagNone) != 0) /* compress R0 */
             return 1;
-        
+        //Issue starts here.
+        printf("XfC I:%u...\n", Rp + nR0 / 8);
         if (Xoofff_Compress(xp, Rp + nR0 / 8, nR - nR0 - numberOfBitsInLastByte, Xoofff_FlagNone) != 0)  /* rest of R except last byte if incomplete */
             return 1;
+        printf("... done.\n");
         lastByte[0] = (numberOfBitsInLastByte != 0) ? Rp[nR/8] : 0;
     }
     lastByte[0] &= (1 << numberOfBitsInLastByte) - 1;

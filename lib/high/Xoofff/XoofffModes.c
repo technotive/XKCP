@@ -88,12 +88,10 @@ int XoofffWBC_Encipher(Xoofff_Instance *xp, const BitSequence *plaintext, BitSeq
     if (Xoofff_Compress(xp, Lp, nL, Xoofff_FlagInit) != 0) /* Do complete L, is always a multiple of 8 bits */
         return 1;
     lastByte[0] = 0;
-    printf("Xoofffing with I:%u\n", lastByte);
     if (Xoofff(xp, lastByte, 1, R0, nR0, Xoofff_FlagXoofffie) != 0)
         return 1;
     Xoofff_AddIs(R0, Rp, nR0);
 
-    printf("Compressing with Iw:%u\n", W);
     /* L = L + Fk(R || 1 . W) */
     if (Xoofff_Compress(xp, W, WBitLen, Xoofff_FlagInit | Xoofff_FlagLastPart) != 0)
         return 1;
@@ -102,13 +100,16 @@ int XoofffWBC_Encipher(Xoofff_Instance *xp, const BitSequence *plaintext, BitSeq
     numberOfBitsInLastByte = nR & 7;
     lastByte[0] = (numberOfBitsInLastByte != 0) ? Rp[nR/8] : 0;
     if (nR0 == nR) {
+        printf("Compressing with Ir:%u\n", R0);
         if (Xoofff_Compress(xp, R0, nR0 - numberOfBitsInLastByte, Xoofff_FlagNone) != 0)  /* Compress R0 except last byte if incomplete */
             return 1;
         lastByte[0] = (numberOfBitsInLastByte != 0) ? R0[nR/8] : 0;
     }
     else {
+        printf("Compressing with Ir:%u\n", R0);
         if (Xoofff_Compress(xp, R0, nR0, Xoofff_FlagNone) != 0) /* compress R0 */
             return 1;
+        printf("Compressing with Ir:%u\n", Rp + nR0 / 8);
         if (Xoofff_Compress(xp, Rp + nR0 / 8, nR - nR0 - numberOfBitsInLastByte, Xoofff_FlagNone) != 0)  /* rest of R except last byte if incomplete */
             return 1;
         lastByte[0] = (numberOfBitsInLastByte != 0) ? Rp[nR/8] : 0;

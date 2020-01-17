@@ -13,9 +13,9 @@ http://creativecommons.org/publicdomain/zero/1.0/
 #include "XoofffModes.h"
 
 #define OUTPUT
-#define VERBOSE_WBC
-#define VERBOSE_SANE
-#define VERBOSE_SANSE
+/* #define VERBOSE_WBC */
+/* #define VERBOSE_SANE */
+/* #define VERBOSE_SANSE */
 
 #if defined(XoodooSmallRAM)
     #define    XoodooSizeMultiplier    2

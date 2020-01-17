@@ -283,34 +283,34 @@ void TempTests(){
 
   for(i = 0; i < vsize; i++) {
     if(i%12 == 0) { printf("\n"); }
-    printf("%03d ", input[i]);
+    printf("%3u ", input[i]);
   }
   printf("\n");
   for(i = 0; i < vsize; i++) {
     if(i%4 == 0) { printf("\n"); }
-    printf("%03d ", input[i]);
+    printf("%3u ", input[i]);
   }
   printf("\n");
 
   l = Xooffftimes4_CompressFastLoop((unsigned char *) key, (unsigned char *) acc, (unsigned char *) input, (vsize*4)+5);
   printf("\n");
   for(i = 0; i < vsize; i++) {
-    if(i%4 == 0) { printf("\nq%d : ", i/4); }
-    printf("%03d ", input[i]);
+    if(i%4 == 0) { printf("\nq%u : ", i/4); }
+    printf("%3u ", input[i]);
   }
   printf("\n");
 
   for (i = 0; i < psize; i++) {
-    if(i%4 == 0) { printf("\nq%d : ", (i/4)+12); }
-    printf("%03d ", acc[i]);
+    if(i%4 == 0) { printf("\nq%u : ", (i/4)+12); }
+    printf("%3u ", acc[i]);
   }
   printf("\n");
 
   // for(i = 0; i < vsize; i++) { input[i] = 0; }
   Xoodootimes4_PermuteAll_6rounds(input);
   for(i = 0; i < vsize; i++) {
-    if(i%4 == 0) { printf("\nq%d : ", i/4); }
-    printf("%03d ", input[i]);
+    if(i%4 == 0) { printf("\nq%u : ", i/4); }
+    printf("%3ud ", input[i]);
   }
   printf("\n");
 

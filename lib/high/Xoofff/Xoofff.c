@@ -585,6 +585,7 @@ int Xoofff_Expand(Xoofff_Instance *xp, BitSequence *output, BitLength outputBitL
         outputByteLen -= processed;
         printf("C\n");
     }
+    printf("D\n");
     if ( outputByteLen != 0 ) {    /* Last incomplete block */
         ALIGN(Xoodoo_stateAlignment) unsigned char state[Xoodoo_stateSizeInBytes];
 
@@ -609,6 +610,7 @@ int Xoofff_Expand(Xoofff_Instance *xp, BitSequence *output, BitLength outputBitL
             xp->queueOffset = offset * 8; /* current bit offset in queue buffer */
         }
     }
+    printf("E\n");
     if (finalFlag != 0) {
         outputBitLen &= 7;
         if (outputBitLen != 0) { /* cleanup last incomplete byte */
@@ -617,6 +619,7 @@ int Xoofff_Expand(Xoofff_Instance *xp, BitSequence *output, BitLength outputBitL
         }
         xp->phase = EXPANDED;
     }
+    printf("F\n");
     return 0;
 }
 

@@ -564,10 +564,8 @@ int Xoofff_Expand(Xoofff_Instance *xp, BitSequence *output, BitLength outputBitL
     #endif
     #if (XoodooMaxParallellism >= 4)
     #if defined(Xoodootimes4_FastXoofff_supported)
-    printf("Using PlSnP.\n");
     ParallelExpandLoopPlSnP( 4 )
     // ParallelExpandLoopFast( 4 )
-    printf("Survived...\n");
     #else
     ParallelExpandLoopPlSnP( 4 )
     #endif
@@ -580,7 +578,9 @@ int Xoofff_Expand(Xoofff_Instance *xp, BitSequence *output, BitLength outputBitL
     #endif
     #endif
     if ( outputByteLen >= SnP_widthInBytes ) {
+        printf("Explicit fastloop...\n");
         size_t processed = Xoofff_ExpandFastLoop(xp->yAccu.a, xp->kRoll.a, output, outputByteLen);
+        printf("... done.\n");
         output += processed;
         outputByteLen -= processed;
     }

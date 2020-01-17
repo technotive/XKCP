@@ -1176,7 +1176,7 @@ Xoodootimes4_PermuteAll_12rounds:
 
   @ Message Bytes
   vldm      r2!, {d8-d23}
-  vldm      r2!, {d24-d31} @ BUS ERROR
+  vldm      r2!, {d24-d31} @ BUS ERROR - Unaligned access.
   @ vldm      r2, {d24-d31}
   @ sub       r2, r2, #128
 

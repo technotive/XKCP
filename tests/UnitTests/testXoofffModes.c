@@ -129,10 +129,20 @@ static void performTestXoofffWBC_OneInput(BitLength keyLen, BitLength dataLen, B
     result = XoofffWBC_Initialize(&xp, key, keyLen);
     assert(result == 0);
 
+    printf("Init\n");
+    fflush(stdout);
+
     result = XoofffWBC_Encipher(&xp, input, output, dataLen, W, WLen);
     assert(result == 0);
 
+    printf("E\n");
+    fflush(stdout);
+
     result = XoofffWBC_Decipher(&xp, output, inputPrime, dataLen, W, WLen);
+
+    printf("D\n");
+    fflush(stdout);
+
     assert(result == 0);
     assert(!memcmp(input,inputPrime,(dataLen + 7) / 8));
 
@@ -196,7 +206,6 @@ static void performTestXoofffWBC(unsigned char *checksum)
 
     #ifdef OUTPUT
     printf("k ");
-    fflush(stdout);
     #endif
     dataLen = 128*8;
     WLen = 64*8;
@@ -216,7 +225,6 @@ static void performTestXoofffWBC(unsigned char *checksum)
 
     #ifdef OUTPUT
     printf("w ");
-    fflush(stdout);
     #endif
     dataLen = 128*8;
     keyLen = 16*8;

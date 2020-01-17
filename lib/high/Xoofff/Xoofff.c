@@ -585,6 +585,7 @@ int Xoofff_Expand(Xoofff_Instance *xp, BitSequence *output, BitLength outputBitL
     if ( outputByteLen != 0 ) {    /* Last incomplete block */
         ALIGN(Xoodoo_stateAlignment) unsigned char state[Xoodoo_stateSizeInBytes];
 
+        printf("OutputByteLength:%d\n", outputByteLen);
         Xoodoo_StaticInitialize();
         mInitialize(state);
         Xoodoo_OverwriteBytes(state, xp->yAccu.a, 0, SnP_widthInBytes);

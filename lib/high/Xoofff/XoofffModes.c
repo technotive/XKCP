@@ -107,11 +107,10 @@ int XoofffWBC_Encipher(Xoofff_Instance *xp, const BitSequence *plaintext, BitSeq
     else {
         if (Xoofff_Compress(xp, R0, nR0, Xoofff_FlagNone) != 0) /* compress R0 */
             return 1;
-        printf("Compressing with Ir:%u\n", Rp + nR0 / 8);
+        //Issue starts here.
         if (Xoofff_Compress(xp, Rp + nR0 / 8, nR - nR0 - numberOfBitsInLastByte, Xoofff_FlagNone) != 0)  /* rest of R except last byte if incomplete */
             return 1;
         lastByte[0] = (numberOfBitsInLastByte != 0) ? Rp[nR/8] : 0;
-        printf("SAFE!\n");
     }
     lastByte[0] &= (1 << numberOfBitsInLastByte) - 1;
     lastByte[0] |= 1 << numberOfBitsInLastByte;

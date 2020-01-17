@@ -547,6 +547,8 @@ int Xoofff_Expand(Xoofff_Instance *xp, BitSequence *output, BitLength outputBitL
         }
     }
 
+    printf("Initiated expansion.\n");
+
     outputByteLen = (outputBitLen + 7) / 8;
     #if (XoodooMaxParallellism >= 16)
     #if defined(Xoodootimes16_FastXoofff_supported)

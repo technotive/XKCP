@@ -587,13 +587,12 @@ int Xoofff_Expand(Xoofff_Instance *xp, BitSequence *output, BitLength outputBitL
 
         Xoodoo_StaticInitialize();
         mInitialize(state);
-        Xoodoo_OverwriteBytes(state, xp->yAccu.a, 0, SnP_widthInBytes);
-        Xoofff_Rolle((uint32_t*)xp->yAccu.a, encbuf, 1);
-        Xoodoo_Permute_6rounds(state);
-        Xoodoo_ExtractAndAddBytes(state, xp->kRoll.a, output, 0, outputByteLen);
+        Xoodoo_OverwriteBytes(state, xp->yAccu.a, 0, SnP_widthInBytes); printf("1\n");
+        Xoofff_Rolle((uint32_t*)xp->yAccu.a, encbuf, 1);printf("2\n");
+        Xoodoo_Permute_6rounds(state);printf("3\n");
+        Xoodoo_ExtractAndAddBytes(state, xp->kRoll.a, output, 0, outputByteLen);printf("4\n");
         DUMP("out 1", output, outputByteLen);
         output += outputByteLen;
-        printf("FFCHK\n");
         if (!finalFlag) { /* Put rest of expanded data into queue */
             unsigned int offset = outputByteLen;
             Xoodoo_ExtractAndAddBytes(state, xp->kRoll.a + offset, xp->queue.a + offset, offset, SnP_widthInBytes - outputByteLen);

@@ -32,11 +32,13 @@ http://creativecommons.org/publicdomain/zero/1.0/
 **
 #define    DEBUG_DUMP
 */
-#define    DEBUG_DUMP
+
 /*
  * Uncomment this define if your CPU can not handle misaligned memory accesses.
 #define NO_MISALIGNED_ACCESSES
  */
+
+#define NO_MISALIGNED_ACCESSES
 
 #define laneSize        4
 #define widthInLanes    (SnP_widthInBytes/laneSize)

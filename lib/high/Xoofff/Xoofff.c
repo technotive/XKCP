@@ -617,8 +617,8 @@ int Xoofff(Xoofff_Instance *xp, const BitSequence *input, BitLength inputBitLen,
     printf("Compressing with I:%u\n", input);
     if ( Xoofff_Compress(xp, input, inputBitLen, flags) != 0 )
         return 1;
-    printf("SAFE!\n");
     return Xoofff_Expand(xp, output, outputBitLen, flags);
+    printf("SAFE!\n");
 }
 
 #endif

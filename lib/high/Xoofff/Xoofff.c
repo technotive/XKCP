@@ -589,19 +589,12 @@ int Xoofff_Expand(Xoofff_Instance *xp, BitSequence *output, BitLength outputBitL
     if ( outputByteLen != 0 ) {    /* Last incomplete block */
         ALIGN(Xoodoo_stateAlignment) unsigned char state[Xoodoo_stateSizeInBytes];
 
-        printf("0\n");
         Xoodoo_StaticInitialize();
-        printf("1\n");
         mInitialize(state);
-        printf("2\n");
         Xoodoo_OverwriteBytes(state, xp->yAccu.a, 0, SnP_widthInBytes);
-        printf("3\n");
         Xoofff_Rolle((uint32_t*)xp->yAccu.a, encbuf, 1);
-        printf("4\n");
         Xoodoo_Permute_6rounds(state);
-        printf("5\n");
         Xoodoo_ExtractAndAddBytes(state, xp->kRoll.a, output, 0, outputByteLen);
-        printf("6\n");
         DUMP("out 1", output, outputByteLen);
         output += outputByteLen;
         if (!finalFlag) { /* Put rest of expanded data into queue */

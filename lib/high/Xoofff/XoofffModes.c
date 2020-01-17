@@ -88,6 +88,8 @@ int XoofffWBC_Encipher(Xoofff_Instance *xp, const BitSequence *plaintext, BitSeq
     if (Xoofff_Compress(xp, Lp, nL, Xoofff_FlagInit) != 0) /* Do complete L, is always a multiple of 8 bits */
         return 1;
     lastByte[0] = 0;
+    printf("Compressed...\n");
+    fflush(stdout);
     if (Xoofff(xp, lastByte, 1, R0, nR0, Xoofff_FlagXoofffie) != 0)
         return 1;
     Xoofff_AddIs(R0, Rp, nR0);

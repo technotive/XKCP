@@ -13,7 +13,7 @@ http://creativecommons.org/publicdomain/zero/1.0/
 #include "XoofffModes.h"
 
 #define OUTPUT
-#define VERBOSE_WBC
+/* #define VERBOSE_WBC */
 /* #define VERBOSE_SANE */
 /* #define VERBOSE_SANSE */
 
@@ -196,6 +196,7 @@ static void performTestXoofffWBC(unsigned char *checksum)
 
     #ifdef OUTPUT
     printf("k ");
+    fflush(stdout);
     #endif
     dataLen = 128*8;
     WLen = 64*8;
@@ -205,6 +206,7 @@ static void performTestXoofffWBC(unsigned char *checksum)
 
     #ifdef OUTPUT
     printf("d ");
+    fflush(stdout);
     #endif
     WLen = 64*8;
     keyLen = 16*8;
@@ -214,6 +216,7 @@ static void performTestXoofffWBC(unsigned char *checksum)
 
     #ifdef OUTPUT
     printf("w ");
+    fflush(stdout);
     #endif
     dataLen = 128*8;
     keyLen = 16*8;

@@ -577,15 +577,11 @@ int Xoofff_Expand(Xoofff_Instance *xp, BitSequence *output, BitLength outputBitL
     ParallelExpandLoopPlSnP( 2 )
     #endif
     #endif
-    printf("A\n");
     if ( outputByteLen >= SnP_widthInBytes ) {
-        printf("B\n");
         size_t processed = Xoofff_ExpandFastLoop(xp->yAccu.a, xp->kRoll.a, output, outputByteLen);
         output += processed;
         outputByteLen -= processed;
-        printf("C\n");
     }
-    printf("D\n");
     if ( outputByteLen != 0 ) {    /* Last incomplete block */
         ALIGN(Xoodoo_stateAlignment) unsigned char state[Xoodoo_stateSizeInBytes];
 
@@ -603,7 +599,6 @@ int Xoofff_Expand(Xoofff_Instance *xp, BitSequence *output, BitLength outputBitL
             xp->queueOffset = offset * 8; /* current bit offset in queue buffer */
         }
     }
-    printf("E\n");
     if (finalFlag != 0) {
         outputBitLen &= 7;
         if (outputBitLen != 0) { /* cleanup last incomplete byte */
@@ -612,7 +607,6 @@ int Xoofff_Expand(Xoofff_Instance *xp, BitSequence *output, BitLength outputBitL
         }
         xp->phase = EXPANDED;
     }
-    printf("F\n");
     return 0;
 }
 
@@ -627,6 +621,7 @@ int Xoofff(Xoofff_Instance *xp, const BitSequence *input, BitLength inputBitLen,
     printf("Expanding with X:%u\n", xp);
     return Xoofff_Expand(xp, output, outputBitLen, flags);
     printf("Expanded...\n");
+    fflush(stdout);
 }
 
 #endif

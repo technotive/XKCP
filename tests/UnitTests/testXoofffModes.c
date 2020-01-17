@@ -128,9 +128,7 @@ static void performTestXoofffWBC_OneInput(BitLength keyLen, BitLength dataLen, B
 
     result = XoofffWBC_Initialize(&xp, key, keyLen);
     assert(result == 0);
-
-    printf("Start Enciphering with: I:%u, O:%u\n", input, output);
-    fflush(stdout);
+    //Issue starts here.
     result = XoofffWBC_Encipher(&xp, input, output, dataLen, W, WLen);
     assert(result == 0);
 

@@ -577,10 +577,13 @@ int Xoofff_Expand(Xoofff_Instance *xp, BitSequence *output, BitLength outputBitL
     ParallelExpandLoopPlSnP( 2 )
     #endif
     #endif
+    printf("A\n");
     if ( outputByteLen >= SnP_widthInBytes ) {
+        printf("B\n");
         size_t processed = Xoofff_ExpandFastLoop(xp->yAccu.a, xp->kRoll.a, output, outputByteLen);
         output += processed;
         outputByteLen -= processed;
+        printf("C\n");
     }
     if ( outputByteLen != 0 ) {    /* Last incomplete block */
         ALIGN(Xoodoo_stateAlignment) unsigned char state[Xoodoo_stateSizeInBytes];

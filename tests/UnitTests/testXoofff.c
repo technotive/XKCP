@@ -12,8 +12,8 @@ http://creativecommons.org/publicdomain/zero/1.0/
 #include "KeccakSpongeWidth1600.h"
 #include "Xoofff.h"
 
-/* #define OUTPUT */
-/* #define VERBOSE */
+#define OUTPUT
+#define VERBOSE
 
 #if defined(XoodooSmallRAM)
     #define    XoodooSizeMultiplier    2

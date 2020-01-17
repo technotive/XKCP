@@ -547,8 +547,6 @@ int Xoofff_Expand(Xoofff_Instance *xp, BitSequence *output, BitLength outputBitL
         }
     }
 
-    printf("Initiated expansion.\n");
-
     outputByteLen = (outputBitLen + 7) / 8;
     #if (XoodooMaxParallellism >= 16)
     #if defined(Xoodootimes16_FastXoofff_supported)
@@ -566,8 +564,10 @@ int Xoofff_Expand(Xoofff_Instance *xp, BitSequence *output, BitLength outputBitL
     #endif
     #if (XoodooMaxParallellism >= 4)
     #if defined(Xoodootimes4_FastXoofff_supported)
+    printf("Using PlSnP.\n");
     ParallelExpandLoopPlSnP( 4 )
     // ParallelExpandLoopFast( 4 )
+    printf("Survived...\n");
     #else
     ParallelExpandLoopPlSnP( 4 )
     #endif

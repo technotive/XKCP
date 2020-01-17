@@ -38,8 +38,6 @@ http://creativecommons.org/publicdomain/zero/1.0/
 #define NO_MISALIGNED_ACCESSES
  */
 
-#define NO_MISALIGNED_ACCESSES
-
 #define laneSize        4
 #define widthInLanes    (SnP_widthInBytes/laneSize)
 #define SnP_width       (SnP_widthInBytes*8)
@@ -587,7 +585,6 @@ int Xoofff_Expand(Xoofff_Instance *xp, BitSequence *output, BitLength outputBitL
     if ( outputByteLen != 0 ) {    /* Last incomplete block */
         ALIGN(Xoodoo_stateAlignment) unsigned char state[Xoodoo_stateSizeInBytes];
 
-        printf("OutputByteLength:%d\n", outputByteLen);
         Xoodoo_StaticInitialize();
         mInitialize(state);
         Xoodoo_OverwriteBytes(state, xp->yAccu.a, 0, SnP_widthInBytes);
@@ -596,6 +593,7 @@ int Xoofff_Expand(Xoofff_Instance *xp, BitSequence *output, BitLength outputBitL
         Xoodoo_ExtractAndAddBytes(state, xp->kRoll.a, output, 0, outputByteLen);
         DUMP("out 1", output, outputByteLen);
         output += outputByteLen;
+        printf("FFCHK\n");
         if (!finalFlag) { /* Put rest of expanded data into queue */
             unsigned int offset = outputByteLen;
             Xoodoo_ExtractAndAddBytes(state, xp->kRoll.a + offset, xp->queue.a + offset, offset, SnP_widthInBytes - outputByteLen);

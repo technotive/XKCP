@@ -1220,7 +1220,6 @@ unfocused:
   ldmia     r2!, {r8-r9}
   vmov      d30, r6, r7
   vmov      d31, r8, r9
-
   b         snapped
 focused:
   vldm      r2!, {d8-d23}
@@ -1232,12 +1231,11 @@ snapped:
   @ Key seed bytes
   vldm      r0, {d0-d5}
 
-  @ Get key generation inputs
+  @ Get keystream generation inputs
   vmov      r4, r5, d0 @ 0,1
   vmov      r6, r7, d2 @ 4,5
   vmov      r8, s8 @ 8
 
-  @ climbing to 12-15
   eor       r4, r4, r4, lsl #13
   eor       r4, r4, r6, ror #29
   @ r4 = 12
@@ -1261,7 +1259,7 @@ snapped:
   veor      q8, q2, q8
   veor      q10, q2, q10
 
-  @ Roll
+  @ Roll_c
   vmov      s12, s1
   vmov      s13, s2
   vmov      s14, s3
@@ -1338,7 +1336,7 @@ snapped:
   vtrn.32   q1, q3
   vzip.32   q0, q1
   vzip.32   q2, q3
-  @ vstm      r2!, {d0-d7}
+
   veor      q0, q0, q1
   veor      q2, q2, q3
   veor      q12, q12, q0
@@ -1348,7 +1346,7 @@ snapped:
   vtrn.32   q5, q7
   vzip.32   q4, q5
   vzip.32   q6, q7
-  @ vstm      r2!, {d8-d15}
+
   veor      q4, q4, q5
   veor      q6, q6, q7
   veor      q13, q13, q4
@@ -1358,7 +1356,7 @@ snapped:
   vtrn.32   q9, q11
   vzip.32   q8, q9
   vzip.32   q10, q11
-  @ vstm      r2!, {d16-d23}
+
   veor      q8, q8, q9
   veor      q10, q10, q11
   veor      q14, q14, q8
@@ -1375,7 +1373,7 @@ Xooffftimes4_CompressFastLoop:
   tst       r2, #3
   movne     r0, #0
   bxne      lr
-  push      {r4-r9, lr} @ Save LR, macros might branch.
+  push      {r4-r9, lr}   @ Save LR, macros might branch.
   vpush     {d8-d15}
   mov       r14, #0
   sub       r3, #192

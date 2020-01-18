@@ -379,7 +379,9 @@ static const unsigned char * Xoodoo_CompressBlocks( unsigned char *k, unsigned c
     #endif
     #if (XoodooMaxParallellism >= 4)
     #if defined(Xoodootimes4_FastXoofff_supported)
+    printf("M1: %u \n", message);
     ParallelCompressLoopFast( 4 )
+    printf("M2: %u \n", message);
     #else
     ParallelCompressLoopPlSnP( 4 )
     #endif
@@ -567,9 +569,7 @@ int Xoofff_Expand(Xoofff_Instance *xp, BitSequence *output, BitLength outputBitL
     #endif
     #if (XoodooMaxParallellism >= 4)
     #if defined(Xoodootimes4_FastXoofff_supported)
-    printf("message: %u \n", message);
     ParallelExpandLoopPlSnP( 4 )
-    printf("message: %u \n", message);
     // ParallelExpandLoopFast( 4 )
     #else
     ParallelExpandLoopPlSnP( 4 )

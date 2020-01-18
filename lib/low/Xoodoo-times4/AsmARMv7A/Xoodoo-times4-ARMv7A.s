@@ -1331,7 +1331,7 @@ snapped:
   vswp      q6, q8
 .endm
 
-.macro avalanche
+.macro accumulate
   vldm      r1, {d24-d29}
 
   vtrn.32   q0, q2

@@ -1170,15 +1170,67 @@ Xoodootimes4_PermuteAll_12rounds:
   rho_e_star
 .endm
 
-.macro everest
+.macro focus
+  tst       r2, #3
+  beq       focused
+unfocused:
+  ldmia     r2!, {r4-r9}
+  vmov      d8, r4, r5
+  vmov      d9, r6, r7
+  ldmia     r2!, {r4-r5}
+  vmov      d10, r8, r9
+  ldmia     r2!, {r6-r7}
+  vmov      d11, r4, r5
+  ldmia     r2!, {r8-r9}
+  vmov      d12, r6, r7
+  ldmia     r2!, {r4-r5}
+  vmov      d13, r8, r9
+  ldmia     r2!, {r6-r7}
+  vmov      d14, r4, r5
+  ldmia     r2!, {r8-r9}
+  vmov      d15, r6, r7
+  ldmia     r2!, {r4-r5}
+  vmov      d16, r8, r9
+  ldmia     r2!, {r6-r7}
+  vmov      d17, r4, r5
+  ldmia     r2!, {r8-r9}
+  vmov      d18, r6, r7
+  ldmia     r2!, {r4-r5}
+  vmov      d19, r8, r9
+  ldmia     r2!, {r6-r7}
+  vmov      d20, r4, r5
+  ldmia     r2!, {r8-r9}
+  vmov      d21, r6, r7
+  ldmia     r2!, {r4-r5}
+  vmov      d22, r8, r9
+  ldmia     r2!, {r6-r7}
+  vmov      d23, r4, r5
+  ldmia     r2!, {r8-r9}
+  vmov      d24, r6, r7
+  ldmia     r2!, {r4-r5}
+  vmov      d25, r8, r9
+  ldmia     r2!, {r6-r7}
+  vmov      d26, r4, r5
+  ldmia     r2!, {r8-r9}
+  vmov      d27, r6, r7
+  ldmia     r2!, {r4-r5}
+  vmov      d28, r8, r9
+  ldmia     r2!, {r6-r7}
+  vmov      d29, r4, r5
+  ldmia     r2!, {r8-r9}
+  vmov      d30, r6, r7
+  vmov      d31, r8, r9
+
+  b         snapped
+focused:
+  vldm      r2!, {d8-d23}
+  vldm      r2!, {d24-d31}
+snapped:
+.endm
+
+.macro roll_zip_c
   @ Key seed bytes
   vldm      r0, {d0-d5}
-
-  @ Message Bytes
-  vldm      r2!, {d8-d23}
-  vldm      r2!, {d24-d31} @ BUS ERROR - Unaligned access.
-  @ vldm      r2, {d24-d31}
-  @ sub       r2, r2, #128
 
   @ Get key generation inputs
   vmov      r4, r5, d0 @ 0,1
@@ -1323,20 +1375,21 @@ Xooffftimes4_CompressFastLoop:
   tst       r2, #3
   movne     r0, #0
   bxne      lr
-  push      {r4-r8, lr}
+  push      {r4-r9, lr} @ Save LR, macros might branch.
   vpush     {d8-d15}
   mov       r14, #0
   sub       r3, #192
 Xft4_CompressFast:
-  everest
-  xoodoo_6_star
-  avalanche
+  focus                   @ Handle unaligned access
+  roll_zip_c              @ Roll_c with message addition (XOR)
+  xoodoo_6_star           @ Same as Xoodoo_6; different registers
+  accumulate              @ Add up the four states we processed
   add       r14, #192
   subs      r3, #192
   bcs       Xft4_CompressFast
   mov       r0, r14
   vpop      {d8-d15}
-  pop       {r4-r8, pc}
+  pop       {r4-r9, pc}
 
 @ Xooffftimes4_ExpandFastLoop: uchar * yAccu -> uchar * kRoll -> uchar * output -> size_t length -> size_t
 @ .align 8

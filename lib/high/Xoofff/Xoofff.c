@@ -487,7 +487,7 @@ int Xoofff_Compress(Xoofff_Instance *xp, const BitSequence *input, BitLength inp
         }
     }
     if ( (inputBitLen >= SnP_width) || (finalFlag != 0) ) { /* Compress blocks */
-        if(inputBitLen/8 > 192 && ()(uint32_t)input)%4 != 0) {
+        if(inputBitLen/8 > 192 && ((uint32_t)input)%4 != 0) {
           printf("Input:%u - R3:%u\n", input, inputBitLen/8);
         }
 

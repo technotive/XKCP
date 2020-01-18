@@ -358,8 +358,11 @@ size_t Xoofff_ExpandFastLoop(unsigned char *yAccu, const unsigned char *kRoll, u
 
 static const unsigned char * Xoodoo_CompressBlocks( unsigned char *k, unsigned char *x, const BitSequence *message, BitLength *messageBitLen, int lastFlag )
 {
-    printf("Compressing from %u...\n", message);
-    fflush(stdout);
+    if (message%4 != 0){
+      printf("Compressing from %u...\n", message);
+      fflush(stdout);
+    }
+
     ALIGN(Xoodoo_stateAlignment) unsigned char encbuf[XoodooMaxParallellism*Xoofff_RollSizeInBytes];
     size_t messageByteLen = *messageBitLen / 8; /* do not include partial last byte */
 
@@ -379,9 +382,10 @@ static const unsigned char * Xoodoo_CompressBlocks( unsigned char *k, unsigned c
     #endif
     #if (XoodooMaxParallellism >= 4)
     #if defined(Xoodootimes4_FastXoofff_supported)
-    printf("M1: %u \n", message);
+    if (message%4 != 0){
+      printf("M: %u \n", message);
+    }
     ParallelCompressLoopFast( 4 )
-    printf("M2: %u \n", message);
     #else
     ParallelCompressLoopPlSnP( 4 )
     #endif
@@ -393,6 +397,7 @@ static const unsigned char * Xoodoo_CompressBlocks( unsigned char *k, unsigned c
     ParallelCompressLoopPlSnP( 2 )
     #endif
     #endif
+    printf("Compression succeeded with M:%u\n", message);
     fflush(stdout);
 
     if (messageByteLen >= SnP_widthInBytes) {
@@ -619,11 +624,10 @@ int Xoofff(Xoofff_Instance *xp, const BitSequence *input, BitLength inputBitLen,
 {
 
     flags |= Xoofff_FlagLastPart;
-    printf("Compressing with X:%u\n", xp);
+    printf("Entering compression with X:%u\n", xp);
     if ( Xoofff_Compress(xp, input, inputBitLen, flags) != 0 )
         return 1;
-    printf("Compressed...\n");
-    printf("Expanding with X:%u\n", xp);
+    printf("... compressed.\n");
     return Xoofff_Expand(xp, output, outputBitLen, flags);
 }
 

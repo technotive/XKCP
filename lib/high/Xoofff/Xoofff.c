@@ -489,7 +489,7 @@ int Xoofff_Compress(Xoofff_Instance *xp, const BitSequence *input, BitLength inp
         }
     }
     if ( (inputBitLen >= SnP_width) || (finalFlag != 0) ) { /* Compress blocks */
-        printf("Input:%u - R3:\n", input, inputBitLen/8);
+        printf("Input:%u - R3:%u\n", input, inputBitLen/8);
         input = Xoodoo_CompressBlocks(xp->kRoll.a, xp->xAccu.a, input, &inputBitLen, finalFlag);
     }
     if ( inputBitLen != 0 ) { /* Queue eventual residual message bytes */

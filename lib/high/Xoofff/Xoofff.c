@@ -358,7 +358,7 @@ size_t Xoofff_ExpandFastLoop(unsigned char *yAccu, const unsigned char *kRoll, u
 
 static const unsigned char * Xoodoo_CompressBlocks( unsigned char *k, unsigned char *x, const BitSequence *message, BitLength *messageBitLen, int lastFlag )
 {
-    if (message%4 != 0){
+    if (((uint32_t) message) %4 != 0){
       printf("Compressing from %u...\n", message);
       fflush(stdout);
     }
@@ -382,7 +382,7 @@ static const unsigned char * Xoodoo_CompressBlocks( unsigned char *k, unsigned c
     #endif
     #if (XoodooMaxParallellism >= 4)
     #if defined(Xoodootimes4_FastXoofff_supported)
-    if (message%4 != 0){
+    if (((uint32_t) message %4) != 0){
       printf("M: %u \n", message);
     }
     ParallelCompressLoopFast( 4 )

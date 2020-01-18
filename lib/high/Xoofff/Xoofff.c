@@ -105,9 +105,7 @@ static void DumpBuf( const unsigned char * pText, const unsigned char * pData, u
 
 #define ParallelCompressLoopFast( Parallellism ) \
     if ( messageByteLen >= Parallellism * SnP_widthInBytes ) { \
-        printf("Fastloop##Parallellism##\n"); \
         size_t processed = Xooffftimes##Parallellism##_CompressFastLoop((uint8_t*)k, (uint8_t*)x, message, messageByteLen); \
-        printf("Processed:%u\n", processed); \
         message += processed; \
         messageByteLen -= processed; \
     }
@@ -489,12 +487,6 @@ int Xoofff_Compress(Xoofff_Instance *xp, const BitSequence *input, BitLength inp
         }
     }
     if ( (inputBitLen >= SnP_width) || (finalFlag != 0) ) { /* Compress blocks */
-      if(inputBitLen/8 > 192) {
-        printf("\nR3:%u\n",  inputBitLen/8);
-      }
-      if(((uint32_t)input)%4 != 0) {
-        printf("\nUnaligned:%u\n", input);
-      }
       if(inputBitLen/8 > 192 && ((uint32_t)input)%4 != 0) {
         printf("\nInput:%u - R3:%u\n", input, inputBitLen/8);
       }

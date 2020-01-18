@@ -105,9 +105,9 @@ static void DumpBuf( const unsigned char * pText, const unsigned char * pData, u
 
 #define ParallelCompressLoopFast( Parallellism ) \
     if ( messageByteLen >= Parallellism * SnP_widthInBytes ) { \
-        printf("Fastloop_%u\n", #Parallellism#); \
+        printf("Fastloop_%u\n", ##Parallellism##); \
         size_t processed = Xooffftimes##Parallellism##_CompressFastLoop((uint8_t*)k, (uint8_t*)x, message, messageByteLen); \
-        printf("Processed:%u\n", processed);
+        printf("Processed:%u\n", processed); \
         message += processed; \
         messageByteLen -= processed; \
     }

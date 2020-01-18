@@ -90,6 +90,8 @@ int XoofffWBC_Encipher(Xoofff_Instance *xp, const BitSequence *plaintext, BitSeq
     lastByte[0] = 0;
     if (Xoofff(xp, lastByte, 1, R0, nR0, Xoofff_FlagXoofffie) != 0)
         return 1;
+    printf("---------------\n");
+    printf("XfC Rp:%u...\n", Rp);
     Xoofff_AddIs(R0, Rp, nR0);
 
     /* L = L + Fk(R || 1 . W) */
@@ -98,6 +100,7 @@ int XoofffWBC_Encipher(Xoofff_Instance *xp, const BitSequence *plaintext, BitSeq
     memcpy(HkW, xp->xAccu.a, SnP_widthInBytes);
     memcpy(kRollAfterHkW, xp->kRoll.a+Xoofff_RollOffset, Xoofff_RollSizeInBytes);
     numberOfBitsInLastByte = nR & 7;
+    printf("XfC Rp:%u...\n", Rp);
     lastByte[0] = (numberOfBitsInLastByte != 0) ? Rp[nR/8] : 0;
     if (nR0 == nR) {
         if (Xoofff_Compress(xp, R0, nR0 - numberOfBitsInLastByte, Xoofff_FlagNone) != 0)  /* Compress R0 except last byte if incomplete */
@@ -105,13 +108,9 @@ int XoofffWBC_Encipher(Xoofff_Instance *xp, const BitSequence *plaintext, BitSeq
         lastByte[0] = (numberOfBitsInLastByte != 0) ? R0[nR/8] : 0;
     }
     else {
-        printf("---------------\n");
-        printf("XfC Rp:%u...\n", Rp);
-        printf("XfC nR0:%u...\n", nR0 / 8);
         if (Xoofff_Compress(xp, R0, nR0, Xoofff_FlagNone) != 0) /* compress R0 */
             return 1;
         //Issue starts here.
-        printf("XfC Rp:%u...\n", Rp);
         printf("XfC nR0:%u...\n", nR0 / 8);
         printf("XfC I:%u...\n", Rp + nR0 / 8);
         if (Xoofff_Compress(xp, Rp + nR0 / 8, nR - nR0 - numberOfBitsInLastByte, Xoofff_FlagNone) != 0)  /* rest of R except last byte if incomplete */

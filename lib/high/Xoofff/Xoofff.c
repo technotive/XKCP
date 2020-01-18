@@ -489,7 +489,7 @@ int Xoofff_Compress(Xoofff_Instance *xp, const BitSequence *input, BitLength inp
         }
     }
     if ( (inputBitLen >= SnP_width) || (finalFlag != 0) ) { /* Compress blocks */
-      printf("C: %u\n", input);
+        printf("Input:%u\n", input);
         input = Xoodoo_CompressBlocks(xp->kRoll.a, xp->xAccu.a, input, &inputBitLen, finalFlag);
     }
     if ( inputBitLen != 0 ) { /* Queue eventual residual message bytes */
@@ -616,10 +616,8 @@ int Xoofff(Xoofff_Instance *xp, const BitSequence *input, BitLength inputBitLen,
 {
 
     flags |= Xoofff_FlagLastPart;
-    printf("Entering compression with X:%u\n", xp);
     if ( Xoofff_Compress(xp, input, inputBitLen, flags) != 0 )
         return 1;
-    printf("... compressed.\n");
     return Xoofff_Expand(xp, output, outputBitLen, flags);
 }
 

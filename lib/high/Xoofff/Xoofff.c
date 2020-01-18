@@ -389,8 +389,6 @@ static const unsigned char * Xoodoo_CompressBlocks( unsigned char *k, unsigned c
     ParallelCompressLoopPlSnP( 2 )
     #endif
     #endif
-    printf("Compression succeeded with M:%u\n", message);
-    fflush(stdout);
 
     if (messageByteLen >= SnP_widthInBytes) {
         size_t processed = Xoofff_CompressFastLoop(k, x, message, messageByteLen);

@@ -949,6 +949,19 @@ Xooffftimes4_AddIs:
   bne       Xft4_AddIs_32
   tst       r1, #3
   bne       Xft4_AddIs_32
+Xft4_AddIs_384:
+  cmp       r2, #384
+  bcc       Xft4_AddIs_128
+  vldm      r0, {d0-d5}
+  vldm      r1!, {d16-d19}
+  veor      q0, q0, q8
+  vldm      r1!, {d20-d21}
+  veor      q1, q1, q9
+  veor      q2, q2, q10
+  vstm      r0!, {d0-d5}
+  subs      r2, #384
+  beq       Xft4_AddIs_0
+  b         Xft4_AddIs_384
 Xft4_AddIs_128: @Test if core registers are faster here...
   cmp       r2, #128
   bcc       Xft4_AddIs_32
@@ -956,7 +969,8 @@ Xft4_AddIs_128: @Test if core registers are faster here...
   vldm      r1!, {d2-d3}
   veor      q0, q0, q1
   vstm      r0!, {d0-d1}
-  sub       r2, #128
+  subs      r2, #128
+  beq       Xft4_AddIs_0
   b         Xft4_AddIs_128
 Xft4_AddIs_32:
   cmp       r2, #32

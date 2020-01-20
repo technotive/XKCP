@@ -948,6 +948,15 @@ Xooffftimes4_AddIs:
   tst       r0, #3
   tstne     r1, #3
   bne       Xft4_AddIs_32
+Xft4_AddIs_128:
+  cmp       r2, #128
+  bcc       Xft4_AddIs_32
+  vldm      r0, {d0-d1}
+  vldm      r1!, {d2-d3}
+  veor      q0, q0, q1
+  vstm      {d0-d1}
+  sub       r2, #128
+  b         Xft4_AddIs_128
 Xft4_AddIs_32:
   cmp       r2, #32
   bcc       Xft4_AddIs_8

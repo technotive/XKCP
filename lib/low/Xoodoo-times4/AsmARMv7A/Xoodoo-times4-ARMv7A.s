@@ -961,9 +961,9 @@ Xft4_AddIs_8_e:
   bcc       Xft4_AddIs_7_e
 Xft4_AddIs_8_l:
   ldrb      r4, [r0]
-  ldrb      r5, [r1], #4
+  ldrb      r5, [r1], #1
   eor       r4, r4, r5
-  strb      r4, [r0], #4
+  strb      r4, [r0], #1
   subs      r3, r3, #8
   bcs       Xft4_AddIs_8_l
   add       r2, r3, #8

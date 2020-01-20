@@ -943,38 +943,43 @@ Xoodootimes4_PermuteAll_12rounds:
 .global Xooffftimes4_AddIs
 .type Xooffftimes4_AddIs, %function
 Xooffftimes4_AddIs:
-  push      {r4,lr}
-Xft4_AddIs_32:
-  cmp       r2, #32
-  bcc       Xft4_AddIs_8
-  ldr       r3, [r0]
-  ldr       r4, [r1], #4
-  eor       r3, r3, r4
-  str       r3, [r0], #4
-  subs      r2, #32
-  beq       Xft4_AddIs_0
-  b         Xft4_AddIs_32
-Xft4_AddIs_8:
-  cmp       r2, #8
-  bcc       Xft4_AddIs_7
-  ldrb      r3, [r0]
-  ldrb      r4, [r1], #1
-  eor       r3, r3, r4
-  strb      r3, [r0], #1
-  subs      r2, #8
-  beq       Xft4_AddIs_0
-  b         Xft4_AddIs_8
-Xft4_AddIs_7:
+  push      {r4-r5,lr}
+  @ When unaligned always skip to 32.
+Xft4_AddIs_32_e:
+  subs      r3, r2, #32
+  bcc       Xft4_AddIs_8_e
+Xft4_AddIs_32_l:
+  ldr       r4, [r0]
+  ldr       r5, [r1], #4
+  eor       r4, r4, r5
+  str       r4, [r0], #4
+  subs      r3, r3, #32
+  bcs       Xft4_AddIs_32_l
+  add       r2, r3, #32
+Xft4_AddIs_8_e:
+  subs      r3, r2, #8
+  bcc       Xft4_AddIs_7_e
+Xft4_AddIs_8_l:
+  ldrb      r4, [r0]
+  ldrb      r5, [r1], #4
+  eor       r4, r4, r5
+  strb      r4, [r0], #4
+  subs      r3, r3, #8
+  bcs       Xft4_AddIs_8_l
+  add       r2, r3, #8
+Xft4_AddIs_7_e:
+  cmp       r2, #0
+  beq       Xft4_AddIs_0_e
   mov       r3, #1
   lsl       r3, r3, r2
-  sub       r2, r3, #1
-  ldrb      r3, [r0]
-  ldrb      r4, [r1], #1
-  eor       r3, r3, r4
-  and       r3, r3, r2
-  strb      r3, [r0], #1
-Xft4_AddIs_0:
-  pop       {r4,pc}
+  sub       r3, r3, #1
+  ldrb      r4, [r0]
+  ldrb      r5, [r1], #4
+  eor       r4, r4, r5
+  and       r4, r4, r3
+  strb      r4, [r0], #4
+Xft4_AddIs_0_e:
+  pop       {r4-r5,pc}
 
 .macro theta_star
   veor      q15, q3, q7

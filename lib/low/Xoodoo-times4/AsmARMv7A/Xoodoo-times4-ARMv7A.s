@@ -1171,7 +1171,7 @@ Xft4_AddIs_0:
   rho_e_star
 .endm
 
-.macro focus
+.macro focus_c
   tst       r2, #3
   beq       focused
 unfocused:
@@ -1379,7 +1379,7 @@ Xooffftimes4_CompressFastLoop:
   mov       r14, #0
   sub       r3, #192
 Xft4_CompressFast:
-  focus                   @ Handle unaligned access
+  focus_c                   @ Handle unaligned access
   roll_zip_c              @ Roll_c with message addition (XOR)
   xoodoo_6_star           @ Same as Xoodoo_6; different registers
   accumulate              @ Add up the four states we processed
@@ -1391,22 +1391,21 @@ Xft4_CompressFast:
   pop       {r4-r9, pc}
 
 @ Xooffftimes4_ExpandFastLoop: uchar * yAccu -> uchar * kRoll -> uchar * output -> size_t length -> size_t
-@ .align 8
-@ .global Xooffftimes4_ExpandFastLoop
-@ .type Xooffftimes4_ExpandFastLoop, %function
-@ Xooffftimes4_ExpandFastLoop:
-@   mov r0, #0
-@   bx lr
-@
-@   push      {r4-r11, lr}
-@   vpush     {d8-d15}
-@   mov       r14, r3
-@ Xft4_ExpandFast:
-@   sub       r3, r3, #192
-@
-@
-@   cmp       r3, #192
-@   bhi       Xft4_ExpandFast
-@   sub       r0, r14, r3
-@   vpop      {d8-d15}
-@   pop       {r4-r11, pc}
+.align 8
+.global Xooffftimes4_ExpandFastLoop
+.type Xooffftimes4_ExpandFastLoop, %function
+Xooffftimes4_ExpandFastLoop:
+  push      {r4-r11, lr}
+  vpush     {d8-d15}
+  mov       r14, r3
+Xft4_ExpandFast:
+  sub       r3, r3, #192
+
+  @ yAccu is the Pd input for Roll_e
+  @ kRoll is the leftover Roll_c which is used as a constant
+  @ Roll_e_n -> Pe + kRoll = Zn
+  cmp       r3, #192
+  bhi       Xft4_ExpandFast
+  sub       r0, r14, r3
+  vpop      {d8-d15}
+  pop       {r4-r11, pc}

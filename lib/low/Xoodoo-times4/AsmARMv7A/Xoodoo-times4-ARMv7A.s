@@ -972,7 +972,7 @@ Xft4_AddIs_128: @Test if core registers are faster here...
   subs      r2, #128
   beq       Xft4_AddIs_0
   b         Xft4_AddIs_128
-Xft4_AddIs_32:
+Xft4_AddIs_32: @ Add 64-support
   cmp       r2, #32
   bcc       Xft4_AddIs_8
   ldr       r4, [r0]

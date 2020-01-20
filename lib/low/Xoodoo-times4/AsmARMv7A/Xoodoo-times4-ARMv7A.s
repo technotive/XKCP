@@ -949,7 +949,7 @@ Xooffftimes4_AddIs:
   bne       Xft4_AddIs_32
   tst       r1, #3
   bne       Xft4_AddIs_32
-Xft4_AddIs_384: @ Maybe interleave?
+Xft4_AddIs_384: @ Test core registers and interleaving.
   cmp       r2, #384
   bcc       Xft4_AddIs_128
   vldm      r0, {d0-d5}

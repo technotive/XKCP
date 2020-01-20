@@ -954,7 +954,7 @@ Xft4_AddIs_128: @Test if core registers are faster here...
   vldm      r0, {d0-d1}
   vldm      r1!, {d2-d3}
   veor      q0, q0, q1
-  vstm      {d0-d1}
+  vstm      r0!, {d0-d1}
   sub       r2, #128
   b         Xft4_AddIs_128
 Xft4_AddIs_32:

@@ -950,7 +950,7 @@ Xooffftimes4_AddIs:
   bne       Xft4_AddIs_32_e
 Xft4_AddIs_32_e:
   subs      r3, r2, #32
-  bcc       Xft4_AddIs_8_e
+  bcc       Xft4_AddIs_8
 Xft4_AddIs_32_l:
   ldr       r4, [r0]
   ldr       r5, [r1], #4
@@ -959,20 +959,18 @@ Xft4_AddIs_32_l:
   subs      r3, r3, #32
   bcs       Xft4_AddIs_32_l
   add       r2, r3, #32
-Xft4_AddIs_8_e:
-  subs      r3, r2, #8
-  bcc       Xft4_AddIs_7_e
-Xft4_AddIs_8_l:
+Xft4_AddIs_8:
+  cmp       r2, #8
+  bcc       Xft4_AddIs_7
   ldrb      r4, [r0]
   ldrb      r5, [r1], #1
   eor       r4, r4, r5
   strb      r4, [r0], #1
-  subs      r3, r3, #8
-  bcs       Xft4_AddIs_8_l
-  add       r2, r3, #8
-Xft4_AddIs_7_e:
+  sub       r3, r3, #8
+  b         Xft4_AddIs_8
+Xft4_AddIs_7:
   cmp       r2, #0
-  beq       Xft4_AddIs_0_e
+  beq       Xft4_AddIs_0
   mov       r3, #1
   lsl       r3, r3, r2
   sub       r3, r3, #1
@@ -981,7 +979,7 @@ Xft4_AddIs_7_e:
   eor       r4, r4, r5
   and       r4, r4, r3
   strb      r4, [r0], #4
-Xft4_AddIs_0_e:
+Xft4_AddIs_0:
   pop       {r4-r5,pc}
 
 .macro theta_star

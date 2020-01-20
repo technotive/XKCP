@@ -956,7 +956,7 @@ Xft4_AddIs_32:
   eor       r4, r4, r5
   str       r4, [r0], #4
   sub       r2, r2, #32
-  b         Xft4_AddIs_32_l
+  b         Xft4_AddIs_32
 Xft4_AddIs_8:
   cmp       r2, #8
   bcc       Xft4_AddIs_7

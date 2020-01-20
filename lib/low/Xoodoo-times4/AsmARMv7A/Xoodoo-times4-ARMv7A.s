@@ -951,7 +951,8 @@ Xft4_AddIs_32:
   ldr       r4, [r1], #4
   eor       r3, r3, r4
   str       r3, [r0], #4
-  sub       r2, #32
+  subs      r2, #32
+  beq       Xft4_AddIs_0
   b         Xft4_AddIs_32
 Xft4_AddIs_8:
   cmp       r2, #8
@@ -962,7 +963,7 @@ Xft4_AddIs_8:
   strb      r3, [r0], #1
   subs      r2, #8
   beq       Xft4_AddIs_0
-  bcs       Xft4_AddIs_8
+  b         Xft4_AddIs_8
 Xft4_AddIs_7:
   mov       r3, #1
   lsl       r3, r3, r2

@@ -939,41 +939,41 @@ Xoodootimes4_PermuteAll_12rounds:
 @
 
 @ Xooffftimes4_AddIs: uchar * output -> uchar * input -> size_t bitLen -> void
-@ .align 8
-@ .global Xooffftimes4_AddIs
-@ .type Xooffftimes4_AddIs, %function
-@ Xooffftimes4_AddIs: @Unoptimized garbage. optimize this.
-@   push      {r4,lr}
-@ Xft4_AddIs_32:
-@   cmp       r2, #32
-@   bcc       Xft4_AddIs_8
-@   ldr       r3, [r0]
-@   ldr       r4, [r1], #4
-@   eor       r3, r3, r4
-@   str       r3, [r0], #4
-@   sub       r2, #32
-@   b         Xft4_AddIs_32
-@ Xft4_AddIs_8:
-@   cmp       r2, #8
-@   bcc       Xft4_AddIs_7
-@   ldrb      r3, [r0]
-@   ldrb      r4, [r1], #1
-@   eor       r3, r3, r4
-@   strb      r3, [r0], #1
-@   sub       r2, #8
-@   b         Xft4_AddIs_8
-@ Xft4_AddIs_7:
-@   beq       Xft4_AddIs_0
-@   mov       r3, #1
-@   lsl       r3, r3, r2
-@   sub       r2, r3, #1
-@   ldrb      r3, [r0]
-@   ldrb      r4, [r1], #1
-@   eor       r3, r3, r4
-@   and       r3, r3, r2
-@   strb      r3, [r0], #1
-@ Xft4_AddIs_0:
-@   pop       {r4,pc}
+.align 8
+.global Xooffftimes4_AddIs
+.type Xooffftimes4_AddIs, %function
+Xooffftimes4_AddIs: @Unoptimized garbage. optimize this.
+  push      {r4,lr}
+Xft4_AddIs_32:
+  cmp       r2, #32
+  bcc       Xft4_AddIs_8
+  ldr       r3, [r0]
+  ldr       r4, [r1], #4
+  eor       r3, r3, r4
+  str       r3, [r0], #4
+  sub       r2, #32
+  b         Xft4_AddIs_32
+Xft4_AddIs_8:
+  cmp       r2, #8
+  bcc       Xft4_AddIs_7
+  ldrb      r3, [r0]
+  ldrb      r4, [r1], #1
+  eor       r3, r3, r4
+  strb      r3, [r0], #1
+  sub       r2, #8
+  b         Xft4_AddIs_8
+Xft4_AddIs_7:
+  beq       Xft4_AddIs_0
+  mov       r3, #1
+  lsl       r3, r3, r2
+  sub       r2, r3, #1
+  ldrb      r3, [r0]
+  ldrb      r4, [r1], #1
+  eor       r3, r3, r4
+  and       r3, r3, r2
+  strb      r3, [r0], #1
+Xft4_AddIs_0:
+  pop       {r4,pc}
 
 .macro theta_star
   veor      q15, q3, q7

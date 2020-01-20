@@ -1395,9 +1395,6 @@ Xft4_CompressFast:
 .global Xooffftimes4_ExpandFastLoop
 .type Xooffftimes4_ExpandFastLoop, %function
 Xooffftimes4_ExpandFastLoop:
-  mov r0, #0
-  bx lr
-
   push      {r4-r11, lr}
   vpush     {d8-d15}
   mov       r14, r3

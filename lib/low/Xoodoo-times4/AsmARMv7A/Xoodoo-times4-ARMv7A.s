@@ -942,8 +942,7 @@ Xoodootimes4_PermuteAll_12rounds:
 .align 8
 .global Xooffftimes4_AddIs
 .type Xooffftimes4_AddIs, %function
-Xooffftimes4_AddIs: @Unoptimized garbage. optimize this.
-@ Do not forget to check alignment.
+Xooffftimes4_AddIs:
   push      {r4,lr}
 Xft4_AddIs_32:
   cmp       r2, #32
@@ -961,10 +960,10 @@ Xft4_AddIs_8:
   ldrb      r4, [r1], #1
   eor       r3, r3, r4
   strb      r3, [r0], #1
-  sub       r2, #8
-  b         Xft4_AddIs_8
-Xft4_AddIs_7:
+  subs      r2, #8
   beq       Xft4_AddIs_0
+  bcs       Xft4_AddIs_8
+Xft4_AddIs_7:
   mov       r3, #1
   lsl       r3, r3, r2
   sub       r2, r3, #1

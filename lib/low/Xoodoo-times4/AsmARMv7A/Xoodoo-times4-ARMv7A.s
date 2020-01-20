@@ -945,6 +945,9 @@ Xoodootimes4_PermuteAll_12rounds:
 Xooffftimes4_AddIs:
   push      {r4-r5,lr}
   @ When unaligned always skip to 32.
+  tst       r0, #3
+  tstne     r1, #3
+  bne       Xft4_AddIs_32_e
 Xft4_AddIs_32_e:
   subs      r3, r2, #32
   bcc       Xft4_AddIs_8_e

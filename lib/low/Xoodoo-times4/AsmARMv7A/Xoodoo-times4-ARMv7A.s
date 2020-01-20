@@ -946,7 +946,8 @@ Xooffftimes4_AddIs:
   push      {r4-r5,lr}
   @ When unaligned always skip to 32.
   tst       r0, #3
-  tstne     r1, #3
+  bne       Xft4_AddIs_32
+  tst       r1, #3
   bne       Xft4_AddIs_32
 Xft4_AddIs_128: @Test if core registers are faster here...
   cmp       r2, #128

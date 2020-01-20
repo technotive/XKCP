@@ -1399,9 +1399,9 @@ snapped:
 .global Xooffftimes4_CompressFastLoop
 .type Xooffftimes4_CompressFastLoop, %function
 Xooffftimes4_CompressFastLoop:
-  tst       r2, #3
-  movne     r0, #0
-  bxne      lr
+  @ tst       r2, #3
+  @ movne     r0, #0
+  @ bxne      lr
   push      {r4-r9, lr}   @ Save LR, macros might branch.
   vpush     {d8-d15}
   mov       r14, #0
@@ -1418,22 +1418,31 @@ Xft4_CompressFast:
   vpop      {d8-d15}
   pop       {r4-r9, pc}
 
+.macro roll_zip_e
+.endm
+
+.macro sequentiate
+.endm
+
 @ Xooffftimes4_ExpandFastLoop: uchar * yAccu -> uchar * kRoll -> uchar * output -> size_t length -> size_t
 .align 8
 .global Xooffftimes4_ExpandFastLoop
 .type Xooffftimes4_ExpandFastLoop, %function
 Xooffftimes4_ExpandFastLoop:
-  push      {r4-r11, lr}
+  push      {r4-r9, lr}   @ Save LR, macros might branch.
   vpush     {d8-d15}
-  mov       r14, r3
+  mov       r14, #0
+  sub       r3, #192
 Xft4_ExpandFast:
-  sub       r3, r3, #192
-
   @ yAccu is the Pd input for Roll_e
+  roll_zip_e
+  xoodoo_6_star
   @ kRoll is the leftover Roll_c which is used as a constant
   @ Roll_e_n -> Pe + kRoll = Zn
-  cmp       r3, #192
-  bhi       Xft4_ExpandFast
-  sub       r0, r14, r3
+  sequentiate
+  add       r14, #192
+  subs      r3, #192
+  bcs       Xft4_CompressFast
+  mov       r0, r14
   vpop      {d8-d15}
-  pop       {r4-r11, pc}
+  pop       {r4-r9, pc}

@@ -948,7 +948,7 @@ Xooffftimes4_AddIs:
   tst       r0, #3
   tstne     r1, #3
   bne       Xft4_AddIs_32
-Xft4_AddIs_128:
+Xft4_AddIs_128: @Test if core registers are faster here...
   cmp       r2, #128
   bcc       Xft4_AddIs_32
   vldm      r0, {d0-d1}

@@ -943,13 +943,13 @@ Xoodootimes4_PermuteAll_12rounds:
 .global Xooffftimes4_AddIs
 .type Xooffftimes4_AddIs, %function
 Xooffftimes4_AddIs:
-  push      {r4-r5,lr}
+  push      {r4-r12,lr}
   @ When unaligned always skip to 32.
   tst       r0, #3
   bne       Xft4_AddIs_32
   tst       r1, #3
   bne       Xft4_AddIs_32
-Xft4_AddIs_384:
+Xft4_AddIs_384: @ Maybe interleave?
   cmp       r2, #384
   bcc       Xft4_AddIs_128
   vldm      r0, {d0-d5}
@@ -1002,7 +1002,7 @@ Xft4_AddIs_7:
   and       r4, r4, r3
   strb      r4, [r0], #4
 Xft4_AddIs_0:
-  pop       {r4-r5,pc}
+  pop       {r4-r12,pc}
 
 .macro theta_star
   veor      q15, q3, q7

@@ -1399,9 +1399,11 @@ snapped:
 .global Xooffftimes4_CompressFastLoop
 .type Xooffftimes4_CompressFastLoop, %function
 Xooffftimes4_CompressFastLoop:
-  @ tst       r2, #3
-  @ movne     r0, #0
-  @ bxne      lr
+  @ Do not use this function for unaligned access (for now).
+  tst       r2, #3
+  movne     r0, #0
+  bxne      lr
+  
   push      {r4-r9, lr}   @ Save LR, macros might branch.
   vpush     {d8-d15}
   mov       r14, #0

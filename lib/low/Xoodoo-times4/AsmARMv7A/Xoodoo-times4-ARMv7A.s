@@ -947,19 +947,16 @@ Xooffftimes4_AddIs:
   @ When unaligned always skip to 32.
   tst       r0, #3
   tstne     r1, #3
-  bne       Xft4_AddIs_32_e
-Xft4_AddIs_32_e:
-  subs      r3, r2, #32
+  bne       Xft4_AddIs_32
+Xft4_AddIs_32:
+  cmp       r2, #32
   bcc       Xft4_AddIs_8
-Xft4_AddIs_32_l:
-  
   ldr       r4, [r0]
   ldr       r5, [r1], #4
   eor       r4, r4, r5
   str       r4, [r0], #4
-  subs      r3, r3, #32
-  bcs       Xft4_AddIs_32_l
-  add       r2, r3, #32
+  sub       r2, r2, #32
+  b         Xft4_AddIs_32_l
 Xft4_AddIs_8:
   cmp       r2, #8
   bcc       Xft4_AddIs_7

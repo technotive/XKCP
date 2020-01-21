@@ -1427,7 +1427,7 @@ Xft4_CompressFast:
   bcs       Xft4_CompressFast
   mov       r0, r10
   vpop      {d8-d15}
-  pop       {r4-r9, pc}
+  pop       {r4-r10, pc}
 
 .macro roll_zip_e
   vldm      r0, {d0-d5}

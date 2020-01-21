@@ -246,87 +246,10 @@ static void performTestXoofff(unsigned char *checksum, unsigned int mode)
     #endif
 }
 
-void TempTests(){
-  // Test AddIs:
-  size_t words = 100, tail = 5, i;
-  size_t bits = words*32 + tail;
-  size_t bytes = (bits+7)/8;
-  uint32_t a[words+1], b[words+1], c[words+1];
-  unsigned char * ab = (unsigned char *) a;
-  unsigned char * bb = (unsigned char *) b;
-  unsigned char * cb = (unsigned char *) c;
-
-  a[0] = 27;
-  b[0] = 12;
-  c[0] = a[0]^b[0];
-  for(i = 0; i < words; i++) {
-    a[i+1] = (uint32_t)((a[i]*3)-1);
-    b[i+1] = (uint32_t)((a[i]*11)+1);
-    c[i+1] = a[i+1]^b[i+1];
-  }
-  c[words] &= ((1 << tail)-1);
-
-  // Xooffftimes4_AddIs((char *) a, (char *) b, bits);
-  // assert(memcmp((char *)a, (char *)c, bytes) == 0);
-  printf("AddIs self-test passed...\n");
-
-  size_t psize = 12;
-  size_t vsize = psize*4;
-  size_t l;
-  uint32_t input[vsize], key[psize], acc[psize];
-
-  for(i = 0; i < psize; i++) {
-    key[i] = 0;
-    acc[i] = 0;
-  }
-  for(i = 0; i < vsize; i++) { input[i] = 0; }
-
-  for(i = 0; i < vsize; i++) {
-    if(i%12 == 0) { printf("\n"); }
-    printf("%3u ", input[i]);
-  }
-  printf("\n");
-  for(i = 0; i < vsize; i++) {
-    if(i%4 == 0) { printf("\n"); }
-    printf("%3u ", input[i]);
-  }
-  printf("\n");
-
-  l = Xooffftimes4_CompressFastLoop((unsigned char *) key, (unsigned char *) acc, (unsigned char *) input, (vsize*4)+5);
-  printf("\n");
-  for(i = 0; i < vsize; i++) {
-    if(i%4 == 0) { printf("\nq%u : ", i/4); }
-    printf("%3u ", input[i]);
-  }
-  printf("\n");
-
-  for (i = 0; i < psize; i++) {
-    if(i%4 == 0) { printf("\nq%u : ", (i/4)+12); }
-    printf("%3u ", acc[i]);
-  }
-  printf("\n");
-
-  // for(i = 0; i < vsize; i++) { input[i] = 0; }
-  Xoodootimes4_PermuteAll_6rounds(input);
-  for(i = 0; i < vsize; i++) {
-    if(i%4 == 0) { printf("\nq%u : ", i/4); }
-    printf("%3ud ", input[i]);
-  }
-  printf("\n");
-
-  printf("Compression self-test passed...\n");
-}
-
 void selfTestXoofff(const unsigned char *expected)
 {
     unsigned char checksum[checksumByteSize];
     unsigned int mode;
-
-    /**
-     * Self-test add-in for individual fastloop.
-     * Remove when done.
-     */
-    // TempTests();
 
     for(mode = 0; mode <= 2; ++mode) {
         #ifdef OUTPUT

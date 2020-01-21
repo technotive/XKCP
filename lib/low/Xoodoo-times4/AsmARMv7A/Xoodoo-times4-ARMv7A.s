@@ -1256,29 +1256,6 @@ focused:
 snapped:
 .endm
 
-.macro roll_x
-  @ Roll_x
-  vmov      s12, s1
-  vmov      s13, s2
-  vmov      s14, s3
-  vmov      s15, r4
-
-  vmov      s0, s5
-  vmov      s1, s6
-  vmov      s2, s7
-  vmov      s3, r6
-
-  vmov      s4, s9
-  vmov      s5, s10
-  vmov      s6, s11
-  vmov      s7, r8
-
-  vmov      s8, s13
-  vmov      s9, s14
-  vmov      d5, r4, r5
-  vstm      r0, {d0-d5}
-.endm
-
 .macro zip_x
   @ Shatter
   vuzp.32   q4, q10
@@ -1349,7 +1326,25 @@ snapped:
   veor      q8, q2, q8
   veor      q10, q2, q10
 
-  roll_x
+  vmov      s12, s1
+  vmov      s13, s2
+  vmov      s14, s3
+  vmov      s15, r4
+
+  vmov      s0, s5
+  vmov      s1, s6
+  vmov      s2, s7
+  vmov      s3, r6
+
+  vmov      s4, s9
+  vmov      s5, s10
+  vmov      s6, s11
+  vmov      s7, r8
+
+  vmov      s8, s13
+  vmov      s9, s14
+  vmov      d5, r4, r5
+  vstm      r0, {d0-d5}
 
   @ 1,2,3,12
   veor      q9, q3, q9
@@ -1471,7 +1466,26 @@ Xft4_CompressFast:
   vmov      q8, q2
   vmov      q10, q2
 
-  roll_x
+  @ Optimize movement here. Merge into zip_x
+  vmov      s12, s1
+  vmov      s13, s2
+  vmov      s14, s3
+  vmov      s15, r4
+
+  vmov      s0, s5
+  vmov      s1, s6
+  vmov      s2, s7
+  vmov      s3, r6
+
+  vmov      s4, s9
+  vmov      s5, s10
+  vmov      s6, s11
+  vmov      s7, r8
+
+  vmov      s8, s13
+  vmov      s9, s14
+  vmov      d5, r4, r5
+  vstm      r0, {d0-d5}
 
   @ 1,2,3,12
   vmov      q9, q3

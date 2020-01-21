@@ -1412,19 +1412,19 @@ Xooffftimes4_CompressFastLoop:
   movne     r0, #0
   bxne      lr
 
-  push      {r4-r9, lr}   @ Save LR, macros might branch.
+  push      {r4-r10, lr}   @ Save LR, macros might branch.
   vpush     {d8-d15}
-  mov       r14, #0
+  mov       r10, #0
   sub       r3, #192
 Xft4_CompressFast:
   focus_c                 @ Handle unaligned access
   roll_zip_c              @ Roll_c with message addition (XOR)
   xoodoo_6_star           @ Same as Xoodoo_6; different registers
   accumulate              @ Add up the four states we processed
-  add       r14, #192
+  add       r10, #192
   subs      r3, #192
   bcs       Xft4_CompressFast
-  mov       r0, r14
+  mov       r0, r10
   vpop      {d8-d15}
   pop       {r4-r9, pc}
 
@@ -1527,17 +1527,17 @@ Xooffftimes4_ExpandFastLoop:
   @ movne     r0, #0
   @ bxne      lr
 
-  push      {r4-r10, lr}   @ Save LR, macros might branch.
+  push      {r4-r11, lr}   @ Save LR, macros might branch.
   vpush     {d8-d15}
-  mov       r14, #0
+  mov       r11, #0
   sub       r3, #192
 Xft4_ExpandFast:
   roll_zip_e
   xoodoo_6_star
   sequentiate
-  add       r14, #192
+  add       r11, #192
   subs      r3, #192
-  bcs       Xft4_CompressFast
-  mov       r0, r14
+  bcs       Xft4_ExpandFast
+  mov       r0, r11
   vpop      {d8-d15}
-  pop       {r4-r10, pc}
+  pop       {r4-r11, pc}

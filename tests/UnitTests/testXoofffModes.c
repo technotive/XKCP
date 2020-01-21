@@ -12,7 +12,7 @@ http://creativecommons.org/publicdomain/zero/1.0/
 #include "KeccakSpongeWidth1600.h"
 #include "XoofffModes.h"
 
-#define OUTPUT
+/* #define OUTPUT */
 /* #define VERBOSE_WBC */
 /* #define VERBOSE_SANE */
 /* #define VERBOSE_SANSE */
@@ -128,7 +128,7 @@ static void performTestXoofffWBC_OneInput(BitLength keyLen, BitLength dataLen, B
 
     result = XoofffWBC_Initialize(&xp, key, keyLen);
     assert(result == 0);
-    
+
     result = XoofffWBC_Encipher(&xp, input, output, dataLen, W, WLen);
     assert(result == 0);
 

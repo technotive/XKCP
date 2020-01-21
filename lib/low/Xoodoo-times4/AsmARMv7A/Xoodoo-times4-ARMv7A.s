@@ -1256,28 +1256,7 @@ focused:
 snapped:
 .endm
 
-.macro roll_zip_c
-  @ Key seed bytes
-  vldm      r0, {d0-d5}
-
-  @ Get keystream generation inputs
-  vmov      r4, r5, d0 @ 0,1
-  vmov      r6, r7, d2 @ 4,5
-  vmov      r8, s8 @ 8
-
-  eor       r4, r4, r4, lsl #13
-  eor       r4, r4, r6, ror #29
-  @ r4 = 12
-  eor       r6, r6, r6, lsl #13
-  eor       r6, r6, r8, ror #29
-  @ r6 = 13
-  eor       r8, r8, r8, lsl #13
-  eor       r8, r8, r5, ror #29
-  @ r8 = 14
-  eor       r5, r5, r5, lsl #13
-  eor       r5, r5, r7, ror #29
-  @ r5 = 15
-
+.macro zip_star
   @ 0,1,2,3
   veor      q4, q0, q4
   @ 4,5,6,7
@@ -1358,6 +1337,30 @@ snapped:
   vswp      q6, q8
 .endm
 
+.macro roll_zip_c
+  @ Key seed bytes
+  vldm      r0, {d0-d5}
+
+  @ Get keystream generation inputs
+  vmov      r4, r5, d0 @ 0,1
+  vmov      r6, r7, d2 @ 4,5
+  vmov      r8, s8 @ 8
+
+  eor       r4, r4, r4, lsl #13
+  eor       r4, r4, r6, ror #29
+  @ r4 = 12
+  eor       r6, r6, r6, lsl #13
+  eor       r6, r6, r8, ror #29
+  @ r6 = 13
+  eor       r8, r8, r8, lsl #13
+  eor       r8, r8, r5, ror #29
+  @ r8 = 14
+  eor       r5, r5, r5, lsl #13
+  eor       r5, r5, r7, ror #29
+  @ r5 = 15
+  zip_star
+.endm
+
 .macro accumulate
   vldm      r1, {d24-d29}
 
@@ -1403,7 +1406,7 @@ Xooffftimes4_CompressFastLoop:
   tst       r2, #3
   movne     r0, #0
   bxne      lr
-  
+
   push      {r4-r9, lr}   @ Save LR, macros might branch.
   vpush     {d8-d15}
   mov       r14, #0
@@ -1421,6 +1424,34 @@ Xft4_CompressFast:
   pop       {r4-r9, pc}
 
 .macro roll_zip_e
+  vldm      r0, {d0-d5}
+
+  @ Get keystream generation inputs
+  vmov      r4, r5, d0 @ 0,1
+  vmov      r6, r7, d2 @ 4,5
+  vmov      r8, r9, d4 @ 8,9
+
+  and       r14, r6, r8
+  eor       r4, r14, r4, ror #27
+  eor       r4, r4, r6, ror #21
+  eor       r4, r4, #7
+  @ r4 = 12
+  and       r14, r8, r5
+  eor       r6, r14, r6, ror #27
+  eor       r6, r6, r8, ror #21
+  eor       r6, r6, #7
+  @r6 = 13
+  and       r14, r5, r7
+  eor       r8, r14, r8, ror #27
+  eor       r8, r8, r5, ror #21
+  eor       r8, r8, #7
+  @r8 = 14
+  and       r14, r7, r9
+  eor       r5, r14, r5, ror #27
+  eor       r5, r5, r7, ror #21
+  eor       r5, r5, #7
+  @r5 = 15
+  zip_star
 .endm
 
 .macro sequentiate
@@ -1436,7 +1467,6 @@ Xooffftimes4_ExpandFastLoop:
   mov       r14, #0
   sub       r3, #192
 Xft4_ExpandFast:
-  @ yAccu is the Pd input for Roll_e
   roll_zip_e
   xoodoo_6_star
   @ kRoll is the leftover Roll_c which is used as a constant

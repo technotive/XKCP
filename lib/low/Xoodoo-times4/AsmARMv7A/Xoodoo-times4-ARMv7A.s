@@ -1436,26 +1436,26 @@ Xft4_CompressFast:
   vmov      r6, r7, d2 @ 4,5
   vmov      r8, r9, d4 @ 8,9
 
-  and       r14, r6, r8
-  eor       r4, r14, r4, ror #27
+  and       r10, r6, r8
+  eor       r4, r10, r4, ror #27
   eor       r4, r4, r6, ror #21
   eor       r4, r4, #7
   @ r4 = 12
 
-  and       r14, r8, r5
-  eor       r6, r14, r6, ror #27
+  and       r10, r8, r5
+  eor       r6, r10, r6, ror #27
   eor       r6, r6, r8, ror #21
   eor       r6, r6, #7
   @r6 = 13
 
-  and       r14, r5, r7
-  eor       r8, r14, r8, ror #27
+  and       r10, r5, r7
+  eor       r8, r10, r8, ror #27
   eor       r8, r8, r5, ror #21
   eor       r8, r8, #7
   @r8 = 14
 
-  and       r14, r7, r9
-  eor       r5, r14, r5, ror #27
+  and       r10, r7, r9
+  eor       r5, r10, r5, ror #27
   eor       r5, r5, r7, ror #21
   eor       r5, r5, #7
   @r5 = 15
@@ -1522,12 +1522,12 @@ Xft4_CompressFast:
 .global Xooffftimes4_ExpandFastLoop
 .type Xooffftimes4_ExpandFastLoop, %function
 Xooffftimes4_ExpandFastLoop:
-  @ Skip this function if access is unaligned.
-  tst       r2, #3
-  movne     r0, #0
-  bxne      lr
+  @ @ Skip this function if access is unaligned.
+  @ tst       r2, #3
+  @ movne     r0, #0
+  @ bxne      lr
 
-  push      {r4-r9, lr}   @ Save LR, macros might branch.
+  push      {r4-r10, lr}   @ Save LR, macros might branch.
   vpush     {d8-d15}
   mov       r14, #0
   sub       r3, #192
@@ -1540,4 +1540,4 @@ Xft4_ExpandFast:
   bcs       Xft4_CompressFast
   mov       r0, r14
   vpop      {d8-d15}
-  pop       {r4-r9, pc}
+  pop       {r4-r10, pc}

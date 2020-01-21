@@ -1256,18 +1256,8 @@ focused:
 snapped:
 .endm
 
-.macro zip_star
-  @ 0,1,2,3
-  veor      q4, q0, q4
-  @ 4,5,6,7
-  veor      q5, q1, q5
-  veor      q7, q1, q7
-  @ 8,9,10,11
-  veor      q6, q2, q6
-  veor      q8, q2, q8
-  veor      q10, q2, q10
-
-  @ Roll_c
+.macro roll_x
+  @ Roll_x
   vmov      s12, s1
   vmov      s13, s2
   vmov      s14, s3
@@ -1287,19 +1277,9 @@ snapped:
   vmov      s9, s14
   vmov      d5, r4, r5
   vstm      r0, {d0-d5}
+.endm
 
-  @ 1,2,3,12
-  veor      q9, q3, q9
-  veor      q11, q3, q11
-  veor      q13, q3, q13
-
-  @ 5,6,7,13
-  veor      q12, q0, q12
-  veor      q14, q0, q14
-
-  @ 9,10,11,14
-  veor      q15, q1, q15
-
+.macro zip_x
   @ Shatter
   vuzp.32   q4, q10
   vuzp.32   q7, q13
@@ -1358,7 +1338,32 @@ snapped:
   eor       r5, r5, r5, lsl #13
   eor       r5, r5, r7, ror #29
   @ r5 = 15
-  zip_star
+
+  @ 0,1,2,3
+  veor      q4, q0, q4
+  @ 4,5,6,7
+  veor      q5, q1, q5
+  veor      q7, q1, q7
+  @ 8,9,10,11
+  veor      q6, q2, q6
+  veor      q8, q2, q8
+  veor      q10, q2, q10
+
+  roll_x
+
+  @ 1,2,3,12
+  veor      q9, q3, q9
+  veor      q11, q3, q11
+  veor      q13, q3, q13
+
+  @ 5,6,7,13
+  veor      q12, q0, q12
+  veor      q14, q0, q14
+
+  @ 9,10,11,14
+  veor      q15, q1, q15
+
+  zip_x
 .endm
 
 .macro accumulate
@@ -1436,22 +1441,28 @@ Xft4_CompressFast:
   eor       r4, r4, r6, ror #21
   eor       r4, r4, #7
   @ r4 = 12
+
   and       r14, r8, r5
   eor       r6, r14, r6, ror #27
   eor       r6, r6, r8, ror #21
   eor       r6, r6, #7
   @r6 = 13
+
   and       r14, r5, r7
   eor       r8, r14, r8, ror #27
   eor       r8, r8, r5, ror #21
   eor       r8, r8, #7
   @r8 = 14
+
   and       r14, r7, r9
   eor       r5, r14, r5, ror #27
   eor       r5, r5, r7, ror #21
   eor       r5, r5, #7
   @r5 = 15
-  zip_star
+
+  roll_x
+
+  zip_x
 .endm
 
 .macro sequentiate

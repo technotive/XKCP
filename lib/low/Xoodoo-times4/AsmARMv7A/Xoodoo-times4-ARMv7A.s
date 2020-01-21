@@ -1514,7 +1514,7 @@ Xft4_CompressFast:
   vtrn.32   q1, q3
   vzip.32   q0, q1
   vzip.32   q2, q3
-  @ 0 1 2 3 for A C B D
+  @ 0 1 2 3 for A B C D
 
   veor      q0, q0, q12
   veor      q1, q1, q12
@@ -1522,15 +1522,15 @@ Xft4_CompressFast:
   veor      q3, q3, q12
 
   vstm      r2!, {d0-d1}
-  vstm      r4!, {d4-d5}
-  vstm      r5!, {d2-d3}
+  vstm      r4!, {d2-d3}
+  vstm      r5!, {d4-d5}
   vstm      r6!, {d6-d7}
 
   vtrn.32   q4, q6
   vtrn.32   q5, q7
   vzip.32   q4, q5
   vzip.32   q6, q7
-  @ 4 5 6 7 for A C B D
+  @ 4 5 6 7 for A B C D
 
   veor      q0, q4, q13
   veor      q2, q5, q13
@@ -1541,7 +1541,7 @@ Xft4_CompressFast:
   vtrn.32   q9, q11
   vzip.32   q8, q9
   vzip.32   q10, q11
-  @ 8 9 10 11 for A C B D
+  @ 8 9 10 11 for A B C D
 
   veor      q1, q8, q14
   veor      q3, q9, q14
@@ -1549,8 +1549,8 @@ Xft4_CompressFast:
   veor      q7, q11, q14
 
   vstm      r2, {d0-d3}
-  vstm      r4, {d8-d11}
-  vstm      r5, {d4-d7}
+  vstm      r4, {d4-d7}
+  vstm      r5, {d8-d11}
   vstm      r6, {d12-d15}
 .endm
 

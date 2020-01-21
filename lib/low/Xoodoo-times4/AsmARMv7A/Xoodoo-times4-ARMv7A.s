@@ -1522,6 +1522,11 @@ Xft4_CompressFast:
 .global Xooffftimes4_ExpandFastLoop
 .type Xooffftimes4_ExpandFastLoop, %function
 Xooffftimes4_ExpandFastLoop:
+  @ Skip this function if access is unaligned.
+  tst       r2, #3
+  movne     r0, #0
+  bxne      lr
+
   push      {r4-r9, lr}   @ Save LR, macros might branch.
   vpush     {d8-d15}
   mov       r14, #0

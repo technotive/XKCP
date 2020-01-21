@@ -1466,6 +1466,55 @@ Xft4_CompressFast:
 .endm
 
 .macro sequentiate
+  @ Roll_e_n -> Pe + kRoll = Zn
+  vldm      r1, {d24-d29}
+
+  add       r4, r2, #48
+  add       r5, r4, #48
+  add       r6, r5, #48
+
+  vtrn.32   q0, q2
+  vtrn.32   q1, q3
+  vzip.32   q0, q1
+  vzip.32   q2, q3
+  @ 0 1 2 3 for A C B D
+
+  veor      q0, q0, q12
+  veor      q1, q1, q12
+  veor      q2, q2, q12
+  veor      q3, q3, q12
+
+  vstm      r2!, {d0-d1}
+  vstm      r4!, {d4-d5}
+  vstm      r5!, {d2-d3}
+  vstm      r6!, {d6-d7}
+
+  vtrn.32   q4, q6
+  vtrn.32   q5, q7
+  vzip.32   q4, q5
+  vzip.32   q6, q7
+  @ 4 5 6 7 for A C B D
+
+  veor      q0, q4, q13
+  veor      q2, q5, q13
+  veor      q4, q6, q13
+  veor      q6, q7, q13
+
+  vtrn.32   q8, q10
+  vtrn.32   q9, q11
+  vzip.32   q8, q9
+  vzip.32   q10, q11
+  @ 8 9 10 11 for A C B D
+
+  veor      q1, q8, q14
+  veor      q3, q9, q14
+  veor      q5, q10, q14
+  veor      q7, q11, q14
+
+  vstm      r2, {d0-d3}
+  vstm      r4, {d8-d11}
+  vstm      r5, {d4-d7}
+  vstm      r6, {d12-d15}
 .endm
 
 @ Xooffftimes4_ExpandFastLoop: uchar * yAccu -> uchar * kRoll -> uchar * output -> size_t length -> size_t
@@ -1480,8 +1529,6 @@ Xooffftimes4_ExpandFastLoop:
 Xft4_ExpandFast:
   roll_zip_e
   xoodoo_6_star
-  @ kRoll is the leftover Roll_c which is used as a constant
-  @ Roll_e_n -> Pe + kRoll = Zn
   sequentiate
   add       r14, #192
   subs      r3, #192

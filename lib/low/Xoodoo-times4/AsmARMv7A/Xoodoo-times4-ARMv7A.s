@@ -1461,7 +1461,29 @@ Xft4_CompressFast:
   eor       r5, r5, #7
   @r5 = 15
 
+  @ 0,1,2,3
+  vmov      q4, q0
+  @ 4,5,6,7
+  vmov      q5, q1
+  vmov      q7, q1
+  @ 8,9,10,11
+  vmov      q6, q2
+  vmov      q8, q2
+  vmov      q10, q2
+
   roll_x
+
+  @ 1,2,3,12
+  vmov      q9, q3
+  vmov      q11, q3
+  vmov      q13, q3
+
+  @ 5,6,7,13
+  vmov      q12, q0
+  vmov      q14, q0
+
+  @ 9,10,11,14
+  vmov      q15, q1
 
   zip_x
 .endm

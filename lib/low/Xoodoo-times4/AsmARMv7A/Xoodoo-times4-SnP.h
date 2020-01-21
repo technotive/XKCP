@@ -38,6 +38,6 @@ void Xoodootimes4_ExtractAndAddLanesAll(const void *states, const unsigned char 
 #define Xoodootimes4_FastXoofff_supported
 void Xooffftimes4_AddIs(unsigned char *output, const unsigned char *input, size_t bitLen);
 size_t Xooffftimes4_CompressFastLoop(unsigned char *k, unsigned char *x, const unsigned char *input, size_t length);
-// size_t Xooffftimes4_ExpandFastLoop(unsigned char *yAccu, const unsigned char *kRoll, unsigned char *output, size_t length);
+size_t Xooffftimes4_ExpandFastLoop(unsigned char *yAccu, const unsigned char *kRoll, unsigned char *output, size_t length);
 
 #endif

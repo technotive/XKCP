@@ -1411,6 +1411,7 @@ Xooffftimes4_CompressFastLoop:
   tst       r2, #3
   movne     r0, #0
   bxne      lr
+  @ This might be fixed now. Do a test.
 
   push      {r4-r10, lr}   @ Save LR, macros might branch.
   vpush     {d8-d15}

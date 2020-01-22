@@ -1565,13 +1565,8 @@ Xooffftimes4_ExpandFastLoop:
   sub       r3, #192
 Xft4_ExpandFast:
   roll_zip_e
-  sequentiate
-
-  vpop      {d8-d15}
-  pop       {r4-r11, pc}
-
   xoodoo_6_star
-
+  sequentiate
   add       r11, #192
   subs      r3, #192
   bcs       Xft4_ExpandFast

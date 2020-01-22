@@ -251,7 +251,7 @@ void tempTest(){
   size_t i;
 
   for(i = 0; i < 12; i ++){
-    in[i] = 1;
+    in[i] = i;
     k[i] = 40;
   }
 

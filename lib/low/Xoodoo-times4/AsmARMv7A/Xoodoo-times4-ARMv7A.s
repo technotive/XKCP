@@ -1431,30 +1431,30 @@ Xft4_CompressFast:
   vmov      r4, r5, d0 @ 0,1
   vmov      r6, r7, d2 @ 4,5
   vmov      r8, r9, d4 @ 8,9
-
-  and       r10, r6, r8
-  eor       r4, r10, r4, ror #27
-  eor       r4, r4, r6, ror #19
-  eor       r4, r4, #7
-  @ r4 = 12
-
-  and       r10, r8, r5
-  eor       r6, r10, r6, ror #27
-  eor       r6, r6, r8, ror #19
-  eor       r6, r6, #7
-  @r6 = 13
-
-  and       r10, r5, r7
-  eor       r8, r10, r8, ror #27
-  eor       r8, r8, r5, ror #19
-  eor       r8, r8, #7
-  @r8 = 14
-
-  and       r10, r7, r9
-  eor       r5, r10, r5, ror #27
-  eor       r5, r5, r7, ror #19
-  eor       r5, r5, #7
-  @r5 = 15
+  @
+  @ and       r10, r6, r8
+  @ eor       r4, r10, r4, ror #27
+  @ eor       r4, r4, r6, ror #19
+  @ eor       r4, r4, #7
+  @ @ r4 = 12
+  @
+  @ and       r10, r8, r5
+  @ eor       r6, r10, r6, ror #27
+  @ eor       r6, r6, r8, ror #19
+  @ eor       r6, r6, #7
+  @ @r6 = 13
+  @
+  @ and       r10, r5, r7
+  @ eor       r8, r10, r8, ror #27
+  @ eor       r8, r8, r5, ror #19
+  @ eor       r8, r8, #7
+  @ @r8 = 14
+  @
+  @ and       r10, r7, r9
+  @ eor       r5, r10, r5, ror #27
+  @ eor       r5, r5, r7, ror #19
+  @ eor       r5, r5, #7
+  @ @r5 = 15
 
   @ 0,1,2,3
   vmov      q4, q0
@@ -1565,6 +1565,13 @@ Xooffftimes4_ExpandFastLoop:
   sub       r3, #192
 Xft4_ExpandFast:
   roll_zip_e
+
+  vstm      r2!, {d0-d15}
+  vstm      r2, {d16-d23}
+
+  vpop      {d8-d15}
+  pop       {r4-r11, pc}
+
   xoodoo_6_star
   sequentiate
   add       r11, #192

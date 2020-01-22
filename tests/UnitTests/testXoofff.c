@@ -246,10 +246,30 @@ static void performTestXoofff(unsigned char *checksum, unsigned int mode)
     #endif
 }
 
+void tempTest(){
+  uint32_t in[12], k[12], out[48];
+  size_t i;
+
+  for(i = 0; i < 12; i ++){
+    in[i] = 1;
+    k[i] = 40;
+  }
+
+  Xooffftimes4_ExpandFastLoop((unsigned char*) in, (unsigned char*) k, (unsigned char*) out, 48*4);
+
+  for(i = 0; i < 48; i++) {
+    if(i % 12 == 0) { printf("\n"); }
+    printf("%3u ", out[i]);
+  }
+}
+
 void selfTestXoofff(const unsigned char *expected)
 {
     unsigned char checksum[checksumByteSize];
     unsigned int mode;
+
+    //Temporary testign function for silly output.
+    tempTest()
 
     for(mode = 0; mode <= 2; ++mode) {
         #ifdef OUTPUT

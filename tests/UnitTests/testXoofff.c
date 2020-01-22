@@ -256,9 +256,10 @@ void tempTest(){
   }
 
   Xooffftimes4_ExpandFastLoop((unsigned char*) in, (unsigned char*) k, (unsigned char*) out, 48*4);
-
+  printf("Compression:\n");
   for(i = 0; i < 48; i++) {
     if(i % 12 == 0) { printf("\n"); }
+    printf("%3u:", i);
     printf("%3u ", out[i]);
   }
 }

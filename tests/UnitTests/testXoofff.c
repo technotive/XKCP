@@ -269,8 +269,8 @@ void selfTestXoofff(const unsigned char *expected)
     unsigned char checksum[checksumByteSize];
     unsigned int mode;
 
-    //Temporary testign function for silly output.
-    tempTest();
+    //Temporary testing function for silly output.
+    // tempTest();
 
     for(mode = 0; mode <= 2; ++mode) {
         #ifdef OUTPUT

@@ -1499,7 +1499,7 @@ Xft4_CompressFast:
   @ 9,10,11,14
   vmov      q15, q1
 
-  @ zip_x
+  zip_x
 .endm
 
 .macro sequentiate

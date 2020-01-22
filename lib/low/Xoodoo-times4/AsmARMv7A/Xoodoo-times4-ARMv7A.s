@@ -1566,8 +1566,8 @@ Xooffftimes4_ExpandFastLoop:
 Xft4_ExpandFast:
   roll_zip_e
 
-  vstm      r2!, {d8-d15}
-  vstm      r2, {d16-d31}
+  vstm      r2!, {d0-d15}
+  vstm      r2, {d16-d23}
 
   vpop      {d8-d15}
   pop       {r4-r11, pc}

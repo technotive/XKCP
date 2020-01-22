@@ -251,8 +251,8 @@ void tempTest(){
   size_t i;
 
   for(i = 0; i < 12; i ++){
-    in[i] = 1;
-    k[i] = 100;
+    in[i] = 0;
+    k[i] = i;
   }
 
   Xooffftimes4_ExpandFastLoop((unsigned char*) in, (unsigned char*) k, (unsigned char*) out, 48*4);

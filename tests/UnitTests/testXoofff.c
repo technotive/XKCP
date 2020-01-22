@@ -269,7 +269,7 @@ void selfTestXoofff(const unsigned char *expected)
     unsigned int mode;
 
     //Temporary testign function for silly output.
-    tempTest()
+    tempTest();
 
     for(mode = 0; mode <= 2; ++mode) {
         #ifdef OUTPUT

@@ -32,7 +32,7 @@ http://creativecommons.org/publicdomain/zero/1.0/
 **
 #define    DEBUG_DUMP
 */
-#define    DEBUG_DUMP
+
 /*
  * Uncomment this define if your CPU can not handle misaligned memory accesses.
 #define NO_MISALIGNED_ACCESSES
@@ -115,6 +115,7 @@ static void DumpBuf( const unsigned char * pText, const unsigned char * pData, u
         size_t processed = Xooffftimes##Parallellism##_ExpandFastLoop((uint8_t*)xp->yAccu.a, (uint8_t*)xp->kRoll.a, output, outputByteLen); \
         output += processed; \
         outputByteLen -= processed; \
+        printf("Expanding...\n"); \
     }
 
 #define ParallelCompressLoopPlSnP( Parallellism ) \

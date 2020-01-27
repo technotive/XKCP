@@ -120,6 +120,7 @@ static void DumpBuf( const unsigned char * pText, const unsigned char * pData, u
 
 #define ParallelCompressLoopPlSnP( Parallellism ) \
     if ( messageByteLen >= Parallellism * SnP_widthInBytes ) { \
+        uint32_t nf_x = 0; \
         ALIGN(Xoodootimes##Parallellism##_statesAlignment) unsigned char states[Xoodootimes##Parallellism##_statesSizeInBytes]; \
         unsigned int i; \
         \
@@ -140,8 +141,10 @@ static void DumpBuf( const unsigned char * pText, const unsigned char * pData, u
                 DUMP("xAc pn", x, SnP_widthInBytes); \
             } while ( ++i < Parallellism ); \
             message += Parallellism * SnP_widthInBytes; \
+            nf_x += Parallellism * SnP_widthInBytes; \
             messageByteLen -= Parallellism * SnP_widthInBytes; \
         } while ( messageByteLen >= Parallellism * SnP_widthInBytes ); \
+        printf("%u processed...\n", messageByteLen ); \
     }
 
 #define ParallelExpandLoopPlSnP( Parallellism ) \

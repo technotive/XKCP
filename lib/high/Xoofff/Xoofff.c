@@ -115,7 +115,6 @@ static void DumpBuf( const unsigned char * pText, const unsigned char * pData, u
         size_t processed = Xooffftimes##Parallellism##_ExpandFastLoop((uint8_t*)xp->yAccu.a, (uint8_t*)xp->kRoll.a, output, outputByteLen); \
         output += processed; \
         outputByteLen -= processed; \
-        DUMP("TXT", output, Parallellism * SnP_widthInBytes); \
     }
 
 #define ParallelCompressLoopPlSnP( Parallellism ) \

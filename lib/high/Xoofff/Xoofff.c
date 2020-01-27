@@ -32,7 +32,7 @@ http://creativecommons.org/publicdomain/zero/1.0/
 **
 #define    DEBUG_DUMP
 */
-#define DEBUG_DUMP
+#define    DEBUG_DUMP
 /*
  * Uncomment this define if your CPU can not handle misaligned memory accesses.
 #define NO_MISALIGNED_ACCESSES
@@ -115,12 +115,10 @@ static void DumpBuf( const unsigned char * pText, const unsigned char * pData, u
         size_t processed = Xooffftimes##Parallellism##_ExpandFastLoop((uint8_t*)xp->yAccu.a, (uint8_t*)xp->kRoll.a, output, outputByteLen); \
         output += processed; \
         outputByteLen -= processed; \
-        printf("%u processed...\n", processed); \
     }
 
 #define ParallelCompressLoopPlSnP( Parallellism ) \
     if ( messageByteLen >= Parallellism * SnP_widthInBytes ) { \
-        uint32_t nf_x = 0; \
         ALIGN(Xoodootimes##Parallellism##_statesAlignment) unsigned char states[Xoodootimes##Parallellism##_statesSizeInBytes]; \
         unsigned int i; \
         \
@@ -141,10 +139,8 @@ static void DumpBuf( const unsigned char * pText, const unsigned char * pData, u
                 DUMP("xAc pn", x, SnP_widthInBytes); \
             } while ( ++i < Parallellism ); \
             message += Parallellism * SnP_widthInBytes; \
-            nf_x += Parallellism * SnP_widthInBytes; \
             messageByteLen -= Parallellism * SnP_widthInBytes; \
         } while ( messageByteLen >= Parallellism * SnP_widthInBytes ); \
-        printf("%u processed...\n", messageByteLen ); \
     }
 
 #define ParallelExpandLoopPlSnP( Parallellism ) \
@@ -567,8 +563,8 @@ int Xoofff_Expand(Xoofff_Instance *xp, BitSequence *output, BitLength outputBitL
     #endif
     #if (XoodooMaxParallellism >= 4)
     #if defined(Xoodootimes4_FastXoofff_supported)
-    ParallelExpandLoopPlSnP( 4 )
-    // ParallelExpandLoopFast( 4 )
+    // ParallelExpandLoopPlSnP( 4 )
+    ParallelExpandLoopFast( 4 )
     #else
     ParallelExpandLoopPlSnP( 4 )
     #endif

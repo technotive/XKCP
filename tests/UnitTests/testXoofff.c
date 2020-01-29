@@ -15,7 +15,7 @@ http://creativecommons.org/publicdomain/zero/1.0/
 /* #define OUTPUT */
 /* #define VERBOSE */
 #define OUTPUT
-#define OUTPU
+#define VERBOSE
 
 #if defined(XoodooSmallRAM)
     #define    XoodooSizeMultiplier    2

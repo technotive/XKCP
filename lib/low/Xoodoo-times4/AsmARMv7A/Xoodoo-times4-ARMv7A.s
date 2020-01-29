@@ -1574,11 +1574,8 @@ Xft4_ExpandFast: @The second loop breaks something.
   xoodoo_6_star
   sequentiate
   add       r11, #192
-  @ cmp       r11, #384
-  @ beq Xft4_temp
   subs      r3, #192
   bcs       Xft4_ExpandFast
-@ Xft4_temp:
   mov       r0, r11
   vpop      {d8-d15}
   pop       {r4-r11, pc}

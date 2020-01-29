@@ -563,8 +563,8 @@ int Xoofff_Expand(Xoofff_Instance *xp, BitSequence *output, BitLength outputBitL
     #endif
     #if (XoodooMaxParallellism >= 4)
     #if defined(Xoodootimes4_FastXoofff_supported)
-    // ParallelExpandLoopPlSnP( 4 )
-    ParallelExpandLoopFast( 4 )
+    ParallelExpandLoopPlSnP( 4 )
+    // ParallelExpandLoopFast( 4 )
     #else
     ParallelExpandLoopPlSnP( 4 )
     #endif

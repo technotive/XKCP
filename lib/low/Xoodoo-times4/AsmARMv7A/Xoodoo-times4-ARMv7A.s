@@ -1572,9 +1572,7 @@ Xft4_ExpandFast:
   xoodoo_6_star
   sequentiate
   add       r11, #192
-  subs      r3, #192
-  subcs     r3, #192 @ Do not perform last loop.
-  cmp       r3, #192
+  @ subs      r3, #192
   bcs       Xft4_ExpandFast
   mov       r0, r11
   vpop      {d8-d15}

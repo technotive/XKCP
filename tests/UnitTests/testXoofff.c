@@ -14,6 +14,7 @@ http://creativecommons.org/publicdomain/zero/1.0/
 
 /* #define OUTPUT */
 /* #define VERBOSE */
+#define OUTPUT
 
 #if defined(XoodooSmallRAM)
     #define    XoodooSizeMultiplier    2
@@ -281,6 +282,8 @@ void selfTestXoofff(const unsigned char *expected)
         #ifdef OUTPUT
         fflush(stdout);
         #endif
+
+        assert(false);
         assert(memcmp(expected, checksum, checksumByteSize) == 0);
         #ifdef OUTPUT
         printf(" - OK.\n");

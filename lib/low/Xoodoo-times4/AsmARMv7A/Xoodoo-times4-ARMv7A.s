@@ -1406,7 +1406,6 @@ Xooffftimes4_CompressFastLoop:
   tst       r2, #3
   movne     r0, #0
   bxne      lr
-  @ This might be fixed now. Do a test.
 
   push      {r4-r10, lr}   @ Save LR, macros might branch.
   vpush     {d8-d15}
@@ -1559,6 +1558,11 @@ Xft4_CompressFast:
 .global Xooffftimes4_ExpandFastLoop
 .type Xooffftimes4_ExpandFastLoop, %function
 Xooffftimes4_ExpandFastLoop:
+  @ Do not use this function for unaligned access (for now).
+  tst       r2, #3
+  movne     r0, #0
+  bxne      lr
+
   push      {r4-r11, lr}   @ Save LR, macros might branch.
   vpush     {d8-d15}
   mov       r11, #0

@@ -1550,7 +1550,9 @@ Xft4_CompressFast:
   vstm      r2, {d0-d3}
   vstm      r4, {d8-d11}
   vstm      r5, {d4-d7}
-  vstm      r6, {d12-d15}
+  vstm      r6!, {d12-d15}
+
+  mov       r2, r6
 .endm
 
 @ Xooffftimes4_ExpandFastLoop: uchar * yAccu -> uchar * kRoll -> uchar * output -> size_t length -> size_t

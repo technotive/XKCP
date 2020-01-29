@@ -283,8 +283,6 @@ void selfTestXoofff(const unsigned char *expected)
         #ifdef OUTPUT
         fflush(stdout);
         #endif
-
-        assert(1 == 0);
         assert(memcmp(expected, checksum, checksumByteSize) == 0);
         #ifdef OUTPUT
         printf(" - OK.\n");

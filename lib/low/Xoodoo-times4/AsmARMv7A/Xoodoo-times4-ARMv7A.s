@@ -1161,7 +1161,6 @@ Xft4_AddIs_0:
   vsri.U32  q7, q15, #31
 .endm
 
-
 .macro theta_aleph
   @ Reordering (merge later, this is for convenience) (try merge up first!)
   vmov      q0, q4
@@ -1173,15 +1172,15 @@ Xft4_AddIs_0:
   vmov      q10, q9
   vmov      q9, q12
 
-  vmov      q2, q7
+  @ vmov      q2, q7
   @ vmov      q7, q14
 
   @ vmov      q3, q13
 
   vswp      q6, q8
 
-  @FREE: q3, 12, q7, q15
-  @ALT: d6-7, d24-25, d14-15, d30-31
+  @FREE: q3, 12, q2, q15
+  @ALT: d6-7, d24-25, d4-5, d30-31
 
   veor      q15, q13, q14
   veor      q15, q15, q11
@@ -1228,7 +1227,7 @@ Xft4_AddIs_0:
   ror       r5, r5, #27
   veor      q9, q9, q3
   ror       r6, r6, #27
-  veor      q3, q2, q6
+  veor      q3, q7, q6
   eor       r7, r7, r7, ror #23
   veor      q3, q3, q10
   eor       r8, r8, r8, ror #23
@@ -1240,7 +1239,8 @@ Xft4_AddIs_0:
   vmov.32   r7, r8, d6
   vmov.32   r5, r6, d7
   ror       r7, r7, #27
-  veor      q2, q2, q15
+  veor      q2, q7, q15
+  @SET: q2
   ror       r8, r8, #27
   veor      q6, q6, q15
   ror       r5, r5, #27
@@ -1253,9 +1253,10 @@ Xft4_AddIs_0:
   eor       r6, r6, r6, ror #23
   vmov.32   d31, r5, r6
 
-  @SET: q3
   veor      q3, q13, q15
+  @SET: q3
   veor      q7, q14, q15
+  @SET: q7
   veor      q11, q11, q15
 .endm
 

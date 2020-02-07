@@ -1199,63 +1199,6 @@ Xft4_AddIs_0:
   rho_e_star
 .endm
 
-.macro focus_c
-  tst       r2, #3
-  beq       focused
-unfocused:
-  ldmia     r2!, {r4-r9}
-  vmov      d8, r4, r5
-  vmov      d9, r6, r7
-  ldmia     r2!, {r4-r5}
-  vmov      d10, r8, r9
-  ldmia     r2!, {r6-r7}
-  vmov      d11, r4, r5
-  ldmia     r2!, {r8-r9}
-  vmov      d12, r6, r7
-  ldmia     r2!, {r4-r5}
-  vmov      d13, r8, r9
-  ldmia     r2!, {r6-r7}
-  vmov      d14, r4, r5
-  ldmia     r2!, {r8-r9}
-  vmov      d15, r6, r7
-  ldmia     r2!, {r4-r5}
-  vmov      d16, r8, r9
-  ldmia     r2!, {r6-r7}
-  vmov      d17, r4, r5
-  ldmia     r2!, {r8-r9}
-  vmov      d18, r6, r7
-  ldmia     r2!, {r4-r5}
-  vmov      d19, r8, r9
-  ldmia     r2!, {r6-r7}
-  vmov      d20, r4, r5
-  ldmia     r2!, {r8-r9}
-  vmov      d21, r6, r7
-  ldmia     r2!, {r4-r5}
-  vmov      d22, r8, r9
-  ldmia     r2!, {r6-r7}
-  vmov      d23, r4, r5
-  ldmia     r2!, {r8-r9}
-  vmov      d24, r6, r7
-  ldmia     r2!, {r4-r5}
-  vmov      d25, r8, r9
-  ldmia     r2!, {r6-r7}
-  vmov      d26, r4, r5
-  ldmia     r2!, {r8-r9}
-  vmov      d27, r6, r7
-  ldmia     r2!, {r4-r5}
-  vmov      d28, r8, r9
-  ldmia     r2!, {r6-r7}
-  vmov      d29, r4, r5
-  ldmia     r2!, {r8-r9}
-  vmov      d30, r6, r7
-  vmov      d31, r8, r9
-  b         snapped
-focused:
-  vldm      r2!, {d8-d23}
-  vldm      r2!, {d24-d31}
-snapped:
-.endm
-
 .macro zip_x
   @ Shatter
   vuzp.32   q4, q10
@@ -1291,7 +1234,7 @@ snapped:
 
   vmov      q3, q13
 
-  vswp      q6, q8
+  @ vswp      q6, q8
 .endm
 
 .macro roll_zip_c
@@ -1412,7 +1355,7 @@ Xooffftimes4_CompressFastLoop:
   mov       r10, #0
   sub       r3, #192
 Xft4_CompressFast:
-  focus_c                 @ Handle unaligned access
+  @ focus_c                 @ Handle unaligned access
   roll_zip_c              @ Roll_c with message addition (XOR)
   xoodoo_6_star           @ Same as Xoodoo_6; different registers
   accumulate              @ Add up the four states we processed

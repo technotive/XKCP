@@ -1162,6 +1162,23 @@ Xft4_AddIs_0:
 .endm
 
 .macro xoodoo_6_star
+  @ Reordering (merge later, this is for convenience) (try merge up first!)
+  vmov      q0, q4
+  vmov      q4, q5
+  vmov      q5, q11
+  vmov      q11, q15
+
+  vmov      q1, q10
+  vmov      q10, q9
+  vmov      q9, q12
+
+  vmov      q2, q7
+  vmov      q7, q14
+
+  vmov      q3, q13
+
+  vswp      q6, q8
+
   theta_star
   rho_w_star
   mov       r7, #0x00000060
@@ -1218,23 +1235,6 @@ Xft4_AddIs_0:
   vtrn.32   q6, q9
   vtrn.32   q12, q15
   @ q6, q12, q9, q15
-
-  @ Reordering (merge later, this is for convenience) (try merge up first!)
-  vmov      q0, q4
-  vmov      q4, q5
-  vmov      q5, q11
-  vmov      q11, q15
-
-  vmov      q1, q10
-  vmov      q10, q9
-  vmov      q9, q12
-
-  vmov      q2, q7
-  vmov      q7, q14
-
-  vmov      q3, q13
-
-  @ vswp      q6, q8
 .endm
 
 .macro roll_zip_c

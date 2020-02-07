@@ -1174,16 +1174,16 @@ Xft4_AddIs_0:
   vmov      q9, q12
 
   vmov      q2, q7
-  vmov      q7, q14
+  @ vmov      q7, q14
 
   @ vmov      q3, q13
 
   vswp      q6, q8
 
-  @FREE: q3, 12, q14, q15
-  @ALT: d6-7, d24-25, d28-29, d30-31
+  @FREE: q3, 12, q7, q15
+  @ALT: d6-7, d24-25, d14-15, d30-31
 
-  veor      q15, q13, q7
+  veor      q15, q13, q14
   veor      q15, q15, q11
 
   vmov.32   r7, r8, d30
@@ -1255,7 +1255,7 @@ Xft4_AddIs_0:
 
   @SET: q3
   veor      q3, q13, q15
-  veor      q7, q7, q15
+  veor      q7, q14, q15
   veor      q11, q11, q15
 .endm
 

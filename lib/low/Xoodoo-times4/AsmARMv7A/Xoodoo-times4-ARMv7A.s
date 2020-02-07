@@ -1161,6 +1161,7 @@ Xft4_AddIs_0:
   vsri.U32  q7, q15, #31
 .endm
 
+
 .macro theta_aleph
   @ Reordering (merge later, this is for convenience) (try merge up first!)
   vmov      q0, q4
@@ -1179,15 +1180,18 @@ Xft4_AddIs_0:
 
   vswp      q6, q8
 
+  @FREE: q3, 12, q14, q15
+  @ALT: d6-7, d24-25, d28-29, d30-31
+
   veor      q15, q13, q7
   veor      q15, q15, q11
 
   vmov.32   r7, r8, d30
   vmov.32   r5, r6, d31
   ror       r7, r7, #27
-  veor      q14, q0, q4
+  veor      q3, q0, q4
   ror       r8, r8, #27
-  veor      q14, q14, q8
+  veor      q3, q3, q8
   ror       r5, r5, #27
   ror       r6, r6, #27
   eor       r7, r7, r7, ror #23
@@ -1197,8 +1201,8 @@ Xft4_AddIs_0:
   eor       r6, r6, r6, ror #23
   vmov.32   d31, r5, r6
 
-  vmov.32   r7, r8, d28
-  vmov.32   r5, r6, d29
+  vmov.32   r7, r8, d6
+  vmov.32   r5, r6, d7
   ror       r7, r7, #27
   veor      q0, q0, q15
   ror       r8, r8, #27
@@ -1211,30 +1215,30 @@ Xft4_AddIs_0:
   veor      q15, q15, q9
   eor       r8, r8, r8, ror #23
   eor       r5, r5, r5, ror #23
-  vmov.32   d28, r7, r8
+  vmov.32   d6, r7, r8
   eor       r6, r6, r6, ror #23
-  vmov.32   d29, r5, r6
+  vmov.32   d7, r5, r6
 
   vmov.32   r7, r8, d30
   vmov.32   r5, r6, d31
   ror       r7, r7, #27
-  veor      q1, q1, q14
+  veor      q1, q1, q3
   ror       r8, r8, #27
-  veor      q5, q5, q14
+  veor      q5, q5, q3
   ror       r5, r5, #27
-  veor      q9, q9, q14
+  veor      q9, q9, q3
   ror       r6, r6, #27
-  veor      q14, q2, q6
+  veor      q3, q2, q6
   eor       r7, r7, r7, ror #23
-  veor      q14, q14, q10
+  veor      q3, q3, q10
   eor       r8, r8, r8, ror #23
   eor       r5, r5, r5, ror #23
   vmov.32   d30, r7, r8
   eor       r6, r6, r6, ror #23
   vmov.32   d31, r5, r6
 
-  vmov.32   r7, r8, d28
-  vmov.32   r5, r6, d29
+  vmov.32   r7, r8, d6
+  vmov.32   r5, r6, d7
   ror       r7, r7, #27
   veor      q2, q2, q15
   ror       r8, r8, #27
@@ -1245,12 +1249,14 @@ Xft4_AddIs_0:
   eor       r7, r7, r7, ror #23
   eor       r8, r8, r8, ror #23
   eor       r5, r5, r5, ror #23
-  vmov.32   d28, r7, r8
+  vmov.32   d30, r7, r8
   eor       r6, r6, r6, ror #23
-  vmov.32   d29, r5, r6
-  veor      q3, q13, q14
-  veor      q7, q7, q14
-  veor      q11, q11, q14
+  vmov.32   d31, r5, r6
+
+  @SET: q3
+  veor      q3, q13, q15
+  veor      q7, q7, q15
+  veor      q11, q11, q15
 .endm
 
 .macro xoodoo_6_star

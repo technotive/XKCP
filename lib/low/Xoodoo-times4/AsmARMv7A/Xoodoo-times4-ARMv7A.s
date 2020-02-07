@@ -1356,6 +1356,8 @@ Xooffftimes4_CompressFastLoop:
   sub       r3, #192
 Xft4_CompressFast:
   @ focus_c                 @ Handle unaligned access
+  vldm      r2!, {d8-d23}
+  vldm      r2!, {d24-d31}
   roll_zip_c              @ Roll_c with message addition (XOR)
   xoodoo_6_star           @ Same as Xoodoo_6; different registers
   accumulate              @ Add up the four states we processed

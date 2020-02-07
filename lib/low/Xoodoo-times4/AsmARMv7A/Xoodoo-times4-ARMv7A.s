@@ -1175,11 +1175,11 @@ Xft4_AddIs_0:
   vmov      q2, q7
   vmov      q7, q14
 
-  vmov      q3, q13
+  @ vmov      q3, q13
 
   vswp      q6, q8
-  
-  veor      q15, q3, q7
+
+  veor      q15, q13, q7
   veor      q15, q15, q11
 
   vmov.32   r7, r8, d30
@@ -1248,7 +1248,7 @@ Xft4_AddIs_0:
   vmov.32   d28, r7, r8
   eor       r6, r6, r6, ror #23
   vmov.32   d29, r5, r6
-  veor      q3, q3, q14
+  veor      q3, q13, q14
   veor      q7, q7, q14
   veor      q11, q11, q14
 .endm

@@ -1161,7 +1161,7 @@ Xft4_AddIs_0:
   vsri.U32  q7, q15, #31
 .endm
 
-.macro xoodoo_6_star
+.macro theta_aleph
   @ Reordering (merge later, this is for convenience) (try merge up first!)
   vmov      q0, q4
   vmov      q4, q5
@@ -1178,8 +1178,83 @@ Xft4_AddIs_0:
   vmov      q3, q13
 
   vswp      q6, q8
+  
+  veor      q15, q3, q7
+  veor      q15, q15, q11
 
-  theta_star
+  vmov.32   r7, r8, d30
+  vmov.32   r5, r6, d31
+  ror       r7, r7, #27
+  veor      q14, q0, q4
+  ror       r8, r8, #27
+  veor      q14, q14, q8
+  ror       r5, r5, #27
+  ror       r6, r6, #27
+  eor       r7, r7, r7, ror #23
+  eor       r8, r8, r8, ror #23
+  eor       r5, r5, r5, ror #23
+  vmov.32   d30, r7, r8
+  eor       r6, r6, r6, ror #23
+  vmov.32   d31, r5, r6
+
+  vmov.32   r7, r8, d28
+  vmov.32   r5, r6, d29
+  ror       r7, r7, #27
+  veor      q0, q0, q15
+  ror       r8, r8, #27
+  veor      q4, q4, q15
+  ror       r5, r5, #27
+  veor      q8, q8, q15
+  ror       r6, r6, #27
+  veor      q15, q1, q5
+  eor       r7, r7, r7, ror #23
+  veor      q15, q15, q9
+  eor       r8, r8, r8, ror #23
+  eor       r5, r5, r5, ror #23
+  vmov.32   d28, r7, r8
+  eor       r6, r6, r6, ror #23
+  vmov.32   d29, r5, r6
+
+  vmov.32   r7, r8, d30
+  vmov.32   r5, r6, d31
+  ror       r7, r7, #27
+  veor      q1, q1, q14
+  ror       r8, r8, #27
+  veor      q5, q5, q14
+  ror       r5, r5, #27
+  veor      q9, q9, q14
+  ror       r6, r6, #27
+  veor      q14, q2, q6
+  eor       r7, r7, r7, ror #23
+  veor      q14, q14, q10
+  eor       r8, r8, r8, ror #23
+  eor       r5, r5, r5, ror #23
+  vmov.32   d30, r7, r8
+  eor       r6, r6, r6, ror #23
+  vmov.32   d31, r5, r6
+
+  vmov.32   r7, r8, d28
+  vmov.32   r5, r6, d29
+  ror       r7, r7, #27
+  veor      q2, q2, q15
+  ror       r8, r8, #27
+  veor      q6, q6, q15
+  ror       r5, r5, #27
+  veor      q10, q10, q15
+  ror       r6, r6, #27
+  eor       r7, r7, r7, ror #23
+  eor       r8, r8, r8, ror #23
+  eor       r5, r5, r5, ror #23
+  vmov.32   d28, r7, r8
+  eor       r6, r6, r6, ror #23
+  vmov.32   d29, r5, r6
+  veor      q3, q3, q14
+  veor      q7, q7, q14
+  veor      q11, q11, q14
+.endm
+
+.macro xoodoo_6_star
+  theta_aleph
   rho_w_star
   mov       r7, #0x00000060
   chi_star

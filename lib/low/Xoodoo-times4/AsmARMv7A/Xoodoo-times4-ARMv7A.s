@@ -1166,13 +1166,12 @@ Xft4_AddIs_0:
   vmov      q0, q4
   vmov      q4, q5
   vmov      q5, q11
-  vmov      q11, q15
 
   @FREE: q3, q1, q2, q15
   @ALT: d6-7, d18-19, d4-5, d30-31
 
-  veor      q15, q13, q14
-  veor      q15, q15, q11
+  veor      q11, q13, q14
+  veor      q15, q11, q15
 
   vmov.32   r7, r8, d30
   vmov.32   r5, r6, d31

@@ -1425,30 +1425,26 @@ Xft4_AddIs_0:
   vldm      r1, {d24-d29}
 
   vtrn.32   q0, q2
+  vtrn.32   q4, q6
+  vtrn.32   q8, q10
   vtrn.32   q1, q3
+  vtrn.32   q5, q7
+  vtrn.32   q9, q11
   vzip.32   q0, q1
+  vzip.32   q4, q5
+  vzip.32   q8, q9
   vzip.32   q2, q3
+  vzip.32   q6, q7
+  vzip.32   q10, q11
 
   veor      q0, q0, q1
   veor      q2, q2, q3
   veor      q12, q12, q0
   veor      q12, q12, q2
-
-  vtrn.32   q4, q6
-  vtrn.32   q5, q7
-  vzip.32   q4, q5
-  vzip.32   q6, q7
-
   veor      q4, q4, q5
   veor      q6, q6, q7
   veor      q13, q13, q4
   veor      q13, q13, q6
-
-  vtrn.32   q8, q10
-  vtrn.32   q9, q11
-  vzip.32   q8, q9
-  vzip.32   q10, q11
-
   veor      q8, q8, q9
   veor      q10, q10, q11
   veor      q14, q14, q8

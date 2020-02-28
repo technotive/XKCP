@@ -1164,19 +1164,18 @@ Xft4_AddIs_0:
 .macro theta_aleph @ This can benefit from the issue/wait chain
   @ Reordering (merge later, this is for convenience) (try merge up first!)
   vmov      q0, q4
+  vmov      q4, q5
 
-  vmov      q5, q4
-
-  @FREE: q3, q1, q2, q4
+  @FREE: q3, q1, q2, q5
   @ALT: d6-7, d18-19, d4-5, d10-31
 
-  veor      q4, q13, q14
-  veor      q4, q4, q15
+  veor      q5, q13, q14
+  veor      q5, q5, q15
 
-  vmov.32   r7, r8, d8
-  vmov.32   r5, r6, d9
+  vmov.32   r7, r8, d10
+  vmov.32   r5, r6, d11
   ror       r7, r7, #27
-  veor      q3, q0, q5
+  veor      q3, q0, q4
   ror       r8, r8, #27
   veor      q3, q3, q6
   ror       r5, r5, #27
@@ -1184,34 +1183,34 @@ Xft4_AddIs_0:
   eor       r7, r7, r7, ror #23
   eor       r8, r8, r8, ror #23
   eor       r5, r5, r5, ror #23
-  vmov.32   d8, r7, r8
+  vmov.32   d10, r7, r8
   eor       r6, r6, r6, ror #23
-  vmov.32   d9, r5, r6
+  vmov.32   d11, r5, r6
 
   vmov.32   r7, r8, d6
   vmov.32   r5, r6, d7
   ror       r7, r7, #27
-  veor      q0, q0, q4
+  veor      q0, q0, q5
   ror       r8, r8, #27
-  veor      q5, q5, q4
+  veor      q4, q4, q5
   ror       r5, r5, #27
-  veor      q6, q6, q4
+  veor      q6, q6, q5
   ror       r6, r6, #27
-  veor      q4, q10, q11
+  veor      q5, q10, q11
   eor       r7, r7, r7, ror #23
-  veor      q4, q4, q12
+  veor      q5, q5, q12
   eor       r8, r8, r8, ror #23
   eor       r5, r5, r5, ror #23
   vmov.32   d6, r7, r8
   eor       r6, r6, r6, ror #23
   vmov.32   d7, r5, r6
 
-  vmov.32   r7, r8, d8
-  vmov.32   r5, r6, d9
+  vmov.32   r7, r8, d10
+  vmov.32   r5, r6, d11
   ror       r7, r7, #27
   veor      q1, q10, q3
   ror       r8, r8, #27
-  veor      q4, q11, q3
+  veor      q5, q11, q3
   ror       r5, r5, #27
   veor      q10, q12, q3
   ror       r6, r6, #27
@@ -1248,7 +1247,6 @@ Xft4_AddIs_0:
 
   vswp      q8, q6
   vswp      q9, q10
-  vswp      q4, q5
 .endm
 
 .macro xoodoo_6_star

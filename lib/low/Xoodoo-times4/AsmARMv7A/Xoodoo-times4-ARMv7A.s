@@ -1177,13 +1177,13 @@ Xft4_AddIs_0:
 
   @ vmov      q3, q13
 
+  vswp      q6, q8
+
   @FREE: q3, 12, q2, q15
   @ALT: d6-7, d24-25, d4-5, d30-31
 
   veor      q15, q13, q14
   veor      q15, q15, q11
-
-  vswp      q6, q8
 
   vmov.32   r7, r8, d30
   vmov.32   r5, r6, d31

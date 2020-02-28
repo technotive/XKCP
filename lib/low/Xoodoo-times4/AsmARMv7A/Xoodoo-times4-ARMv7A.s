@@ -1241,7 +1241,7 @@ Xft4_AddIs_0:
 .endm
 
 .macro rho_w_starr @ This can benefit from the issue/wait chain
-  vswp      q8, q6
+  vmov      q6, q8
   vswp      q0, q4
   vswp      q4, q5
 

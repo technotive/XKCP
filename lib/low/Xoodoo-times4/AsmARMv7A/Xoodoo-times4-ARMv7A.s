@@ -1244,13 +1244,13 @@ Xft4_AddIs_0:
   vmov.32   r5, r6, d12
   vshl.U32  q13, q10, #11
   vmov.32   r7, r8, d13
-  vsri.U32  q13, q10, #21
-  ror       r5, r5, #21
   vshl.U32  q14, q9, #11
-  ror       r6, r6, #21
-  vsri.U32  q14, q9, #21
-  ror       r7, r7, #21
+  ror       r5, r5, #21
   vshl.U32  q15, q11, #11
+  ror       r6, r6, #21
+  vsri.U32  q13, q10, #21
+  ror       r7, r7, #21
+  vsri.U32  q14, q9, #21
   ror       r8, r8, #21
   vsri.U32  q15, q11, #21
   vmov.32   d24, r5, r6
@@ -1288,7 +1288,7 @@ Xft4_AddIs_0:
   veor      q2, q2, q5
   veor      q10, q7, q14
   veor      q14, q4, q11
-  
+
 
   vbic      q5, q15, q6
   vbic      q7, q3, q15

@@ -1161,7 +1161,7 @@ Xft4_AddIs_0:
   vsri.U32  q7, q15, #31
 .endm
 
-.macro theta_aleph @ This can benefit from the issue/wait chain
+.macro theta_starr @ This can benefit from the issue/wait chain
   @ Reordering (merge later, this is for convenience) (try merge up first!)
   @ vmov      q0, q4
 
@@ -1238,16 +1238,32 @@ Xft4_AddIs_0:
   veor      q3, q13, q11
   veor      q7, q14, q11
   veor      q11, q15, q11
+.endm
 
-  vswp      q8, q6
-  vswp      q0, q4
-  vswp      q4, q5
-  vswp      q9, q10
+.macro rho_w_starr @ This can benefit from the issue/wait chain
+vswp      q8, q6
+vswp      q0, q4
+vswp      q4, q5
+vswp      q9, q10
+  vmov.32   r5, r6, d16
+  vshl.U32  q13, q9, #11
+  vmov.32   r7, r8, d17
+  vsri.U32  q13, q9, #21
+  ror       r5, r5, #21
+  vshl.U32  q14, q10, #11
+  ror       r6, r6, #21
+  vsri.U32  q14, q10, #21
+  ror       r7, r7, #21
+  vshl.U32  q15, q11, #11
+  ror       r8, r8, #21
+  vsri.U32  q15, q11, #21
+  vmov.32   d24, r5, r6
+  vmov.32   d25, r7, r8
 .endm
 
 .macro xoodoo_6_star
-  theta_aleph
-  rho_w_star
+  theta_starr
+  rho_w_starr
   mov       r7, #0x00000060
   chi_star
   rho_e_star

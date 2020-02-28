@@ -940,7 +940,7 @@ Xoodootimes4_PermuteAll_12rounds:
 
 @ Xooffftimes4_AddIs: uchar * output -> uchar * input -> size_t bitLen -> void
 .align 8
-.global Xooffftimes4_AddIs
+.global Xooffftimes4_AddIs @ This one needs a real touch-up.
 .type Xooffftimes4_AddIs, %function
 Xooffftimes4_AddIs:
   push      {r4-r12,lr}
@@ -1004,7 +1004,7 @@ Xft4_AddIs_7:
 Xft4_AddIs_0:
   pop       {r4-r12,pc}
 
-.macro theta_star
+.macro theta_star @ This can benefit from the issue/wait chain
   veor      q15, q3, q7
   veor      q15, q15, q11
 
@@ -1079,7 +1079,7 @@ Xft4_AddIs_0:
   veor      q11, q11, q14
 .endm
 
-.macro rho_w_star
+.macro rho_w_star @ This can benefit from the issue/wait chain
   vmov.32   r5, r6, d16
   vshl.U32  q13, q9, #11
   vmov.32   r7, r8, d17
@@ -1130,7 +1130,7 @@ Xft4_AddIs_0:
   veor      q3, q3, q5
 .endm
 
-.macro rho_e_star
+.macro rho_e_star @ This can benefit from the issue/wait chain
   vshl.U32  q11, q9, #8
   vsri.U32  q11, q9, #24
 
@@ -1161,7 +1161,7 @@ Xft4_AddIs_0:
   vsri.U32  q7, q15, #31
 .endm
 
-.macro theta_aleph
+.macro theta_aleph @ This can benefit from the issue/wait chain
   @ Reordering (merge later, this is for convenience) (try merge up first!)
   vmov      q0, q4
   vmov      q4, q5
@@ -1298,7 +1298,7 @@ Xft4_AddIs_0:
   rho_e_star
 .endm
 
-.macro zip_x
+.macro zip_x @ This can benefit from the issue/wait chain
   @ Shatter
   vuzp.32   q4, q10
   vuzp.32   q7, q13
@@ -1386,7 +1386,7 @@ Xft4_AddIs_0:
   zip_x
 .endm
 
-.macro accumulate
+.macro accumulate @ This can benefit from the issue/wait chain
   vldm      r1, {d24-d29}
 
   vtrn.32   q0, q2
@@ -1528,7 +1528,7 @@ Xft4_CompressFast:
   zip_x
 .endm
 
-.macro sequentiate
+.macro sequentiate @ This can benefit from the issue/wait chain
   @ Roll_e_n -> Pe + kRoll = Zn
   vldm      r1, {d24-d29}
 

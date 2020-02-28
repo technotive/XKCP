@@ -1262,7 +1262,7 @@ Xft4_AddIs_0:
   vmov      q6, q8
 .endm
 
-.macro chi_star
+.macro chi_starr
   @ NOTE: Iota
   vdup.32   q8, r7
   veor      q0, q0, q8
@@ -1301,7 +1301,7 @@ Xft4_AddIs_0:
   rho_w_starr
   mov       r7, #0x00000060
   chi_starr
-  rho_e_starr
+  rho_e_star
 
   theta_star
   rho_w_star

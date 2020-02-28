@@ -1366,6 +1366,7 @@ Xft4_CompressFast:
   roll_c_column
   xoodoo_6_column
   accumulate_column
+  bx lr
   add       r10, #192
   subs      r3, #192
   bcs       Xft4_CompressFast

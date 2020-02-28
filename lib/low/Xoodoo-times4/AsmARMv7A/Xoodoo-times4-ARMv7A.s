@@ -1166,10 +1166,10 @@ Xft4_AddIs_0:
   vmov      q0, q4
   vmov      q4, q5
   vmov      q5, q11
-  @ vmov      q11, q15
+  vmov      q15, q11
 
-  @FREE: q3, q1, q2, q15
-  @ALT: d6-7, d18-19, d4-5, d30-31
+  @FREE: q3, q1, q2, q11
+  @ALT: d6-7, d18-19, d4-5, d22-31
 
   veor      q11, q13, q14
   veor      q11, q11, q15
@@ -1228,11 +1228,11 @@ Xft4_AddIs_0:
   vmov.32   r7, r8, d6
   vmov.32   r5, r6, d7
   ror       r7, r7, #27
-  veor      q2, q7, q15
+  veor      q2, q7, q11
   ror       r8, r8, #27
-  veor      q8, q8, q15
+  veor      q8, q8, q11
   ror       r5, r5, #27
-  veor      q9, q9, q15
+  veor      q9, q9, q11
   ror       r6, r6, #27
   eor       r7, r7, r7, ror #23
   eor       r8, r8, r8, ror #23

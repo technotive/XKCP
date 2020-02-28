@@ -1166,7 +1166,7 @@ Xft4_AddIs_0:
   vmov      q0, q4
   vmov      q4, q5
   vmov      q5, q11
-  vmov      q15, q11
+  @ vmov      q15, q11
 
   @FREE: q3, q1, q2, q11
   @ALT: d6-7, d18-19, d4-5, d22-31

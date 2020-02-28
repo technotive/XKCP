@@ -1441,6 +1441,346 @@ Xft4_AddIs_0:
   vstm      r1, {d24-d29}
 .endm
 
+.macro zip_column
+  @ Key seed bytes
+  vldm      r0, {d0-d5}
+
+  @ Get keystream generation inputs
+  vmov      r4, r5, d0 @ 0,1
+  vmov      r6, r7, d2 @ 4,5
+  vmov      r8, s8 @ 8
+
+  eor       r4, r4, r4, lsl #13
+  eor       r4, r4, r6, ror #29
+  @ r4 = 12
+  eor       r6, r6, r6, lsl #13
+  eor       r6, r6, r8, ror #29
+  @ r6 = 13
+  eor       r8, r8, r8, lsl #13
+  eor       r8, r8, r5, ror #29
+  @ r8 = 14
+  eor       r5, r5, r5, lsl #13
+  eor       r5, r5, r7, ror #29
+  @ r5 = 15
+
+  @ 0,1,2,3
+  veor      q4, q0, q4
+  @ 4,5,6,7
+  veor      q5, q1, q5
+  veor      q7, q1, q7
+  @ 8,9,10,11
+  veor      q6, q2, q6
+  veor      q8, q2, q8
+  veor      q10, q2, q10
+
+  vmov      s12, s1
+  vmov      s13, s2
+  vmov      s14, s3
+  vmov      s15, r4
+
+  vmov      s0, s5
+  vmov      s1, s6
+  vmov      s2, s7
+  vmov      s3, r6
+
+  vmov      s4, s9
+  vmov      s5, s10
+  vmov      s6, s11
+  vmov      s7, r8
+
+  vmov      s8, s13
+  vmov      s9, s14
+  vmov      d5, r4, r5
+  vstm      r0, {d0-d5}
+
+  @ 1,2,3,12
+  veor      q9, q3, q9
+  veor      q11, q3, q11
+  veor      q13, q3, q13
+
+  @ 5,6,7,13
+  veor      q12, q0, q12
+  veor      q14, q0, q14
+
+  @ 9,10,11,14
+  veor      q15, q1, q15
+.endm
+
+.macro theta_column
+  veor      q0, q4, q5
+  veor      q0, q0, q6
+
+  vmov.32   r7, r8, d0
+  vmov.32   r5, r6, d1
+  ror       r7, r7, #27
+  ror       r8, r8, #27
+  ror       r5, r5, #27
+  ror       r6, r6, #27
+  eor       r7, r7, r7, ror #23
+  eor       r8, r8, r8, ror #23
+  eor       r5, r5, r5, ror #23
+  eor       r6, r6, r6, ror #23
+  vmov.32   s1, r7
+  vmov.32   s2, r8
+  vmov.32   s3, r5
+  vmov.32   s0, r6
+
+  veor      q4, q4, q0
+  veor      q5, q5, q0
+  veor      q6, q6, q0
+
+  veor      q1, q7, q8
+  veor      q1, q1, q9
+
+  vmov.32   r7, r8, d2
+  vmov.32   r5, r6, d3
+  ror       r7, r7, #27
+  ror       r8, r8, #27
+  ror       r5, r5, #27
+  ror       r6, r6, #27
+  eor       r7, r7, r7, ror #23
+  eor       r8, r8, r8, ror #23
+  eor       r5, r5, r5, ror #23
+  eor       r6, r6, r6, ror #23
+  vmov.32   s5, r7
+  vmov.32   s6, r8
+  vmov.32   s7, r5
+  vmov.32   s4, r6
+
+  veor      q7, q7, q1
+  veor      q8, q8, q1
+  veor      q9, q9, q1
+
+  veor      q2, q10, q11
+  veor      q2, q2, q12
+
+  vmov.32   r7, r8, d4
+  vmov.32   r5, r6, d5
+  ror       r7, r7, #27
+  ror       r8, r8, #27
+  ror       r5, r5, #27
+  ror       r6, r6, #27
+  eor       r7, r7, r7, ror #23
+  eor       r8, r8, r8, ror #23
+  eor       r5, r5, r5, ror #23
+  eor       r6, r6, r6, ror #23
+  vmov.32   s9, r7
+  vmov.32   s10, r8
+  vmov.32   s11, r5
+  vmov.32   s8, r6
+
+  veor      q10, q10, q2
+  veor      q11, q11, q2
+  veor      q12, q12, q2
+
+  veor      q3, q13, q14
+  veor      q3, q3, q15
+
+  vmov.32   r7, r8, d6
+  vmov.32   r5, r6, d7
+  ror       r7, r7, #27
+  ror       r8, r8, #27
+  ror       r5, r5, #27
+  ror       r6, r6, #27
+  eor       r7, r7, r7, ror #23
+  eor       r8, r8, r8, ror #23
+  eor       r5, r5, r5, ror #23
+  eor       r6, r6, r6, ror #23
+  vmov.32   s13, r7
+  vmov.32   s14, r8
+  vmov.32   s15, r5
+  vmov.32   s12, r6
+
+  veor      q13, q13, q3
+  veor      q14, q14, q3
+  veor      q15, q15, q3
+.endm
+
+.macro rho_west_column
+  vmov.32   r5, r6, d10
+  vmov.32   r7, r8, d11
+  vmov.32   s1, r5
+  vmov.32   s2, r6
+  vmov.32   s3, r7
+  vmov.32   s0, r8
+
+  vmov.32   r5, r6, d16
+  vmov.32   r7, r8, d17
+  vmov.32   s5, r5
+  vmov.32   s6, r6
+  vmov.32   s7, r7
+  vmov.32   s4, r8
+
+  vmov.32   r5, r6, d22
+  vmov.32   r7, r8, d23
+  vmov.32   s9, r5
+  vmov.32   s10, r6
+  vmov.32   s11, r7
+  vmov.32   s8, r8
+
+  vmov.32   r5, r6, d28
+  vmov.32   r7, r8, d29
+  vmov.32   s13, r5
+  vmov.32   s14, r6
+  vmov.32   s15, r7
+  vmov.32   s12, r8
+  @ States y=1 now in {0..3}
+
+  vshl.U32  q5, q6, #11
+  vshl.U32  q8, q9, #11
+  vshl.U32  q11, q12, #11
+  vshl.U32  q14, q15, #11
+  vsri.U32  q5, q6, #21
+  vsri.U32  q8, q9, #21
+  vsri.U32  q11, q12, #21
+  vsri.U32  q14, q15, #21
+  @ States y=2 now in {5,8,11,14}
+  @ States free {6,9,12,15}
+.endm
+
+.macro iota_column
+  vmov.32   s25, #0x00000000
+  veor      d8, d8, d12
+  veor      d14, d14, d12
+  veor      d20, d20, d12
+  veor      d26, d26, d12
+.endm
+
+.macro chi_column
+  @a {4,0,5}
+  vbic      q6, q5, q0  @B0 of a
+  vbic      q9, q4, q5  @B1 of a
+  vbic      q12, q0, q4 @B2 of a
+  veor      q4, q4, q6  @a0
+  veor      q0, q0, q9  @a1
+  veor      q5, q5, q12 @a2
+
+  @b {7,1,8}
+  vbic      q6, q8, q1  @B0 of b
+  vbic      q9, q7, q8  @B1 of b
+  vbic      q12, q1, q7 @B2 of b
+  veor      q7, q7, q6  @b0
+  veor      q1, q1, q9  @b1
+  veor      q8, q8, q12 @b2
+
+  @c {10,2,11}
+  vbic      q6, q11, q2   @B0 of c
+  vbic      q9, q10, q11  @B1 of c
+  vbic      q12, q2, q10  @B2 of c
+  veor      q10, q10, q6  @c0
+  veor      q2, q2, q9    @c1
+  veor      q11, q11, q12 @c2
+
+  @d {13,3,14}
+  vbic      q6, q14, q3   @B0 of d
+  vbic      q9, q13, q14  @B1 of d
+  vbic      q12, q3, q13  @B2 of d
+  veor      q13, q13, q6  @d0
+  veor      q3, q3, q9    @d1
+  veor      q14, q14, q12 @d2
+.endm
+
+.macro rho_east_column
+  @a {4,0,5}
+  vshl.U32  d13, d10, #8
+  vshl.U32  d12, d11, #8
+  vsri.U32  d13, d10, #24
+  vsri.U32  d12, d11, #24
+  @b {7,1,8}
+  vshl.U32  d19, d16, #8
+  vshl.U32  d18, d17, #8
+  vsri.U32  d19, d16, #24
+  vsri.U32  d18, d17, #24
+  @c {10,2,11}
+  vshl.U32  d25, d22, #8
+  vshl.U32  d24, d23, #8
+  vsri.U32  d25, d22, #24
+  vsri.U32  d24, d23, #24
+  @d {13,3,14}
+  vshl.U32  d31, d28, #8
+  vshl.U32  d30, d29, #8
+  vsri.U32  d31, d28, #24
+  vsri.U32  d30, d29, #24
+
+  @a {4,0,6}
+  vshl.U32  q5, q0, #1
+  vsri.U32  q5, q0, #31
+  @b {7,1,9}
+  vshl.U32  q8, q1, #1
+  vsri.U32  q8, q1, #31
+  @c {10,2,12}
+  vshl.U32  q11, q2, #1
+  vsri.U32  q11, q2, #31
+  @d {13,3,15}
+  vshl.U32  q14, q3, #1
+  vsri.U32  q14, q3, #31
+.endm
+
+.macro xoodoo_6_column
+  theta_column
+  rho_west_column
+  vmov.32   s24, #0x00000060
+  iota_column
+  chi_column
+  rho_east_column
+
+  theta_column
+  rho_west_column
+  vmov.32   s24, #0x0000002C
+  iota_column
+  chi_column
+  rho_east_column
+
+  theta_column
+  rho_west_column
+  vmov.32   s24, #0x00000380
+  iota_column
+  chi_column
+  rho_east_column
+
+  theta_column
+  rho_west_column
+  vmov.32   s24, #0x000000F0
+  iota_column
+  chi_column
+  rho_east_column
+
+  theta_column
+  rho_west_column
+  vmov.32   s24, #0x000001A0
+  iota_column
+  chi_column
+  rho_east_column
+
+  theta_column
+  rho_west_column
+  vmov.32   s24, #0x00000012
+  iota_column
+  chi_column
+  rho_east_column
+.endm
+
+.macro accumulate_column @reorder
+  vldm      r1, {d0-d5}
+
+  veor      q4, q4, q7
+  veor      q10, q10, q13
+  veor      q4, q4, q10
+  veor      q0, q0, q4
+
+  veor      q5, q5, q8
+  veor      q11, q11, q14
+  veor      q5, q5, q11
+  veor      q1, q1, q5
+
+  veor      q6, q6, q9
+  veor      q12, q12, q15
+  veor      q6, q6, q12
+  veor      q2, q2, q6
+
+  vstm      r1, {d0-d5}
+.endm
+
 @ Xooffftimes4_CompressFastLoop: uchar * k -> uchar * x -> uchar * input -> size_t length -> size_t
 .align 8
 .global Xooffftimes4_CompressFastLoop
@@ -1456,12 +1796,11 @@ Xooffftimes4_CompressFastLoop:
   mov       r10, #0
   sub       r3, #192
 Xft4_CompressFast:
-  @ focus_c                 @ Handle unaligned access
   vldm      r2!, {d8-d23}
   vldm      r2!, {d24-d31}
-  roll_zip_c              @ Roll_c with message addition (XOR)
-  xoodoo_6_star           @ Same as Xoodoo_6; different registers
-  accumulate              @ Add up the four states we processed
+  zip_column
+  xoodoo_6_column
+  accumulate_column
   add       r10, #192
   subs      r3, #192
   bcs       Xft4_CompressFast

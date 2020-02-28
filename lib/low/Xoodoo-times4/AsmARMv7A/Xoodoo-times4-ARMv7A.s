@@ -1166,8 +1166,6 @@ Xft4_AddIs_0:
   vmov      q0, q4
   @ vmov      q4, q5
 
-  @ vmov      q4, q5
-
   veor      q4, q13, q14
   veor      q4, q4, q15
 
@@ -1191,25 +1189,25 @@ Xft4_AddIs_0:
   ror       r7, r7, #27
   veor      q0, q0, q4
   ror       r8, r8, #27
-  veor      q4, q5, q4
+  veor      q5, q5, q4
   ror       r5, r5, #27
   veor      q6, q6, q4
   ror       r6, r6, #27
-  veor      q5, q10, q11
+  veor      q4, q10, q11
   eor       r7, r7, r7, ror #23
-  veor      q5, q5, q12
+  veor      q4, q4, q12
   eor       r8, r8, r8, ror #23
   eor       r5, r5, r5, ror #23
   vmov.32   d6, r7, r8
   eor       r6, r6, r6, ror #23
   vmov.32   d7, r5, r6
 
-  vmov.32   r7, r8, d10
-  vmov.32   r5, r6, d11
+  vmov.32   r7, r8, d8
+  vmov.32   r5, r6, d9
   ror       r7, r7, #27
   veor      q1, q10, q3
   ror       r8, r8, #27
-  veor      q5, q11, q3
+  veor      q4, q11, q3
   ror       r5, r5, #27
   veor      q10, q12, q3
   ror       r6, r6, #27
@@ -1243,7 +1241,7 @@ Xft4_AddIs_0:
   veor      q11, q15, q11
 
   vswp      q8, q6
-  @ vswp      q4, q5
+  vswp      q4, q5
   vswp      q9, q10
 .endm
 

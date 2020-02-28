@@ -1342,7 +1342,7 @@ Xft4_AddIs_0:
   @ q6, q12, q9, q15
 .endm
 
-.macro zip_column
+.macro roll_c_column
   @ Key seed bytes
   vldm      r0, {d0-d5}
 
@@ -1701,7 +1701,7 @@ Xooffftimes4_CompressFastLoop:
 Xft4_CompressFast:
   vldm      r2!, {d8-d23}
   vldm      r2!, {d24-d31}
-  zip_column
+  roll_c_column
   xoodoo_6_column
   accumulate_column
   add       r10, #192
@@ -1837,6 +1837,106 @@ Xft4_CompressFast:
   mov       r2, r6
 .endm
 
+.macro roll_e_column
+  vldm      r0, {d0-d5}
+
+  @ Get keystream generation inputs
+  vmov      r4, r5, d0 @ 0,1
+  vmov      r6, r7, d2 @ 4,5
+  vmov      r8, r9, d4 @ 8,9
+
+  and       r10, r6, r8
+  eor       r4, r10, r4, ror #27
+  eor       r4, r4, r6, ror #19
+  eor       r4, r4, #7
+  @ r4 = 12
+
+  and       r10, r8, r5
+  eor       r6, r10, r6, ror #27
+  eor       r6, r6, r8, ror #19
+  eor       r6, r6, #7
+  @r6 = 13
+
+  and       r10, r5, r7
+  eor       r8, r10, r8, ror #27
+  eor       r8, r8, r5, ror #19
+  eor       r8, r8, #7
+  @r8 = 14
+
+  and       r10, r7, r9
+  eor       r5, r10, r5, ror #27
+  eor       r5, r5, r7, ror #19
+  eor       r5, r5, #7
+  @r5 = 15
+
+  @ 0,1,2,3
+  vmov      q4, q0
+  @ 4,5,6,7
+  vmov      q5, q1
+  vmov      q7, q1
+  @ 8,9,10,11
+  vmov      q6, q2
+  vmov      q8, q2
+  vmov      q10, q2
+
+  @ Optimize movement here. Merge into zip_x or VLDM.
+  vmov      s12, s1
+  vmov      s13, s2
+  vmov      s14, s3
+  vmov      s15, r4
+
+  vmov      s0, s5
+  vmov      s1, s6
+  vmov      s2, s7
+  vmov      s3, r6
+
+  vmov      s4, s9
+  vmov      s5, s10
+  vmov      s6, s11
+  vmov      s7, r8
+
+  vmov      s8, s13
+  vmov      s9, s14
+  vmov      d5, r4, r5
+  vstm      r0, {d0-d5}
+
+  @ 1,2,3,12
+  vmov      q9, q3
+  vmov      q11, q3
+  vmov      q13, q3
+
+  @ 5,6,7,13
+  vmov      q12, q0
+  vmov      q14, q0
+
+  @ 9,10,11,14
+  vmov      q15, q1
+.endm
+
+.macro sequentiate_column @reorder?
+  @ Roll_e_n -> Pe + kRoll = Zn
+  vldm      r1, {d0-d5}
+
+  veor      q4, q4, q0
+  veor      q5, q5, q1
+  veor      q6, q6, q2
+
+  veor      q7, q7, q0
+  veor      q8, q8, q1
+  veor      q9, q9, q2
+
+  veor      q10, q10, q0
+  veor      q11, q11, q1
+  veor      q12, q12, q2
+
+  veor      q13, q13, q0
+  veor      q14, q14, q1
+  veor      q15, q15, q2
+
+  vstm      r2!, {d8-d23}
+  vstm      r2!, {d24-d31}
+.endm
+
 @ Xooffftimes4_ExpandFastLoop: uchar * yAccu -> uchar * kRoll -> uchar * output -> size_t length -> size_t
 .align 8
 .global Xooffftimes4_ExpandFastLoop
@@ -1852,9 +1952,9 @@ Xooffftimes4_ExpandFastLoop:
   mov       r11, #0
   sub       r3, #192
 Xft4_ExpandFast: @The second loop breaks something.
-  roll_zip_e
-  xoodoo_6_star
-  sequentiate
+  roll_e_column
+  xoodoo_6_column
+  sequentiate_column
   add       r11, #192
   subs      r3, #192
   bcs       Xft4_ExpandFast

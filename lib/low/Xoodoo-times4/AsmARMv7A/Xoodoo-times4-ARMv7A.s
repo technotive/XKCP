@@ -1368,7 +1368,7 @@ Xft4_CompressFast:
   accumulate_column
   add       r10, #192
   subs      r3, #192
-  bcs       Xft4_CompressFast
+  @ bcs       Xft4_CompressFast
   mov       r0, r10
   vpop      {d8-d15}
   pop       {r4-r10, pc}

@@ -1080,20 +1080,15 @@ Xft4_AddIs_0:
 .endm
 
 .macro rho_w_star @ This can benefit from the issue/wait chain
-  vmov.32   r5, r6, d16
+  vshl.U32  q12, q8, #11
   vshl.U32  q13, q9, #11
-  vmov.32   r7, r8, d17
   vshl.U32  q14, q10, #11
-  ror       r5, r5, #21
   vshl.U32  q15, q11, #11
-  ror       r6, r6, #21
+
+  vsri.U32  q12, q8, #21
   vsri.U32  q13, q9, #21
-  ror       r7, r7, #21
   vsri.U32  q14, q10, #21
-  ror       r8, r8, #21
   vsri.U32  q15, q11, #21
-  vmov.32   d24, r5, r6
-  vmov.32   d25, r7, r8
 .endm
 
 .macro chi_star

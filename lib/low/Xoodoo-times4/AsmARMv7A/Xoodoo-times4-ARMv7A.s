@@ -1595,19 +1595,12 @@ Xft4_CompressFast:
   vstm      r6!, {d6-d7}
 
   veor      q0, q4, q13
-  veor      q2, q5, q13
-  veor      q4, q6, q13
-  veor      q6, q7, q13
-
-  @ vtrn.32   q8, q10
-  @ vtrn.32   q9, q11
-  @ vzip.32   q8, q9
-  @ vzip.32   q10, q11
-  @ 8 9 10 11 for A C B D
-
   veor      q1, q8, q14
+  veor      q2, q5, q13
   veor      q3, q9, q14
+  veor      q4, q6, q13
   veor      q5, q10, q14
+  veor      q6, q7, q13
   veor      q7, q11, q14
 
   vstm      r2, {d0-d3}

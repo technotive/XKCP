@@ -1241,9 +1241,6 @@ Xft4_AddIs_0:
 .endm
 
 .macro rho_w_starr @ This can benefit from the issue/wait chain
-  vswp      q0, q4
-  vswp      q4, q5
-
   vmov.32   r5, r6, d12
   vshl.U32  q13, q10, #11
   vmov.32   r7, r8, d13
@@ -1263,6 +1260,8 @@ Xft4_AddIs_0:
 .endm
 
 .macro chi_starr
+vswp      q0, q4
+@ vswp      q4, q5
   @ NOTE: Iota
   vdup.32   q8, r7
   veor      q0, q0, q8
@@ -1274,19 +1273,19 @@ Xft4_AddIs_0:
   veor      q12, q7, q9
   veor      q0, q0, q11
 
-  vbic      q7, q13, q4
+  vbic      q7, q13, q5
   vbic      q10, q1, q13
-  vbic      q11, q4, q1
+  vbic      q11, q5, q1
   veor      q9, q11, q13
-  veor      q13, q4, q10
+  veor      q13, q5, q10
   veor      q1, q1, q7
 
-  vbic      q4, q14, q5
+  vbic      q5, q14, q4
   vbic      q11, q2, q14
-  vbic      q7, q5, q2
+  vbic      q7, q4, q2
   veor      q10, q7, q14
-  veor      q14, q5, q11
-  veor      q2, q2, q4
+  veor      q14, q4, q11
+  veor      q2, q2, q5
 
   vbic      q5, q15, q6
   vbic      q7, q3, q15

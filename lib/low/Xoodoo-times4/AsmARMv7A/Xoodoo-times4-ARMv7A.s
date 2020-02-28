@@ -1572,9 +1572,13 @@ Xft4_CompressFast:
   add       r6, r5, #48
 
   vtrn.32   q0, q2
+  vtrn.32   q4, q6
   vtrn.32   q1, q3
+  vtrn.32   q5, q7
   vzip.32   q0, q1
+  vzip.32   q4, q5
   vzip.32   q2, q3
+  vzip.32   q6, q7
   @ 0 1 2 3 for A C B D
 
   veor      q0, q0, q12
@@ -1587,10 +1591,10 @@ Xft4_CompressFast:
   vstm      r5!, {d2-d3}
   vstm      r6!, {d6-d7}
 
-  vtrn.32   q4, q6
-  vtrn.32   q5, q7
-  vzip.32   q4, q5
-  vzip.32   q6, q7
+  @ vtrn.32   q4, q6
+  @ vtrn.32   q5, q7
+  @ vzip.32   q4, q5
+  @ vzip.32   q6, q7
   @ 4 5 6 7 for A C B D
 
   veor      q0, q4, q13

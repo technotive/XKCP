@@ -1165,17 +1165,16 @@ Xft4_AddIs_0:
   @ Reordering (merge later, this is for convenience) (try merge up first!)
   vmov      q0, q4
   vmov      q4, q5
-  vmov      q5, q11
-  @ vmov      q15, q11
+  @ vmov      q11, q5
 
-  @FREE: q3, q1, q2, q11
-  @ALT: d6-7, d18-19, d4-5, d22-31
+  @FREE: q3, q1, q2, q5
+  @ALT: d6-7, d18-19, d4-5, d10-31
 
-  veor      q11, q13, q14
-  veor      q11, q11, q15
+  veor      q5, q13, q14
+  veor      q5, q5, q15
 
-  vmov.32   r7, r8, d22
-  vmov.32   r5, r6, d23
+  vmov.32   r7, r8, d10
+  vmov.32   r5, r6, d11
   ror       r7, r7, #27
   veor      q3, q0, q4
   ror       r8, r8, #27
@@ -1185,34 +1184,34 @@ Xft4_AddIs_0:
   eor       r7, r7, r7, ror #23
   eor       r8, r8, r8, ror #23
   eor       r5, r5, r5, ror #23
-  vmov.32   d22, r7, r8
+  vmov.32   d10, r7, r8
   eor       r6, r6, r6, ror #23
-  vmov.32   d23, r5, r6
+  vmov.32   d11, r5, r6
 
   vmov.32   r7, r8, d6
   vmov.32   r5, r6, d7
   ror       r7, r7, #27
-  veor      q0, q0, q11
+  veor      q0, q0, q5
   ror       r8, r8, #27
-  veor      q4, q4, q11
+  veor      q4, q4, q5
   ror       r5, r5, #27
-  veor      q6, q6, q11
+  veor      q6, q6, q5
   ror       r6, r6, #27
-  veor      q11, q10, q5
+  veor      q5, q10, q11
   eor       r7, r7, r7, ror #23
-  veor      q11, q11, q12
+  veor      q5, q5, q12
   eor       r8, r8, r8, ror #23
   eor       r5, r5, r5, ror #23
   vmov.32   d6, r7, r8
   eor       r6, r6, r6, ror #23
   vmov.32   d7, r5, r6
 
-  vmov.32   r7, r8, d22
-  vmov.32   r5, r6, d23
+  vmov.32   r7, r8, d10
+  vmov.32   r5, r6, d11
   ror       r7, r7, #27
   veor      q1, q10, q3
   ror       r8, r8, #27
-  veor      q5, q5, q3
+  veor      q5, q11, q3
   ror       r5, r5, #27
   veor      q10, q12, q3
   ror       r6, r6, #27

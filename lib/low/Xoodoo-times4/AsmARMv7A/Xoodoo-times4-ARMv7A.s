@@ -1639,6 +1639,7 @@ Xft4_AddIs_0:
 .endm
 
 .macro iota_column
+  vmov s24, r7
   vmov.32   s25, #0x00000000
   veor      d8, d8, d12
   veor      d14, d14, d12
@@ -1719,42 +1720,42 @@ Xft4_AddIs_0:
 .macro xoodoo_6_column
   theta_column
   rho_west_column
-  vmov.32   s24, #0x00000060
+  mov r7, #0x00000060
   iota_column
   chi_column
   rho_east_column
 
   theta_column
   rho_west_column
-  vmov.32   s24, #0x0000002C
+  mov r7, #0x0000002C
   iota_column
   chi_column
   rho_east_column
 
   theta_column
   rho_west_column
-  vmov.32   s24, #0x00000380
+  mov r7, #0x00000380
   iota_column
   chi_column
   rho_east_column
 
   theta_column
   rho_west_column
-  vmov.32   s24, #0x000000F0
+  mov r7, #0x000000F0
   iota_column
   chi_column
   rho_east_column
 
   theta_column
   rho_west_column
-  vmov.32   s24, #0x000001A0
+  mov r7, #0x000001A0
   iota_column
   chi_column
   rho_east_column
 
   theta_column
   rho_west_column
-  vmov.32   s24, #0x00000012
+  mov r7, #0x00000012
   iota_column
   chi_column
   rho_east_column

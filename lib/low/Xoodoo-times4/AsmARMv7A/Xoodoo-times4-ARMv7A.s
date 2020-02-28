@@ -1104,30 +1104,30 @@ Xft4_AddIs_0:
   vbic      q11, q12, q7
   vbic      q9, q0, q12
   vbic      q10, q7, q0
+  veor      q0, q0, q11
   veor      q8, q10, q12
   veor      q12, q7, q9
-  veor      q0, q0, q11
 
   vbic      q7, q13, q4
   vbic      q10, q1, q13
   vbic      q11, q4, q1
+  veor      q1, q1, q7
   veor      q9, q11, q13
   veor      q13, q4, q10
-  veor      q1, q1, q7
 
   vbic      q4, q14, q5
   vbic      q11, q2, q14
   vbic      q7, q5, q2
+  veor      q2, q2, q4
   veor      q10, q7, q14
   veor      q14, q5, q11
-  veor      q2, q2, q4
 
   vbic      q5, q15, q6
   vbic      q7, q3, q15
   vbic      q4, q6, q3
+  veor      q3, q3, q5
   veor      q4, q4, q15
   veor      q15, q6, q7
-  veor      q3, q3, q5
 .endm
 
 .macro rho_e_star @ This can benefit from the issue/wait chain
@@ -1273,14 +1273,12 @@ Xft4_AddIs_0:
   veor      q8, q10, q12
   veor      q12, q7, q9
 
-
   vbic      q7, q13, q5
   vbic      q10, q1, q13
   vbic      q11, q5, q1
   veor      q1, q1, q7
   veor      q9, q11, q13
   veor      q13, q5, q10
-
 
   vbic      q5, q14, q4
   vbic      q11, q2, q14
@@ -1289,14 +1287,12 @@ Xft4_AddIs_0:
   veor      q10, q7, q14
   veor      q14, q4, q11
 
-
   vbic      q5, q15, q6
   vbic      q7, q3, q15
   vbic      q4, q6, q3
   veor      q3, q3, q5
   veor      q4, q4, q15
   veor      q15, q6, q7
-
 .endm
 
 .macro xoodoo_6_star

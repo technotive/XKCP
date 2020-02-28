@@ -1170,17 +1170,9 @@ Xft4_AddIs_0:
 
   vmov      q1, q10
   vmov      q10, q9
-  @ vmov      q9, q12
 
-  @ vmov      q2, q7
-  @ vmov      q7, q14
-
-  @ vmov      q3, q13
-
-  vswp      q6, q8
-
-  @FREE: q3, 12, q2, q15
-  @ALT: d6-7, d24-25, d4-5, d30-31
+  @FREE: q3, q9, q2, q15
+  @ALT: d6-7, d18-19, d4-5, d30-31
 
   veor      q15, q13, q14
   veor      q15, q15, q11
@@ -1190,7 +1182,7 @@ Xft4_AddIs_0:
   ror       r7, r7, #27
   veor      q3, q0, q4
   ror       r8, r8, #27
-  veor      q3, q3, q8
+  veor      q3, q3, q6
   ror       r5, r5, #27
   ror       r6, r6, #27
   eor       r7, r7, r7, ror #23
@@ -1207,7 +1199,7 @@ Xft4_AddIs_0:
   ror       r8, r8, #27
   veor      q4, q4, q15
   ror       r5, r5, #27
-  veor      q8, q8, q15
+  veor      q6, q6, q15
   ror       r6, r6, #27
   veor      q15, q1, q5
   eor       r7, r7, r7, ror #23
@@ -1227,7 +1219,7 @@ Xft4_AddIs_0:
   ror       r5, r5, #27
   veor      q9, q12, q3
   ror       r6, r6, #27
-  veor      q3, q7, q6
+  veor      q3, q7, q8
   eor       r7, r7, r7, ror #23
   veor      q3, q3, q10
   eor       r8, r8, r8, ror #23
@@ -1240,9 +1232,8 @@ Xft4_AddIs_0:
   vmov.32   r5, r6, d7
   ror       r7, r7, #27
   veor      q2, q7, q15
-  @SET: q2
   ror       r8, r8, #27
-  veor      q6, q6, q15
+  veor      q8, q8, q15
   ror       r5, r5, #27
   veor      q10, q10, q15
   ror       r6, r6, #27
@@ -1258,6 +1249,8 @@ Xft4_AddIs_0:
   veor      q7, q14, q15
   @SET: q7
   veor      q11, q11, q15
+
+  vswp      q8, q6
 .endm
 
 .macro xoodoo_6_star

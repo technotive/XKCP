@@ -1165,7 +1165,7 @@ Xft4_AddIs_0:
   @ Reordering (merge later, this is for convenience) (try merge up first!)
   vmov      q0, q4
   @ vmov      q4, q5
-
+  
   veor      q4, q13, q14
   veor      q4, q4, q15
 
@@ -1207,7 +1207,7 @@ Xft4_AddIs_0:
   ror       r7, r7, #27
   veor      q1, q10, q3
   ror       r8, r8, #27
-  veor      q5, q11, q3
+  veor      q4, q11, q3
   ror       r5, r5, #27
   veor      q10, q12, q3
   ror       r6, r6, #27
@@ -1241,6 +1241,7 @@ Xft4_AddIs_0:
   veor      q11, q15, q11
 
   vswp      q8, q6
+  vswp      q4, q5
   vswp      q9, q10
 .endm
 

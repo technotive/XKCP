@@ -1165,6 +1165,8 @@ Xft4_AddIs_0:
   @ Reordering (merge later, this is for convenience) (try merge up first!)
   vmov      q0, q4
 
+  vmov      q5, q4
+
   @FREE: q3, q1, q2, q4
   @ALT: d6-7, d18-19, d4-5, d10-31
 
@@ -1209,7 +1211,7 @@ Xft4_AddIs_0:
   ror       r7, r7, #27
   veor      q1, q10, q3
   ror       r8, r8, #27
-  veor      q5, q11, q3
+  veor      q4, q11, q3
   ror       r5, r5, #27
   veor      q10, q12, q3
   ror       r6, r6, #27
@@ -1246,6 +1248,7 @@ Xft4_AddIs_0:
 
   vswp      q8, q6
   vswp      q9, q10
+  vswp      q4, q5
 .endm
 
 .macro xoodoo_6_star

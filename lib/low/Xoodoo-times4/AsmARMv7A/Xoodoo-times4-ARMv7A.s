@@ -1352,9 +1352,9 @@ Xft4_AddIs_0:
 .type Xooffftimes4_CompressFastLoop, %function
 Xooffftimes4_CompressFastLoop:
   @ Do not use this function for unaligned access (for now).
-  tst       r2, #3
-  movne     r0, #0
-  bxne      lr
+  @ tst       r2, #3
+  @ movne     r0, #0
+  @ bxne      lr
 
   push      {r4-r10, lr}   @ Save LR, macros might branch.
   vpush     {d8-d15}
@@ -1368,136 +1368,10 @@ Xft4_CompressFast:
   accumulate_column
   add       r10, #192
   subs      r3, #192
-  @ bcs       Xft4_CompressFast
+  bcs       Xft4_CompressFast
   mov       r0, r10
   vpop      {d8-d15}
   pop       {r4-r10, pc}
-
-.macro roll_zip_e
-  vldm      r0, {d0-d5}
-
-  @ Get keystream generation inputs
-  vmov      r4, r5, d0 @ 0,1
-  vmov      r6, r7, d2 @ 4,5
-  vmov      r8, r9, d4 @ 8,9
-
-  and       r10, r6, r8
-  eor       r4, r10, r4, ror #27
-  eor       r4, r4, r6, ror #19
-  eor       r4, r4, #7
-  @ r4 = 12
-
-  and       r10, r8, r5
-  eor       r6, r10, r6, ror #27
-  eor       r6, r6, r8, ror #19
-  eor       r6, r6, #7
-  @r6 = 13
-
-  and       r10, r5, r7
-  eor       r8, r10, r8, ror #27
-  eor       r8, r8, r5, ror #19
-  eor       r8, r8, #7
-  @r8 = 14
-
-  and       r10, r7, r9
-  eor       r5, r10, r5, ror #27
-  eor       r5, r5, r7, ror #19
-  eor       r5, r5, #7
-  @r5 = 15
-
-  @ 0,1,2,3
-  vmov      q4, q0
-  @ 4,5,6,7
-  vmov      q5, q1
-  vmov      q7, q1
-  @ 8,9,10,11
-  vmov      q6, q2
-  vmov      q8, q2
-  vmov      q10, q2
-
-  @ Optimize movement here. Merge into zip_x or VLDM.
-  vmov      s12, s1
-  vmov      s13, s2
-  vmov      s14, s3
-  vmov      s15, r4
-
-  vmov      s0, s5
-  vmov      s1, s6
-  vmov      s2, s7
-  vmov      s3, r6
-
-  vmov      s4, s9
-  vmov      s5, s10
-  vmov      s6, s11
-  vmov      s7, r8
-
-  vmov      s8, s13
-  vmov      s9, s14
-  vmov      d5, r4, r5
-  vstm      r0, {d0-d5}
-
-  @ 1,2,3,12
-  vmov      q9, q3
-  vmov      q11, q3
-  vmov      q13, q3
-
-  @ 5,6,7,13
-  vmov      q12, q0
-  vmov      q14, q0
-
-  @ 9,10,11,14
-  vmov      q15, q1
-
-  zip_x
-.endm
-
-.macro sequentiate @ This can benefit from the issue/wait chain
-  @ Roll_e_n -> Pe + kRoll = Zn
-  vldm      r1, {d24-d29}
-
-  add       r4, r2, #48
-  add       r5, r4, #48
-  add       r6, r5, #48
-
-  vtrn.32   q0, q2
-  vtrn.32   q4, q6
-  vtrn.32   q1, q3
-  vtrn.32   q5, q7
-  vtrn.32   q8, q10
-  vtrn.32   q9, q11
-  vzip.32   q0, q1
-  vzip.32   q4, q5
-  vzip.32   q2, q3
-  vzip.32   q6, q7
-  vzip.32   q8, q9
-  vzip.32   q10, q11
-
-  veor      q0, q0, q12
-  veor      q1, q1, q12
-  veor      q2, q2, q12
-  veor      q3, q3, q12
-
-  vstm      r2!, {d0-d1}
-  vstm      r4!, {d4-d5}
-  vstm      r5!, {d2-d3}
-  vstm      r6!, {d6-d7}
-
-  veor      q0, q4, q13
-  veor      q1, q8, q14
-  veor      q2, q5, q13
-  veor      q3, q9, q14
-  veor      q4, q6, q13
-  veor      q5, q10, q14
-  veor      q6, q7, q13
-  veor      q7, q11, q14
-
-  vstm      r2, {d0-d3}
-  vstm      r4, {d8-d11}
-  vstm      r5, {d4-d7}
-  vstm      r6!, {d12-d15}
-
-  mov       r2, r6
-.endm
 
 .macro roll_e_column
   vldm      r0, {d0-d5}

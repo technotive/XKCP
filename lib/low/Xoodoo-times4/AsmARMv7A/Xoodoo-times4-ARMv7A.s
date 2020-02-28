@@ -1352,11 +1352,9 @@ Xft4_AddIs_0:
 .type Xooffftimes4_CompressFastLoop, %function
 Xooffftimes4_CompressFastLoop:
   @ Do not use this function for unaligned access (for now).
-  @ tst       r2, #3
-  @ movne     r0, #0
-  @ bxne      lr
-  mov r0, #0
-  bx lr
+  tst       r2, #3
+  movne     r0, #0
+  bxne      lr
 
   push      {r4-r10, lr}   @ Save LR, macros might branch.
   vpush     {d8-d15}

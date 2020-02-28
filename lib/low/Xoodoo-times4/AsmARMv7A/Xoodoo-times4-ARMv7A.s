@@ -1355,6 +1355,7 @@ Xooffftimes4_CompressFastLoop:
   @ tst       r2, #3
   @ movne     r0, #0
   @ bxne      lr
+  mov r0, #0
   bx lr
 
   push      {r4-r10, lr}   @ Save LR, macros might branch.

@@ -1166,6 +1166,8 @@ Xft4_AddIs_0:
   vmov      q0, q4
   @ vmov      q4, q5
 
+  @ vmov      q4, q5
+
   veor      q4, q13, q14
   veor      q4, q4, q15
 
@@ -1241,6 +1243,7 @@ Xft4_AddIs_0:
   veor      q11, q15, q11
 
   vswp      q8, q6
+  @ vswp      q4, q5
   vswp      q9, q10
 .endm
 

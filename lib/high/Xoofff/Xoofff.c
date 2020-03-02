@@ -107,6 +107,7 @@ static void DumpBuf( const unsigned char * pText, const unsigned char * pData, u
     if ( messageByteLen >= Parallellism * SnP_widthInBytes ) { \
         size_t processed = Xooffftimes##Parallellism##_CompressFastLoop((uint8_t*)k, (uint8_t*)x, message, messageByteLen); \
         message += processed; \
+        printf("%u", processed); \
         messageByteLen -= processed; \
     }
 

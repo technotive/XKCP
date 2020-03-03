@@ -1573,10 +1573,10 @@ Xft4_CompressFast:
   veor      q2, q2, q12
   veor      q3, q3, q12
 
-  vst1      {d0, d1}, [r2]!
-  vst1      {d4, d5}, [r4]!
-  vst1      {d2, d3}, [r5]!
-  vst1      {d6, d7}, [r6]!
+  vst1.64   {d0, d1}, [r2]!
+  vst1.64   {d4, d5}, [r4]!
+  vst1.64   {d2, d3}, [r5]!
+  vst1.64   {d6, d7}, [r6]!
 
   veor      q0, q4, q13
   veor      q1, q8, q14
@@ -1588,10 +1588,10 @@ Xft4_CompressFast:
   veor      q7, q11, q14
 
   @VST1 perfect for this type of store.
-  vst1      {d0, d1, d2, d3}, [r2]
-  vst1      {d8, d9, d10, d11}, [r4]
-  vst1      {d4, d5, d6, d7}, [r5]
-  vst1      {d12, d13, d14, d15}, [r6]!
+  vst1.64   {d0, d1, d2, d3}, [r2]
+  vst1.64   {d8, d9, d10, d11}, [r4]
+  vst1.64   {d4, d5, d6, d7}, [r5]
+  vst1.64   {d12, d13, d14, d15}, [r6]!
 
   mov       r2, r6
 .endm

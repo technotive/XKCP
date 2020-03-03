@@ -1351,18 +1351,17 @@ Xft4_AddIs_0:
 .global Xooffftimes4_CompressFastLoop
 .type Xooffftimes4_CompressFastLoop, %function
 Xooffftimes4_CompressFastLoop:
-  @ Do not use this function for unaligned access (for now).
-  tst       r2, #3
-  movne     r0, #0
-  bxne      lr
-
   push      {r4-r10, lr}   @ Save LR, macros might branch.
   vpush     {d8-d15}
   mov       r10, #0
   sub       r3, #192
 Xft4_CompressFast:
-  vldm      r2!, {d8-d23}
-  vldm      r2!, {d24-d31}
+  vld1.64   {d8, d9, d10, d11}, [r2]!
+  vld1.64   {d12, d13, d14, d15}, [r2]!
+  vld1.64   {d16, d17, d18, d19}, [r2]!
+  vld1.64   {d20, d21, d22, d23}, [r2]!
+  vld1.64   {d24, d25, d26, d27}, [r2]!
+  vld1.64   {d28, d29, d30, d31}, [r2]!
   roll_c_column
   xoodoo_6_column
   accumulate_column
@@ -1469,8 +1468,12 @@ Xft4_CompressFast:
   veor      q14, q14, q1
   veor      q15, q15, q2
 
-  vstm      r2!, {d8-d23}
-  vstm      r2!, {d24-d31}
+  vst1.64   {d8, d9, d10, d11}, [r2]!
+  vst1.64   {d12, d13, d14, d15}, [r2]!
+  vst1.64   {d16, d17, d18, d19}, [r2]!
+  vst1.64   {d20, d21, d22, d23}, [r2]!
+  vst1.64   {d24, d25, d26, d27}, [r2]!
+  vst1.64   {d28, d29, d30, d31}, [r2]!
 .endm
 
 @ Xooffftimes4_ExpandFastLoop: uchar * yAccu -> uchar * kRoll -> uchar * output -> size_t length -> size_t
@@ -1478,11 +1481,6 @@ Xft4_CompressFast:
 .global Xooffftimes4_ExpandFastLoop
 .type Xooffftimes4_ExpandFastLoop, %function
 Xooffftimes4_ExpandFastLoop:
-  @ Do not use this function for unaligned access (for now).
-  tst       r2, #3
-  movne     r0, #0
-  bxne      lr
-
   push      {r4-r11, lr}   @ Save LR, macros might branch.
   vpush     {d8-d15}
   mov       r11, #0

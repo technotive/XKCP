@@ -1573,10 +1573,10 @@ Xft4_CompressFast:
   veor      q2, q2, q12
   veor      q3, q3, q12
 
-  vstm      r2!, {d0-d1}
-  vstm      r4!, {d4-d5}
-  vstm      r5!, {d2-d3}
-  vstm      r6!, {d6-d7}
+  vst1      r2!, {d0, d1}
+  vst1      r4!, {d4-d5}
+  vst1      r5!, {d2-d3}
+  vst1      r6!, {d6-d7}
 
   veor      q0, q4, q13
   veor      q1, q8, q14
@@ -1587,10 +1587,11 @@ Xft4_CompressFast:
   veor      q6, q7, q13
   veor      q7, q11, q14
 
-  vstm      r2, {d0-d3}
-  vstm      r4, {d8-d11}
-  vstm      r5, {d4-d7}
-  vstm      r6!, {d12-d15}
+  @VST1 perfect for this type of store.
+  vst1      r2, {d0, d1, d2, d3}
+  vst1      r4, {d8, d9, d10, d11}
+  vst1      r5, {d4, d5, d6, d7}
+  vst1      r6!, {d12, d13, d14, d15}
 
   mov       r2, r6
 .endm
@@ -1601,9 +1602,9 @@ Xft4_CompressFast:
 .type Xooffftimes4_ExpandFastLoop, %function
 Xooffftimes4_ExpandFastLoop:
   @ Do not use this function for unaligned access (for now).
-  tst       r2, #3
-  movne     r0, #0
-  bxne      lr
+  @ tst       r2, #3
+  @ movne     r0, #0
+  @ bxne      lr
 
   push      {r4-r11, lr}   @ Save LR, macros might branch.
   vpush     {d8-d15}

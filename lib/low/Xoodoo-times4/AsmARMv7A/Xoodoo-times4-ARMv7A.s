@@ -1447,9 +1447,9 @@ Xft4_AddIs_0:
 .type Xooffftimes4_CompressFastLoop, %function
 Xooffftimes4_CompressFastLoop:
   @ Do not use this function for unaligned access (for now).
-  tst       r2, #3
-  movne     r0, #0
-  bxne      lr
+  @ tst       r2, #3
+  @ movne     r0, #0
+  @ bxne      lr
 
   push      {r4-r10, lr}   @ Save LR, macros might branch.
   vpush     {d8-d15}
@@ -1457,8 +1457,12 @@ Xooffftimes4_CompressFastLoop:
   sub       r3, #192
 Xft4_CompressFast:
   @ focus_c                 @ Handle unaligned access
-  vldm      r2!, {d8-d23}
-  vldm      r2!, {d24-d31}
+  vld1.64   {d8, d9, d10, d11}, r2!
+  vld1.64   {d12, d13, d14, d15}, r2!
+  vld1.64   {d16, d17, d18, d19}, r2!
+  vld1.64   {d20, d21, d22, d23}, r2!
+  vld1.64   {d24, d25, d26, d27}, r2!
+  vld1.64   {d28, d29, d30, d31}, r2!
   roll_zip_c              @ Roll_c with message addition (XOR)
   xoodoo_6_star           @ Same as Xoodoo_6; different registers
   accumulate              @ Add up the four states we processed

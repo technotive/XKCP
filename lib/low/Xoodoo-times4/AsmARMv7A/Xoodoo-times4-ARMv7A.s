@@ -1145,16 +1145,17 @@ Xft4_AddIs_0:
 .endm
 
 .macro rho_west_column
-  vmov.32   s1, s20
-  vmov.32   s2, s21
-  vmov.32   s3, s22
-  vmov.32   s0, s23
+  @ vmov.32   s1, s20
+  @ vmov.32   s2, s21
+  @ vmov.32   s3, s22
+  @ vmov.32   s0, s23
 
-  @ vmov.32   r5, r6, d16
-  @ vmov.32   r7, r8, d17
-  @ vmov.32   d2, r8, r5
-  @ vmov.32   d3, r6, r7
-  vext.32   q1, q8, q8, #1
+  vext.32   q0, q5, q5, #1
+
+  vmov.32   r5, r6, d16
+  vmov.32   r7, r8, d17
+  vmov.32   d2, r8, r5
+  vmov.32   d3, r6, r7
 
   vmov.32   r5, r6, d22
   vmov.32   r7, r8, d23

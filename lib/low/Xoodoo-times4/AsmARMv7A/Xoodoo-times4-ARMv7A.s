@@ -1146,10 +1146,11 @@ Xft4_AddIs_0:
 
 .macro rho_west_column
   @ vmov.32   s1, s20
-  vmov.32   s2, s21
-  vmov.32   s3, s22
+  @ vmov.32   s2, s21
+  @ vmov.32   s3, s22
   @ vmov.32   s0, s23
   vext.32   d0, d11, d10, #1
+  vext.32   d1, d10, d11, #1
 
   vmov.32   r5, r6, d16
   vmov.32   r7, r8, d17

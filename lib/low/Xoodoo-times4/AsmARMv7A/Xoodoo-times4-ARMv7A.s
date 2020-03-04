@@ -1319,23 +1319,18 @@ Xft4_AddIs_0:
   @ 0
   veor      q4, q4, q7
   veor      q10, q10, q13
-
   @ 1
   veor      q5, q5, q8
   veor      q11, q11, q14
-
   @ 2
   veor      q6, q6, q9
   veor      q12, q12, q15
-
   @ 0
   veor      q4, q4, q10
   veor      q0, q0, q4
-
   @ 1
   veor      q5, q5, q11
   veor      q1, q1, q5
-
   @ 2
   veor      q6, q6, q12
   veor      q2, q2, q6
@@ -1379,27 +1374,21 @@ Xft4_CompressFast:
 
   and       r10, r6, r8
   eor       r4, r10, r4, ror #27
-  eor       r4, r4, r6, ror #19
-  eor       r4, r4, #7
-  @ r4 = 12
-
   and       r10, r8, r5
   eor       r6, r10, r6, ror #27
-  eor       r6, r6, r8, ror #19
-  eor       r6, r6, #7
-  @r6 = 13
-
   and       r10, r5, r7
   eor       r8, r10, r8, ror #27
-  eor       r8, r8, r5, ror #19
-  eor       r8, r8, #7
-  @r8 = 14
-
   and       r10, r7, r9
   eor       r5, r10, r5, ror #27
+
+  eor       r4, r4, r6, ror #19
+  eor       r6, r6, r8, ror #19
+  eor       r8, r8, r5, ror #19
   eor       r5, r5, r7, ror #19
+  eor       r4, r4, #7
+  eor       r6, r6, #7
+  eor       r8, r8, #7
   eor       r5, r5, #7
-  @r5 = 15
 
   @ 0,1,2,3
   vmov      q4, q0

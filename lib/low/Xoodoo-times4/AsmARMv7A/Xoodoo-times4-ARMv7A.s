@@ -1249,21 +1249,25 @@ Xft4_AddIs_0:
   @a {4,0,5}
   vshl.U32  d13, d10, #8
   vshl.U32  d12, d11, #8
-  vsri.U32  d13, d10, #24
-  vsri.U32  d12, d11, #24
   @b {7,1,8}
   vshl.U32  d19, d16, #8
   vshl.U32  d18, d17, #8
-  vsri.U32  d19, d16, #24
-  vsri.U32  d18, d17, #24
   @c {10,2,11}
   vshl.U32  d25, d22, #8
   vshl.U32  d24, d23, #8
-  vsri.U32  d25, d22, #24
-  vsri.U32  d24, d23, #24
   @d {13,3,14}
   vshl.U32  d31, d28, #8
   vshl.U32  d30, d29, #8
+  @a {4,0,5}
+  vsri.U32  d13, d10, #24
+  vsri.U32  d12, d11, #24
+  @b {7,1,8}
+  vsri.U32  d19, d16, #24
+  vsri.U32  d18, d17, #24
+  @c {10,2,11}
+  vsri.U32  d25, d22, #24
+  vsri.U32  d24, d23, #24
+  @d {13,3,14}
   vsri.U32  d31, d28, #24
   vsri.U32  d30, d29, #24
 

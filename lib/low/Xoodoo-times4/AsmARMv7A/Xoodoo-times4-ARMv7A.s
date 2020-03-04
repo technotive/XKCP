@@ -1212,8 +1212,8 @@ Xft4_AddIs_0:
   @ vshl.U32  d12, d11, #8
   @ vsri.U32  d13, d10, #24
   @ vsri.U32  d12, d11, #24
-  vext.8    d12, d11, d11, #3
-  vext.8    d13, d10, d10, #3
+  vext.8    d12, d11, d11, #1
+  vext.8    d13, d10, d10, #1
 
 
   vshl.U32  d19, d16, #8

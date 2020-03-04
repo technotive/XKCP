@@ -1325,21 +1325,16 @@ Xft4_AddIs_0:
   @ Shatter
   vuzp.32   q4, q10
   vuzp.32   q7, q13
-  vtrn.32   q4, q7
-  vtrn.32   q10, q13
-  @ q4, q10, q7, q13
-
   vuzp.32   q5, q11
   vuzp.32   q8, q14
-  vtrn.32   q5, q8
-  vtrn.32   q11, q14
-  @ q5, q11, q8, q14
-
   vuzp.32   q6, q12
   vuzp.32   q9, q15
+  vtrn.32   q4, q7
+  vtrn.32   q10, q13
+  vtrn.32   q5, q8
+  vtrn.32   q11, q14
   vtrn.32   q6, q9
   vtrn.32   q12, q15
-  @ q6, q12, q9, q15
 .endm
 
 .macro roll_zip_c

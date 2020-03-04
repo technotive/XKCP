@@ -1445,19 +1445,23 @@ Xft4_CompressFast:
   veor      q4, q4, q0
   veor      q5, q5, q1
   veor      q6, q6, q2
-  vst1.64   {d8, d9, d10, d11}, [r2]!
+
   veor      q7, q7, q0
   veor      q8, q8, q1
-  vst1.64   {d12, d13, d14, d15}, [r2]!
   veor      q9, q9, q2
+
   veor      q10, q10, q0
-  vst1.64   {d16, d17, d18, d19}, [r2]!
   veor      q11, q11, q1
   veor      q12, q12, q2
-  vst1.64   {d20, d21, d22, d23}, [r2]!
+
   veor      q13, q13, q0
   veor      q14, q14, q1
   veor      q15, q15, q2
+
+  vst1.64   {d8, d9, d10, d11}, [r2]!
+  vst1.64   {d12, d13, d14, d15}, [r2]!
+  vst1.64   {d16, d17, d18, d19}, [r2]!
+  vst1.64   {d20, d21, d22, d23}, [r2]!
   vst1.64   {d24, d25, d26, d27}, [r2]!
   vst1.64   {d28, d29, d30, d31}, [r2]!
 .endm

@@ -1016,25 +1016,25 @@ Xft4_AddIs_0:
   eor       r4, r4, r4, lsl #13
   eor       r4, r4, r6, ror #29
   @ r4 = 12
-  veor      q4, q0, q4
-
   eor       r6, r6, r6, lsl #13
   eor       r6, r6, r8, ror #29
   @ r6 = 13
-
-  veor      q5, q1, q5
-  veor      q7, q1, q7
-
   eor       r8, r8, r8, lsl #13
   eor       r8, r8, r5, ror #29
   @ r8 = 14
+  eor       r5, r5, r5, lsl #13
+  eor       r5, r5, r7, ror #29
+  @ r5 = 15
 
+  @ 0,1,2,3
+  veor      q4, q0, q4
+  @ 4,5,6,7
+  veor      q5, q1, q5
+  veor      q7, q1, q7
+  @ 8,9,10,11
   veor      q6, q2, q6
   veor      q8, q2, q8
   veor      q10, q2, q10
-  eor       r5, r5, r5, lsl #13
-  eor       r5, r5, r7, ror #29
-  @ r5 = 15  
 
   vmov      s12, s1
   vmov      s13, s2

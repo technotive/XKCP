@@ -1328,18 +1328,27 @@ Xft4_AddIs_0:
 .macro accumulate_column @reorder
   vldm      r1, {d0-d5}
 
+  @ 0
   veor      q4, q4, q7
   veor      q10, q10, q13
+
+  @ 1
+  veor      q5, q5, q8
+  veor      q11, q11, q14
+
+  @ 2
+  veor      q6, q6, q9
+  veor      q12, q12, q15
+
+  @ 0
   veor      q4, q4, q10
   veor      q0, q0, q4
 
-  veor      q5, q5, q8
-  veor      q11, q11, q14
+  @ 1
   veor      q5, q5, q11
   veor      q1, q1, q5
 
-  veor      q6, q6, q9
-  veor      q12, q12, q15
+  @ 2
   veor      q6, q6, q12
   veor      q2, q2, q6
 

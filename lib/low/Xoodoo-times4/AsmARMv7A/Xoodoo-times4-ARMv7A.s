@@ -1156,12 +1156,10 @@ Xft4_AddIs_0:
 .endm
 
 .macro rho_west_column
-  @ vmov.32   s1, s20
-  @ vmov.32   s2, s21
-  @ vmov.32   s3, s22
-  @ vmov.32   s0, s23
-  vmov.32   d0, s23, s20
-  vmov.32   d1, s21, s22
+  vmov.32   s1, s20
+  vmov.32   s2, s21
+  vmov.32   s3, s22
+  vmov.32   s0, s23
 
   vmov.32   r5, r6, d16
   vmov.32   r7, r8, d17
@@ -1175,17 +1173,21 @@ Xft4_AddIs_0:
 
   vmov.32   r5, r6, d22
   vmov.32   r7, r8, d23
-  vmov.32   s9, r5
-  vmov.32   s10, r6
-  vmov.32   s11, r7
-  vmov.32   s8, r8
+  @ vmov.32   s9, r5
+  @ vmov.32   s10, r6
+  @ vmov.32   s11, r7
+  @ vmov.32   s8, r8
+  vmov.32   d4, r8, r5
+  vmov.32   d5, r6, r7
 
   vmov.32   r5, r6, d28
   vmov.32   r7, r8, d29
-  vmov.32   s13, r5
-  vmov.32   s14, r6
-  vmov.32   s15, r7
-  vmov.32   s12, r8
+  @ vmov.32   s13, r5
+  @ vmov.32   s14, r6
+  @ vmov.32   s15, r7
+  @ vmov.32   s12, r8
+  vmov.32   d6, r8, r5
+  vmov.32   d7, r6, r7
   @ States y=1 now in {0..3}
 
   vshl.U32  q5, q6, #11

@@ -955,8 +955,8 @@ Xft4_AddIs_1024: @ Test core registers and interleaving.
 
   vld1.64   {d20, d21, d22, d23}, [r0]
   vld1.64   {d16, d17, d18, d19}, [r1]!
-  veor      q0, q0, q8
-  veor      q1, q1, q9
+  veor      q10, q10, q8
+  veor      q11, q11, q9
   vst1.64   {d20, d21, d22, d23}, [r0]!
 
   vld1.64   {d0, d1, d2, d3}, [r0]
@@ -964,11 +964,11 @@ Xft4_AddIs_1024: @ Test core registers and interleaving.
   veor      q0, q0, q8
   veor      q1, q1, q9
   vst1.64   {d0, d1, d2, d3}, [r0]!
-  
+
   vld1.64   {d20, d21, d22, d23}, [r0]
   vld1.64   {d16, d17, d18, d19}, [r1]!
-  veor      q0, q0, q8
-  veor      q1, q1, q9
+  veor      q10, q10, q8
+  veor      q11, q11, q9
   vst1.64   {d20, d21, d22, d23}, [r0]!
   subs      r2, #1024
   beq       Xft4_AddIs_0

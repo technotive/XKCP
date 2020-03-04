@@ -1370,23 +1370,19 @@ Xft4_CompressFast:
   vmov      q10, q2
 
   @ Optimize movement here. Merge into zip_x or VLDM.
-  vmov      s12, s1
-  vmov      s13, s2
+  vext.32   d6, d0, d1, #1
   vmov      s14, s3
   vmov      s15, r4
 
-  vmov      s0, s5
-  vmov      s1, s6
+  vext.32   d0, d2, d3, #1
   vmov      s2, s7
   vmov      s3, r6
 
-  vmov      s4, s9
-  vmov      s5, s10
+  vext.32   d2, d4, d5, #1
   vmov      s6, s11
   vmov      s7, r8
 
-  vmov      s8, s13
-  vmov      s9, s14
+  vext.32   d4, d6, d7, #1
   vmov      d5, r4, r5
   vstm      r0, {d0-d5}
 

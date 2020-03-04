@@ -1127,9 +1127,8 @@ Xft4_AddIs_0:
 
 .macro rho_e_star @ This can benefit from the issue/wait chain
   vshl.U32  q11, q9, #8
-  vsri.U32  q11, q9, #24
-
   vshl.U32  q9, q4, #8
+  vsri.U32  q11, q9, #24
   vsri.U32  q9, q4, #24
 
   vmov.32   r5, r6, d16
@@ -1144,15 +1143,12 @@ Xft4_AddIs_0:
   vmov.32   d21, r7, r8
 
   vshl.U32  q4, q12, #1
-  vsri.U32  q4, q12, #31
-
   vshl.U32  q5, q13, #1
-  vsri.U32  q5, q13, #31
-
   vshl.U32  q6, q14, #1
-  vsri.U32  q6, q14, #31
-
   vshl.U32  q7, q15, #1
+  vsri.U32  q4, q12, #31
+  vsri.U32  q5, q13, #31
+  vsri.U32  q6, q14, #31
   vsri.U32  q7, q15, #31
 .endm
 

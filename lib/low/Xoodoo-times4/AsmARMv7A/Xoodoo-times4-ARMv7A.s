@@ -1036,8 +1036,9 @@ Xft4_AddIs_0:
   veor      q8, q2, q8
   veor      q10, q2, q10
 
-  vmov      s12, s1
-  vmov      s13, s2
+  @ vmov      s12, s1
+  @ vmov      s13, s2
+  vext.32   d6, d0, d1, #1
   vmov      s14, s3
   vmov      s15, r4
 
@@ -1066,7 +1067,7 @@ Xft4_AddIs_0:
 
   @ 9,10,11,14
   veor      q15, q1, q15
-  
+
   vstm      r0, {d0-d5}
 .endm
 

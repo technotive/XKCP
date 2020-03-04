@@ -1071,7 +1071,13 @@ Xft4_AddIs_0:
 
 .macro theta_column
   veor      q0, q4, q5
+  veor      q1, q7, q8
+  veor      q2, q10, q11
+  veor      q3, q13, q14
   veor      q0, q0, q6
+  veor      q1, q1, q9
+  veor      q2, q2, q12
+  veor      q3, q3, q15
 
   vmov.32   r7, r8, d0
   vmov.32   r5, r6, d1
@@ -1092,9 +1098,6 @@ Xft4_AddIs_0:
   veor      q5, q5, q0
   veor      q6, q6, q0
 
-  veor      q1, q7, q8
-  veor      q1, q1, q9
-
   vmov.32   r7, r8, d2
   vmov.32   r5, r6, d3
   ror       r7, r7, #27
@@ -1114,9 +1117,6 @@ Xft4_AddIs_0:
   veor      q8, q8, q1
   veor      q9, q9, q1
 
-  veor      q2, q10, q11
-  veor      q2, q2, q12
-
   vmov.32   r7, r8, d4
   vmov.32   r5, r6, d5
   ror       r7, r7, #27
@@ -1135,9 +1135,6 @@ Xft4_AddIs_0:
   veor      q10, q10, q2
   veor      q11, q11, q2
   veor      q12, q12, q2
-
-  veor      q3, q13, q14
-  veor      q3, q3, q15
 
   vmov.32   r7, r8, d6
   vmov.32   r5, r6, d7

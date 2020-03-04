@@ -1145,30 +1145,9 @@ Xft4_AddIs_0:
 .endm
 
 .macro rho_west_column
-  @ vmov.32   s1, s20
-  @ vmov.32   s2, s21
-  @ vmov.32   s3, s22
-  @ vmov.32   s0, s23
-  @ vext.32   d0, d11, d10, #1
-  @ vext.32   d1, d10, d11, #1
   vext.32   q0, q5, q5, #3
-
-  @ vmov.32   r5, r6, d16
-  @ vmov.32   r7, r8, d17
-  @ vmov.32   d2, r8, r5
-  @ vmov.32   d3, r6, r7
   vext.32   q1, q8, q8, #3
-
-  @ vmov.32   r5, r6, d22
-  @ vmov.32   r7, r8, d23
-  @ vmov.32   d4, r8, r5
-  @ vmov.32   d5, r6, r7
   vext.32   q2, q11, q11, #3
-
-  @ vmov.32   r5, r6, d28
-  @ vmov.32   r7, r8, d29
-  @ vmov.32   d6, r8, r5
-  @ vmov.32   d7, r6, r7
   vext.32   q3, q14, q14, #3
   @ States y=1 now in {0..3}
 
@@ -1229,16 +1208,20 @@ Xft4_AddIs_0:
 .endm
 
 .macro rho_east_column
+  @ vsri.U32  d12, d11, #24
+  @ vshl.U32  d12, d11, #8
+  vext.8    d12, d11, d11, #3
+  vsri.U32  d13, d10, #24
   vshl.U32  d13, d10, #8
-  vshl.U32  d12, d11, #8
+
+
   vshl.U32  d19, d16, #8
   vshl.U32  d18, d17, #8
   vshl.U32  d25, d22, #8
   vshl.U32  d24, d23, #8
   vshl.U32  d31, d28, #8
   vshl.U32  d30, d29, #8
-  vsri.U32  d13, d10, #24
-  vsri.U32  d12, d11, #24
+
   vsri.U32  d19, d16, #24
   vsri.U32  d18, d17, #24
   vsri.U32  d25, d22, #24

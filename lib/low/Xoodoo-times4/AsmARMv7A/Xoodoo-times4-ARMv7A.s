@@ -1165,8 +1165,7 @@ Xft4_AddIs_0:
 
 .macro iota_column
   mov       r8, #0
-  vmov      s24, r7
-  vmov.32   s25, r8
+  vmov.32   d12, r7, r8
   veor      d8, d8, d12
   veor      d14, d14, d12
   veor      d20, d20, d12

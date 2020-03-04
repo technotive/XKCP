@@ -1163,29 +1163,16 @@ Xft4_AddIs_0:
 
   vmov.32   r5, r6, d16
   vmov.32   r7, r8, d17
-  @ vmov.32   s5, r5
-  @ vmov.32   s6, r6
-  @ vmov.32   s7, r7
-  @ vmov.32   s4, r8
   vmov.32   d2, r8, r5
   vmov.32   d3, r6, r7
 
-
   vmov.32   r5, r6, d22
   vmov.32   r7, r8, d23
-  @ vmov.32   s9, r5
-  @ vmov.32   s10, r6
-  @ vmov.32   s11, r7
-  @ vmov.32   s8, r8
   vmov.32   d4, r8, r5
   vmov.32   d5, r6, r7
 
   vmov.32   r5, r6, d28
   vmov.32   r7, r8, d29
-  @ vmov.32   s13, r5
-  @ vmov.32   s14, r6
-  @ vmov.32   s15, r7
-  @ vmov.32   s12, r8
   vmov.32   d6, r8, r5
   vmov.32   d7, r6, r7
   @ States y=1 now in {0..3}
@@ -1203,9 +1190,9 @@ Xft4_AddIs_0:
 .endm
 
 .macro iota_column
-  mov       r8, #0
+  @ mov       r8, #0
   vmov      s24, r7
-  vmov.32   s25, r8
+  vmov.32   s25, #0
   veor      d8, d8, d12
   veor      d14, d14, d12
   veor      d20, d20, d12

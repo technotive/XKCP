@@ -947,21 +947,21 @@ Xooffftimes4_AddIs:
 Xft4_AddIs_256: @ Test core registers and interleaving.
   cmp       r2, #256
   bcc       Xft4_AddIs_128
-  vld1      {d0, d1, d2, d3}, [r0]
-  vld1      {d16, d17, d18, d19}, [r1]!
+  vld1.64   {d0, d1, d2, d3}, [r0]
+  vld1.64   {d16, d17, d18, d19}, [r1]!
   veor      q0, q0, q8
   veor      q1, q1, q9
-  vst1      {d0, d1, d2, d3}, [r0]!
+  vst1.64   {d0, d1, d2, d3}, [r0]!
   subs      r2, #256
   beq       Xft4_AddIs_0
   b         Xft4_AddIs_256
 Xft4_AddIs_128: @Test if core registers are faster here...
   cmp       r2, #128
   bcc       Xft4_AddIs_32
-  vld1      {d0, d1}, [r0]
-  vld1      {d2, d3}, [r1]!
+  vld1.64   {d0, d1}, [r0]
+  vld1.64   {d2, d3}, [r1]!
   veor      q0, q0, q1
-  vst1      {d0, d1}, [r0]!
+  vst1.64   {d0, d1}, [r0]!
   subs      r2, #128
   beq       Xft4_AddIs_0
   b         Xft4_AddIs_128

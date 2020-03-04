@@ -1374,17 +1374,21 @@ Xft4_CompressFast:
 
   and       r10, r6, r8
   eor       r4, r10, r4, ror #27
+  eor       r4, r4, r6, ror #19
+
   and       r10, r8, r5
   eor       r6, r10, r6, ror #27
+  eor       r6, r6, r8, ror #19
+
   and       r10, r5, r7
   eor       r8, r10, r8, ror #27
+  eor       r8, r8, r5, ror #19
+
   and       r10, r7, r9
   eor       r5, r10, r5, ror #27
-
-  eor       r4, r4, r6, ror #19
-  eor       r6, r6, r8, ror #19
-  eor       r8, r8, r5, ror #19
   eor       r5, r5, r7, ror #19
+
+  @r5 = 15
   eor       r4, r4, #7
   eor       r6, r6, #7
   eor       r8, r8, #7

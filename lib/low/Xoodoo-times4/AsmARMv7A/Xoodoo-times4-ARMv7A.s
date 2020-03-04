@@ -1083,14 +1083,14 @@ Xft4_AddIs_0:
   vmov.32   r5, r6, d1
   ror       r7, r7, #27
   ror       r8, r8, #27
+  ror       r5, r5, #27
+  ror       r6, r6, #27
   eor       r7, r7, r7, ror #23
   eor       r8, r8, r8, ror #23
-  ror       r5, r5, #27
-  vmov.32   s1, r7
-  ror       r6, r6, #27
-  vmov.32   s2, r8
   eor       r5, r5, r5, ror #23
   eor       r6, r6, r6, ror #23
+  vmov.32   s1, r7
+  vmov.32   s2, r8
   vmov.32   s3, r5
   vmov.32   s0, r6
 
@@ -1099,14 +1099,14 @@ Xft4_AddIs_0:
     veor      q4, q4, q0
   ror       r7, r7, #27
   ror       r8, r8, #27
+  ror       r5, r5, #27
+  ror       r6, r6, #27
   eor       r7, r7, r7, ror #23
   eor       r8, r8, r8, ror #23
-  ror       r5, r5, #27
-  vmov.32   s5, r7
-  ror       r6, r6, #27
-  vmov.32   s6, r8
   eor       r5, r5, r5, ror #23
   eor       r6, r6, r6, ror #23
+  vmov.32   s5, r7
+  vmov.32   s6, r8
   vmov.32   s7, r5
   vmov.32   s4, r6
 
@@ -1115,14 +1115,14 @@ Xft4_AddIs_0:
     veor      q5, q5, q0
   ror       r7, r7, #27
   ror       r8, r8, #27
+  ror       r5, r5, #27
+  ror       r6, r6, #27
   eor       r7, r7, r7, ror #23
   eor       r8, r8, r8, ror #23
-  ror       r5, r5, #27
-  vmov.32   s9, r7
-  ror       r6, r6, #27
-  vmov.32   s10, r8
   eor       r5, r5, r5, ror #23
   eor       r6, r6, r6, ror #23
+  vmov.32   s9, r7
+  vmov.32   s10, r8
   vmov.32   s11, r5
   vmov.32   s8, r6
 
@@ -1131,14 +1131,14 @@ Xft4_AddIs_0:
     veor      q6, q6, q0
   ror       r7, r7, #27
   ror       r8, r8, #27
+  ror       r5, r5, #27
+  ror       r6, r6, #27
   eor       r7, r7, r7, ror #23
   eor       r8, r8, r8, ror #23
-  ror       r5, r5, #27
-  vmov.32   s13, r7
-  ror       r6, r6, #27
-  vmov.32   s14, r8
   eor       r5, r5, r5, ror #23
   eor       r6, r6, r6, ror #23
+  vmov.32   s13, r7
+  vmov.32   s14, r8
   vmov.32   s15, r5
   vmov.32   s12, r6
 

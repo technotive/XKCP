@@ -1094,10 +1094,6 @@ Xft4_AddIs_0:
   vmov.32   s3, r5
   vmov.32   s0, r6
 
-  veor      q4, q4, q0
-  veor      q5, q5, q0
-  veor      q6, q6, q0
-
   vmov.32   r7, r8, d2
   vmov.32   r5, r6, d3
   ror       r7, r7, #27
@@ -1112,10 +1108,6 @@ Xft4_AddIs_0:
   vmov.32   s6, r8
   vmov.32   s7, r5
   vmov.32   s4, r6
-
-  veor      q7, q7, q1
-  veor      q8, q8, q1
-  veor      q9, q9, q1
 
   vmov.32   r7, r8, d4
   vmov.32   r5, r6, d5
@@ -1132,10 +1124,6 @@ Xft4_AddIs_0:
   vmov.32   s11, r5
   vmov.32   s8, r6
 
-  veor      q10, q10, q2
-  veor      q11, q11, q2
-  veor      q12, q12, q2
-
   vmov.32   r7, r8, d6
   vmov.32   r5, r6, d7
   ror       r7, r7, #27
@@ -1150,6 +1138,18 @@ Xft4_AddIs_0:
   vmov.32   s14, r8
   vmov.32   s15, r5
   vmov.32   s12, r6
+
+  veor      q4, q4, q0
+  veor      q5, q5, q0
+  veor      q6, q6, q0
+
+  veor      q7, q7, q1
+  veor      q8, q8, q1
+  veor      q9, q9, q1
+
+  veor      q10, q10, q2
+  veor      q11, q11, q2
+  veor      q12, q12, q2
 
   veor      q13, q13, q3
   veor      q14, q14, q3

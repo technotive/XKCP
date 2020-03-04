@@ -944,31 +944,24 @@ Xoodootimes4_PermuteAll_12rounds:
 .type Xooffftimes4_AddIs, %function
 Xooffftimes4_AddIs:
   push      {r4-r12,lr}
-  @ When unaligned always skip to 32.
-  tst       r0, #3
-  bne       Xft4_AddIs_32
-  tst       r1, #3
-  bne       Xft4_AddIs_32
-Xft4_AddIs_384: @ Test core registers and interleaving.
-  cmp       r2, #384
+Xft4_AddIs_256: @ Test core registers and interleaving.
+  cmp       r2, #256
   bcc       Xft4_AddIs_128
-  vldm      r0, {d0-d5}
-  vldm      r1!, {d16-d19}
+  vld1      {d0, d1, d2, d3}, [r0]
+  vld1      {d16, d17, d18, d19}, [r1]!
   veor      q0, q0, q8
-  vldm      r1!, {d20-d21}
   veor      q1, q1, q9
-  veor      q2, q2, q10
-  vstm      r0!, {d0-d5}
-  subs      r2, #384
+  vst1      {d0, d1, d2, d3}, [r0]!
+  subs      r2, #256
   beq       Xft4_AddIs_0
-  b         Xft4_AddIs_384
+  b         Xft4_AddIs_256
 Xft4_AddIs_128: @Test if core registers are faster here...
   cmp       r2, #128
   bcc       Xft4_AddIs_32
-  vldm      r0, {d0-d1}
-  vldm      r1!, {d2-d3}
+  vld1      {d0, d1}, [r0]
+  vld1      {d2, d3}, [r1]!
   veor      q0, q0, q1
-  vstm      r0!, {d0-d1}
+  vst1      {d0, d1}, [r0]!
   subs      r2, #128
   beq       Xft4_AddIs_0
   b         Xft4_AddIs_128

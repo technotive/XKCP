@@ -1163,10 +1163,13 @@ Xft4_AddIs_0:
 
   vmov.32   r5, r6, d16
   vmov.32   r7, r8, d17
-  vmov.32   s5, r5
-  vmov.32   s6, r6
-  vmov.32   s7, r7
-  vmov.32   s4, r8
+  @ vmov.32   s5, r5
+  @ vmov.32   s6, r6
+  @ vmov.32   s7, r7
+  @ vmov.32   s4, r8
+  vmov.32   d2, r8, r5
+  vmov.32   d3, r6, r7
+
 
   vmov.32   r5, r6, d22
   vmov.32   r7, r8, d23

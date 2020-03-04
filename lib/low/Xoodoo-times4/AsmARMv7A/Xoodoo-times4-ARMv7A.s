@@ -1208,20 +1208,16 @@ Xft4_AddIs_0:
 .endm
 
 .macro rho_east_column
-  @ vsri.U32  d12, d11, #24
-  @ vshl.U32  d12, d11, #8
-  vext.8    d12, d11, d11, #3
-  vsri.U32  d13, d10, #24
   vshl.U32  d13, d10, #8
-
-
+  vshl.U32  d12, d11, #8
   vshl.U32  d19, d16, #8
   vshl.U32  d18, d17, #8
   vshl.U32  d25, d22, #8
   vshl.U32  d24, d23, #8
   vshl.U32  d31, d28, #8
   vshl.U32  d30, d29, #8
-
+  vsri.U32  d13, d10, #24
+  vsri.U32  d12, d11, #24
   vsri.U32  d19, d16, #24
   vsri.U32  d18, d17, #24
   vsri.U32  d25, d22, #24

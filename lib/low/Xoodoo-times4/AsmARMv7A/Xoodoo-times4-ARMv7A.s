@@ -1054,7 +1054,6 @@ Xft4_AddIs_0:
   vmov      s8, s13
   vmov      s9, s14
   vmov      d5, r4, r5
-  vstm      r0, {d0-d5}
 
   @ 1,2,3,12
   veor      q9, q3, q9
@@ -1067,6 +1066,8 @@ Xft4_AddIs_0:
 
   @ 9,10,11,14
   veor      q15, q1, q15
+  
+  vstm      r0, {d0-d5}
 .endm
 
 .macro theta_column
